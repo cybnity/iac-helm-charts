@@ -1,0 +1,78 @@
+env:
+  - name: "REDIS_WRITEMODEL_CONNECTION_DEFAULT_USERACCOUNT"
+    value: "default"
+
+# Overriding the Helm chart name ensures configuration files also change
+nameOverride: "knr-system"
+fullnameOverride: "knr-system"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# Assigning to node dedicated to layer
+# cybnity.io/domains-io-area: "true"
+# cybnity.io/domains-area: "true"
+# cybnity.io/user-interfaces-area: "true"
+# cybnity.io/infrastructure-services-area: "true"
+nodeSelector:
+  cybnity.io/domains-area: "true"
+
+
+tolerations: []
+
+affinity: {}
+
+operator:
+  image: arangodb/kube-arangodb:1.2.40
+  imagePullPolicy: IfNotPresent
+  imagePullSecrets: []
+  scope: legacy
+  architectures:
+    - amd64
+  debug: false
+  args: []
+  service:
+    type: ClusterIP
+  annotations: {}
+  resources:
+    limits:
+      cpu: 1
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  securityContext:
+    runAsUser: 1000
+  replicaCount: 1
+  updateStrategy:
+    type: Recreate
+  allowChaos: false
+  nodeSelector: {}
+  enableCRDManagement: true
+  features:
+    deployment: true
+    deploymentReplications: true
+    # To use `ArangoLocalStorage`, set field `operator.features.storage` to true
+    storage: true
+    backup: false
+    apps: false
+    k8sToK8sClusterSync: false
+    ml: false
+  tolerations: []
+rbac:
+  enabled: true
+  extensions:
+    monitoring: true
+    acs: true
+    at: true
+    debug: false
