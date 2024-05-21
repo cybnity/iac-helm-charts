@@ -1,34 +1,39 @@
+annotations:
+  category: Database
+  images: |
+    - name: janusgraph
+      image: docker.io/bitnami/janusgraph:1.0.0-debian-12-r4
+    - name: jmx-exporter
+      image: docker.io/bitnami/jmx-exporter:0.20.0-debian-12-r17
+    - name: os-shell
+      image: docker.io/bitnami/os-shell:12-debian-12-r21
+  licenses: Apache-2.0
 apiVersion: v2
-name: knowledge-repository
-description: "Knowledge repository server for Kubernetes"
-# @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
-
-# A chart can be either an 'application' or a 'library' chart.
-#
-# Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployed.
-#
-# Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
-# pipeline. Library charts do not define any templates and therefore cannot be deployed.
-type: application
-
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
-# Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.0
-
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application. Versions are not expected to
-# follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: 0.1.0
-
-#dependencies:
-#- name: kube-arangodb
- # The following will install the operator and basic CRDs resources
-#  repository: https://github.com/arangodb/kube-arangodb
-#  version: 1.2.40
-
-#sources:
-#- https://github.com/arangodb/kube-arangodb/tree/1.2.40/chart
-#https://github.com/arangodb/kube-arangodb.git
+appVersion: 1.0.0
+dependencies:
+- condition: storage.cassandra.enabled
+  name: cassandra
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 11.x.x
+- name: common
+  repository: oci://registry-1.docker.io/bitnamicharts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: JanusGraph is a scalable graph database optimized for storing and querying
+  graphs containing hundreds of billions of vertices and edges distributed across
+  a multi-machine cluster.
+home: https://bitnami.com
+icon: https://bitnami.com/assets/stacks/janusgraph/img/janusgraph-stack-220x234.png
+keywords:
+- janusgraph
+- graph
+- database
+maintainers:
+- name: Broadcom, Inc. All Rights Reserved.
+  url: https://github.com/bitnami/charts
+name: janusgraph
+sources:
+- https://github.com/bitnami/containers/tree/main/bitnami/janusgraph
+- https://github.com/janusgraph/janusgraph
+version: 0.2.0

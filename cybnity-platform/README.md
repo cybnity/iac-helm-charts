@@ -40,7 +40,8 @@ Description: several generic infrastructure projects required by the CYBNITY imp
 
 - [ui-apis-gateway](charts/ui-apis-gateway): bitnami Helm project of NGINX and Ingress controller image provisioning, customized for the CYBNITY needs.
 
-- [knowledge-repository-server](charts/knowledge-repository-server): Helm project of ArangoDB Operator Life Manager (OLM).
+- [knowledge-repository-server](charts/knowledge-repository-server): bitnami Helm project ok JanusGraph image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `bitnami/janusgraph` under 1.0.0-debian-12-r4 version including `12-debian-12-r21` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/janusgraph))
+   - Installation from command line: `helm install knowledge-repository-system -f knowledge-repository-server/values.yaml bitnami/janusgraph`
 
 ## PROVISIONED SYSTEMS ARCHITECTURE
 ### K8S cluster nodes setting
