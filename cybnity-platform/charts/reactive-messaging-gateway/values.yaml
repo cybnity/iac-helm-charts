@@ -27,6 +27,8 @@ env:
     value: "2"
   - name: "REDIS_READMODEL_CONNECTION_DEFAULT_USERACCOUNT"
     value: "default"
+  - name: "AUTHORIZED_WHITE_LIST_ORIGIN_SERVER_URLS"
+    value: "http://localhost:8080,http://localhost:3000"
   # via the WriteModelConfigurationVariable enumerations
   - name: "REDIS_WRITEMODEL_SERVER_HOST"
     value: "localhost"
