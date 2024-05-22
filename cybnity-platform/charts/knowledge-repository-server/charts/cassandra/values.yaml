@@ -275,8 +275,7 @@ affinity: {}
 ## cybnity.io/user-interfaces-area: "true"
 ## cybnity.io/infrastructure-services-area: "true"
 ##
-nodeSelector:
-  cybnity.io/domains-area: "true"
+nodeSelector: {}
 ## @param tolerations Tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
