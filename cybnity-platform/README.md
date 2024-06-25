@@ -109,11 +109,9 @@ graph LR
   subgraph clusterlocal[" #60;#60;Kubernetes Cluster#62;#62; \n Local Dev Environment Cluster "]
       direction LR
       subgraph layerset1[" "]
-         direction TB
          subgraph unique1[" #60;#60;Node#62;#62; Default \n cybnity.io/user-interfaces-area:true\n cybnity.io/domains-io-area:true\n cybnity.io/domains-area:true\n cybnity.io/infrastructure-services-area:true "]
             subgraph layercomponents1[" "]
                subgraph layercomponents2[" "]
-                  direction LR
                   systemx["System X"]
                   systemy["System Y"]
                   systemz["System ..."]
@@ -123,13 +121,11 @@ graph LR
       end
   end
   subgraph clusterdev[" #60;#60;Kubernetes Cluster#62;#62; \n Dev Environment Cluster "]
-      direction TB
+      direction LR
       subgraph layerset4[" "]
-         direction LR
          subgraph unique2[" #60;#60;Node#62;#62; Default \n cybnity.io/user-interfaces-area:true\n cybnity.io/domains-io-area:true\n cybnity.io/domains-area:true\n cybnity.io/infrastructure-services-area:true "]
             subgraph layercomponents3[" "]
                subgraph layercomponents4[" "]
-                  direction LR
                   systemx4["System X"]
                   systemy4["System Y"]
                   systemz4["System ..."]
