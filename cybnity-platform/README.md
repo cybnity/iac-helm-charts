@@ -259,12 +259,9 @@ graph LR
             pod2["POD"]
          end
          subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system "]
-            direction LR
-            subgraph ssolayer1[" "]
-               pod3["#60;#60;POD#62;#62; \n Keycloak"]
-               pod4["#60;#60;POD#62;#62; \n Keycloak"]
-               pod5["#60;#60;POD#62;#62; \n Keycloak"]
-            end
+            pod3["#60;#60;POD#62;#62; \n Keycloak"]
+            pod4["#60;#60;POD#62;#62; \n Keycloak"]
+            pod5["#60;#60;POD#62;#62; \n Keycloak"]
          end
          subgraph service4[" #60;#60;Service#62;#62; \n access-control-db-system "]
             clusterip2["ClusterIP"]
@@ -329,7 +326,7 @@ graph LR
   classDef reddot fill:#fff, stroke:#e5302a, color:#e5302a, stroke-dasharray: 5 5, stroke-width:3px
   classDef dark fill:#0e2a43, stroke:#fff, color:#fff
   classDef internalconfig fill:#0e2a43, stroke:#fff, color:#fff
-  class service1,service2,service3,ssolayer1,service4,service5,service7,service9,service10 mediumfill;
+  class service1,service2,service3,service4,service5,service7,service9,service10 mediumfill;
   class ui,di,da,is medium;
   class pod1,pod2,pod3,pod4,pod5,pod6,pod7,pod8,pod9,pod10,pod11,pod12,podproxy1,podproxy2,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7 dark;
   class tunnel,service8 red;
