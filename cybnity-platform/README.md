@@ -254,20 +254,21 @@ graph LR
        subgraph uilayer2[" "]
          direction TB
          subgraph service7[" #60;#60;Service#62;#62; \n uis-system "]
-            clusterip3["#60;#60;ClusterIP#62;#62; uis-system-master"]
+            clusterip3["#60;#60;ClusterIP#62;#62; \n uis-system-master"]
             pod13["#60;#60;POD#62;#62; \n Redis"]
-            clusterip8["#60;#60;ClusterIP#62;#62; uis-system-replicas"]
+            clusterip8["#60;#60;ClusterIP#62;#62; \n uis-system-replicas"]
             pod14["#60;#60;POD#62;#62; \n Redis"]
             pod15["#60;#60;POD#62;#62; \n Redis"]
             pod16["#60;#60;POD#62;#62; \n Redis"]
          end
          subgraph service1[" #60;#60;Service#62;#62; \n web-reactive-frontend-system "]
             clusterip1["ClusterIP"]
-            pod1["POD"]
+            pod1["#60;#60;POD#62;#62; \n Reactive frontend"]
+            pod17["#60;#60;POD#62;#62; \n Reactive frontend"]
          end
          subgraph service2[" #60;#60;Service#62;#62; \n reactive-backend-system "]
             clusterip4["ClusterIP"]
-            pod2["POD"]
+            pod2["#60;#60;POD#62;#62; \n Reactive Messaging Gateway"]
          end
          subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system "]
             pod3["#60;#60;POD#62;#62; \n Keycloak"]
@@ -276,6 +277,7 @@ graph LR
          end
          subgraph service4[" #60;#60;Service#62;#62; \n access-control-db-system "]
             clusterip2["ClusterIP"]
+            pod18["#60;#60;POD#62;#62; \n Postgresql"]
          end
        end
      end
@@ -312,13 +314,13 @@ graph LR
   end
   tunnel -- "route x.y.y.y/z" --> controlplane
   podproxy1 & podproxy2 -- "80:80" --> service1
-  controlplane -. "tcp:80" .-> clusterip1 -.-> pod1
+  controlplane -. "tcp:80" .-> clusterip1 -.-> pod1 & pod17
   controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
   podproxy1 & podproxy2 -- "80:80" --> service2
   controlplane -. "ExternalIP/tcp:80 (temporary for admin)" .-> service3
   podproxy1 & podproxy2 -- "80:80" --> service3
   controlplane -. "tcp:5432" .-> clusterip2
-  pod3 & pod4 & pod5 -- "tcp:5432" --> clusterip2
+  pod3 & pod4 & pod5 -- "tcp:5432" --> clusterip2 -.-> pod18
   controlplane -. "tcp:6379" .-> clusterip3 & clusterip8
   clusterip3 -.-> pod13
   clusterip8 -.-> pod14 & pod15 & pod16
@@ -338,7 +340,7 @@ graph LR
   classDef internalconfig fill:#0e2a43, stroke:#fff, color:#fff
   class service1,service2,service3,service4,service5,service7,service9,service10 mediumfill;
   class ui,di,da,is medium;
-  class pod1,pod2,pod3,pod4,pod5,pod6,pod7,pod8,pod9,pod10,pod11,pod12,pod13,pod14,pod15,pod16,podproxy1,podproxy2,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7,clusterip8 dark;
+  class pod1,pod2,pod3,pod4,pod5,pod6,pod7,pod8,pod9,pod10,pod11,pod12,pod13,pod14,pod15,pod16,pod17,pod18,podproxy1,podproxy2,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7,clusterip8 dark;
   class tunnel,service8 red;
   class controlplane reddot;
 
