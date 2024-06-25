@@ -308,9 +308,9 @@ graph LR
      end
   end
   tunnel -- "route x.y.y.y/z" --> controlplane
+  podproxy1 & podproxy2 -- "80:80" --> service1
   controlplane -. "tcp:80" .-> clusterip1 -.-> pod1
   controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
-  podproxy1 & podproxy2 -- "80:80" --> service1
   podproxy1 & podproxy2 -- "80:80" --> service2
   controlplane -. "ExternalIP/tcp:80 (temporary for admin)" .-> service3
   podproxy1 & podproxy2 -- "80:80" --> service3
@@ -335,7 +335,7 @@ graph LR
   classDef internalconfig fill:#0e2a43, stroke:#fff, color:#fff
   class service1,service2,service3,service4,service5,service7,service9,service10 mediumfill;
   class ui,di,da,is medium;
-  class pod1,pod2,pod3,pod4,pod5,pod6,pod7,pod8,pod9,pod10,pod11,pod12,pod13,pod14,pod15,podproxy1,podproxy2,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7,clusterip8 dark;
+  class pod1,pod2,pod3,pod4,pod5,pod6,pod7,pod8,pod9,pod10,pod11,pod12,pod13,pod14,pod15,pod16,podproxy1,podproxy2,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7,clusterip8 dark;
   class tunnel,service8 red;
   class controlplane reddot;
 
