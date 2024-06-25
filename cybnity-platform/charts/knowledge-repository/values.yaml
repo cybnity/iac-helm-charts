@@ -9,7 +9,7 @@ janusgraph:
     cybnity.io/infrastructure-services-area: "true"
   ## @param nameOverride String to partially override common.names.name
   nameOverride: "janusgraph-system"
-  #fullnameOverride: "janusgraph-system"
+  fullnameOverride: "janusgraph-system"
   # Specific PVC usage in root mode (see https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#persistence-volumes-pvs-retained-from-previous-releases)
   volumePermissions:
       enabled: true
@@ -18,8 +18,8 @@ janusgraph:
     nodeSelector:
       cybnity.io/infrastructure-services-area: "true"
     ## @param nameOverride String to partially override common.names.name
-    nameOverride: "cassandra-system"
-    #fullnameOverride: "cassandra-system"
+    nameOverride: "cassandra-db-system"
+    fullnameOverride: "cassandra-db-system"
     ## Init containers parameters:
     ## volumePermissions: Change the owner and group of the persistent volume mountpoint to runAsUser:fsGroup values from the securityContext section.
     ##

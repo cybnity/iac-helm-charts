@@ -43,7 +43,7 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
           
       - name: Install Helm tool
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4
 
       - if: ${{ env.update-dependencies }}
         name: Update Chart Dependencies
@@ -61,7 +61,7 @@ jobs:
           CHART_PATH="${{ env.CHART_DEST }}/${{ env.ARTIFACT_FULLNAME }}"
           echo "CHART_PATH=$CHART_PATH" >> $GITHUB_ENV
           
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         # See docc at https://github.com/actions/upload-artifact
         with:
           name: ${{ env.ARTIFACT_FULLNAME }}
@@ -91,7 +91,7 @@ jobs:
       # Password to login to registry
       # password: ${{ secrets.DOCKERHUB_OLIVIER_PATH }}
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: ${{ env.PACKAGED_CHART_PATH }}
           

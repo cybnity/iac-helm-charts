@@ -258,7 +258,7 @@ graph LR
             clusterip4["ClusterIP"]
             pod2["POD"]
          end
-         subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system "]
+         subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system \n"]
             pod3["POD"]
             pod4["POD"]
             pod5["POD"]
@@ -290,8 +290,12 @@ graph LR
      subgraph is[" #60;#60;Node#62;#62; Infrastructure Services Area "]
          direction LR
          subgraph inflayer1[" "]
-            subgraph service9[" #60;#60LoadBalancer Service#62;#62; \n janusgraph-system"]
-            pod6["POD"]
+            subgraph service9[" #60;#60;LoadBalancer Service#62;#62; \n janusgraph-system \n"]
+               pod6["POD"]
+            end
+            subgraph service10[" #60;#60;Service#62;#62; \n cassandra-db-system \n"]
+               clusterip7["ClusterIP"]
+               pod7["POD"]
             end
          end
      end
@@ -312,6 +316,7 @@ graph LR
   controlplane -. "tcp:2888" .-> clusterip6
   controlplane -. "tcp:3888" .-> clusterip6
   controlplane -. "tcp:8182" .-> service9
+  controlplane -. "tcp:9043" .-> clusterip7 -.-> pod7
   
   classDef red fill:#e5302a, stroke:#e5302a, color:#fff, stroke-width:3px
   classDef medium fill:#fff, stroke:#3a5572, color:#3a5572
@@ -320,9 +325,9 @@ graph LR
   classDef reddot fill:#fff, stroke:#e5302a, color:#e5302a, stroke-dasharray: 5 5, stroke-width:3px
   classDef dark fill:#0e2a43, stroke:#fff, color:#fff
   classDef internalconfig fill:#0e2a43, stroke:#fff, color:#fff
-  class service1,service2,service3,service4,service5,service6,service7,service9 mediumfill;
+  class service1,service2,service3,service4,service5,service6,service7,service9,service10 mediumfill;
   class ui,di,da,is medium;
-  class pod1,pod2,pod3,pod4,pod5,pod6,podproxy1,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6 dark;
+  class pod1,pod2,pod3,pod4,pod5,pod6,pod7,podproxy1,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7 dark;
   class tunnel,service8 red;
   class controlplane reddot;
 
