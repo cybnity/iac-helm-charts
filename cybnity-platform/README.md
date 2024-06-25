@@ -32,8 +32,7 @@ Description: several generic infrastructure projects required by the CYBNITY imp
 
 - [users-interactions-space](charts/users-interactions-space): bitnami Helm project of Redis image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in UI area). This provisioning project is deployable and is supported by a `Bitnami Redis` version including `Debian` operating system libraries. This implementatio (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/redis)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\users-interactions-broker` docker image project.
 
-- [domains-interactions-space](charts/domains-interactions-space): bitnami Helm project of Kafka image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in Domains I/O area). This provisioning project is deployable and is supported by a `Bitnami Kafka` version including `Debian` operating system libraries. This implementatio (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/kafka)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\domains-interactions-broker` docker image project.
-   - dis-brokers-registry-system: included sub-project of Zookeeper image provisioning, customized for the CYBNITY needs (e.g included as implementation of Kafka brokers registry). This provisioning project is deployable and is supported by a `Bitnami Zookeeper` version including a `Debian` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/riftbit/zookeeper)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `framework\services-registry-container` docker image project.
+- [domains-interactions-space](charts/domains-interactions-space): bitnami Helm project of Kafka image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in Domains I/O area). This provisioning project is deployable and is supported by a `Bitnami Kafka` version with Apache Kafka Raft (KRaft) consensus protocol (metadata management), and including `Debian` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/kafka)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\domains-interactions-broker` docker image project.
 
 - [Keycloak server](/charts/access-control-sso): bitnami Helm project of Keycloak image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `Bitnami Keycloak` version hosted on `Debian` operating system version, and including a `Postgresql` database version deployment. This implementation (hosted on [GitHUB](https://artifacthub.io/packages/helm/bitnami/keycloak)) is currently used to reduce the maintenance effort of a dedicated Helm project.
    - Installation from command line: `helm install access-control-sso-system -f access-control-sso/values.yaml`
@@ -280,9 +279,9 @@ graph LR
          subgraph applayer1[" "]
             subgraph service5[" #60;#60;Service#62;#62; \n dis-system "]
                clusterip5["ClusterIP"]
-               pod10["#60;#60;POD#62;#62; \n Kafka"]
-               pod11["#60;#60;POD#62;#62; \n Kafka"]
-               pod11["#60;#60;POD#62;#62; \n Kafka"]
+               pod10["#60;#60;POD#62;#62; \n Kafka Controller"]
+               pod11["#60;#60;POD#62;#62; \n Kafka Controller"]
+               pod12["#60;#60;POD#62;#62; \n Kafka Controller"]
             end
          end
      end
