@@ -245,11 +245,14 @@ graph LR
      subgraph ui[" #60;#60;Node#62;#62; User Interfaces Area "]
        direction LR
        subgraph uilayer1[" "]
-         %%direction TB
+         direction TB
          subgraph service8["\n #60;#60;LoadBalancer Service#62;#62; \n ui-apis-gateway-system "]
             podproxy1["#60;#60;POD#62;#62; \n HAProxy"]
             podproxy2["#60;#60;POD#62;#62; \n HAProxy"]
          end
+       end
+       subgraph uilayer2[" "]
+         direction TB
          subgraph service7[" #60;#60;Service#62;#62; \n uis-system "]
             clusterip3["#60;#60;ClusterIP#62;#62; uis-system-master"]
             pod13["#60;#60;POD#62;#62; \n Redis"]
