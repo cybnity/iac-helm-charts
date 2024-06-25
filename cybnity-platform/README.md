@@ -260,9 +260,11 @@ graph LR
             pod2["POD"]
          end
          subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system "]
-            pod3["POD"]
-            pod4["POD"]
-            pod5["POD"]
+            subgraph ssolayer1[" "]
+               pod3["POD"]
+               pod4["POD"]
+               pod5["POD"]
+            end
          end
          subgraph service4[" #60;#60;Service#62;#62; \n access-control-db-system "]
             clusterip2["ClusterIP"]
@@ -305,7 +307,6 @@ graph LR
   end
   tunnel -- "route x.y.y.y/z" --> controlplane
   controlplane -. "tcp:80" .-> clusterip1 -.-> pod1
-  controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
   podproxy1 & podproxy2 -- "80:80" --> service1
   podproxy1 & podproxy2 -- "80:80" --> service2
   controlplane -- "ExternalIP/tcp:80 (temporary for admin)" --> service3
@@ -314,6 +315,7 @@ graph LR
   controlplane -. "tcp:6379" .-> clusterip3
   controlplane -- "ExternalIP/http:80" --> service8
   controlplane -- "ExternalIP/http:443" --> service8
+  controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
   controlplane -. "tcp:9092" .-> clusterip5
   controlplane -. "tcp:2181" .-> clusterip6
   controlplane -. "tcp:2888" .-> clusterip6
