@@ -122,6 +122,22 @@ graph LR
          end
       end
   end
+  subgraph clusterdev[" #60;#60;Kubernetes Cluster#62;#62; \n Dev Environment Cluster "]
+      direction LR
+      subgraph layerset4[" "]
+         direction LR
+         subgraph unique2[" #60;#60;Node#62;#62; Default \n cybnity.io/user-interfaces-area:true\n cybnity.io/domains-io-area:true\n cybnity.io/domains-area:true\n cybnity.io/infrastructure-services-area:true "]
+            subgraph layercomponents3[" "]
+               subgraph layercomponents4[" "]
+                  direction LR
+                  systemx["System X"]
+                  systemy["System Y"]
+                  systemz["System ..."]
+               end
+            end
+         end
+      end
+  end
   subgraph clusterqa[" #60;#60;Kubernetes Cluster#62;#62; \n QA Environment Cluster "]
       direction LR
       subgraph layerset2[" "]
@@ -189,6 +205,7 @@ graph LR
   end
 
   chart1 -. "--values values.local.yaml" .-> clusterlocal
+  chart1 -. "--values values.dev.yaml" .-> clusterdev
   chart1 -. "--values values.qa.yaml" .-> clusterqa
   chart1 -. "--values values.live.yaml" .-> clusterprod
 
@@ -196,10 +213,10 @@ graph LR
   classDef mediumfill fill:#3a5572, stroke:#3a5572, color:#fff
   classDef dark fill:#0e2a43, stroke:#fff, color:#fff
   classDef transparent fill:#00000000, stroke:#00000000
-  class clusterlocal,clusterqa,clusterprod medium;
-  class is3,da3,da31,dio3,ui3,ui31,ui311,is2,da2,dio2,ui2,unique1 mediumfill;
+  class clusterlocal,clusterdev,clusterqa,clusterprod medium;
+  class is3,da3,da31,dio3,ui3,ui31,ui311,is2,da2,dio2,ui2,unique1,unique2 mediumfill;
   class systemx,systemy,systemz,systemx2,systemx2next,systemy2,systemy2next,systemz2,systemz2next,systems2,systemx3,systemx31,systemx311,systemy3,systemz3,systemz31,systems3 dark;
-  class layercomponents1,layercomponents2,layerset31,layerset32 transparent;
+  class layercomponents1,layercomponents2,layercomponents3,layercomponents4,layerset31,layerset32 transparent;
 
 ```
 
