@@ -7,16 +7,30 @@ appVersion: 0.1.0
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
 description: CYBNITY defense platform chart for Kubernetes
 
-#home: https://github.com/bitnami/charts/tree/main/bitnami/kafka
-#icon: https://bitnami.com/assets/stacks/kafka/img/kafka-stack-220x234.png
+home: https://hub.docker.com/r/cybnity/cybnity-platform
 keywords:
 - cybnity-platform
 
 maintainers:
 - name: CYBNITY
   url: https://github.com/cybnity/iac-helm-charts
+
 name: cybnity-platform
-#sources:
-#- https://github.com/bitnami/containers/tree/main/bitnami/kafka
-#- https://kafka.apache.org/
+sources:
+- https://github.com/cybnity/iac-helm-charts/tree/main/cybnity-platform
+
 version: 1.0.0
+
+dependencies:
+- name: common
+  # Required definition to support mutiple used versions of common library versions by sub-charts
+  repository: oci://registry-1.docker.io/bitnamicharts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+
+#- name: ui-apis-gateway
+#  version: 1.0.0
+#  repository: https://hub.docker.com/r/cybnity/ui-apis-gateway
+#  condition: ui-apis-gateway.enabled
+

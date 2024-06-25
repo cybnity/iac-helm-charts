@@ -1,31 +1,34 @@
 annotations:
-  category: DeveloperTools
+  category: Infrastructure
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: 20.0.5
+name: access-control-sso
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+# Project description (see https://artifacthub.io/packages/helm/bitnami/keycloak)
+description: CYBNITY identity and access management server.
+# @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# list of sub-chart required
 dependencies:
-- condition: postgresql.enabled
-  name: postgresql
-  repository: https://charts.bitnami.com/bitnami
-  version: 12.x.x
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  tags:
-  - bitnami-common
-  version: 2.x.x
-description: Keycloak is a high performance Java-based identity and access management
-  solution. It lets developers add an authentication layer to their applications with
-  minimum effort.
-home: https://www.keycloak.org
-icon: https://bitnami.com/assets/stacks/keycloak/img/keycloak-stack-220x234.png
-keywords:
-- keycloak
-- access-management
-maintainers:
-- name: Bitnami
-  url: https://github.com/bitnami/charts
-name: keycloak
-sources:
-- https://github.com/bitnami/containers/tree/main/bitnami/keycloak
-- https://github.com/keycloak/keycloak
-version: 13.4.0
+  - condition: keycloak.enabled
+    name: keycloak
+    version: "21.4.4"
+    repository: https://charts.bitnami.com/bitnami # URL of the Bitnami repository
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+appVersion: 0.1.0

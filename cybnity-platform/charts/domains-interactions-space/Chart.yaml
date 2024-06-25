@@ -2,32 +2,33 @@ annotations:
   category: Infrastructure
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: 3.3.2
-dependencies:
-- condition: zookeeper.enabled
-  name: zookeeper
-  repository: https://charts.bitnami.com/bitnami
-  version: 11.x.x
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  tags:
-  - bitnami-common
-  version: 2.x.x
-description: Kafka distributed streaming and domains collaboration platform.
+name: domains-interactions-space
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+# Project description (see https://artifacthub.io/packages/helm/bitnami/kafka)
+description: Kafka distributed streaming and CYBNITY domains collaboration platform over Zookeeper registry.
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
-home: https://github.com/bitnami/charts/tree/main/bitnami/kafka
-icon: https://bitnami.com/assets/stacks/kafka/img/kafka-stack-220x234.png
-keywords:
-- kafka
-- zookeeper
-- streaming
-- producer
-- consumer
-maintainers:
-- name: Bitnami
-  url: https://github.com/bitnami/charts
-name: kafka
-sources:
-- https://github.com/bitnami/containers/tree/main/bitnami/kafka
-- https://kafka.apache.org/
-version: 20.0.6
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# list of sub-chart required
+dependencies:
+  - condition: kafka.enabled
+    name: kafka
+    version: "29.3.4"
+    repository: https://charts.bitnami.com/bitnami # URL of the Bitnami repository
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+appVersion: 0.1.0

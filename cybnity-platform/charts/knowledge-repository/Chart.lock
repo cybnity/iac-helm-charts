@@ -1,0 +1,6 @@
+dependencies:
+- name: janusgraph
+  repository: https://charts.bitnami.com/bitnami
+  version: 0.3.12
+digest: sha256:78f973e753c816bd2f2ef001bbcd3f9e8c5e6f8e1dfc07fc4cb4a446a204c626
+generated: "2024-06-24T16:52:04.407936+02:00"

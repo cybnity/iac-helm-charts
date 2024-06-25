@@ -1,0 +1,16 @@
+annotations:
+  category: Infrastructure
+  licenses: Apache-2.0
+apiVersion: v2
+appVersion: 0.1.0
+# @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
+description: API proxy of the User Interfaces layer
+
+keywords:
+- cybnity-platform
+
+maintainers:
+- name: CYBNITY
+  url: https://github.com/cybnity/iac-helm-charts
+name: ui-apis-gateway
+version: 1.0.0

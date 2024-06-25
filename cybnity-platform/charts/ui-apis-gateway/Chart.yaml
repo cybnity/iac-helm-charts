@@ -12,5 +12,19 @@ keywords:
 maintainers:
 - name: CYBNITY
   url: https://github.com/cybnity/iac-helm-charts
+
 name: ui-apis-gateway
+
+# list of sub-chart required
+dependencies:
+- name: cert-manager
+  version: v1.12.0
+  repository: https://charts.jetstack.io
+  alias: cert-manager
+  condition: cert-manager.enabled
+- condition: haproxy.enabled
+  name: haproxy
+  version: "0.6.16"
+  repository: https://charts.bitnami.com/bitnami # URL of the Bitnami repository
+
 version: 1.0.0

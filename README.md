@@ -28,18 +28,23 @@ See the packaged versions of CYBNITY platform that are hosted on `https://hub.do
 
 To pull a version from the CYBNITY docker hub repository where packaged Helm project are stored:
 ```shell
-helm pull oci://registry-1.docker.io/cybnity/cybnity-platform --version 0.1.0_0d0e972
+helm pull oci://registry-1.docker.io/cybnity/cybnity-platform
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve the lates versions of the packages.
 
 You can then run `helm search repo cybnity` to see the charts.
 
+## INSTALL CYBNITY SYSTEMS
 To install the full platform and its components, execute from this current directory:
 ```shell
 helm install <platform-logical-name> ./cybnity-platform
 ```
 
+### Dependency build or update
+Optionnally, a rebuild (see [Helm Dependency Build documentation](https://helm.sh/docs/helm/helm_dependency_build/) for help) of infrastructure sub-projects (open source helm charts in dependency of some CYBNITY charts) can be requested before to install the CYBNITY platform helm project in a Cluster; that dependency build or update command execution allow to check versions and to build sub-charts into the CYBNITY platform helm project before its installation into a Kubernetes Cluster.
+
+## UNINSTALL CYBNITY SYSTEMS
 To uninstall a chart:
 ```shell
 helm delete <chart-name>

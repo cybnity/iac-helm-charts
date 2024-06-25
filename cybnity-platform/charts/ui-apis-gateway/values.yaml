@@ -1,0 +1,279 @@
+cert-manager:
+    # Customization of the default values for cert-manager
+
+    #cert-manager: #defined by either the name or alias of your dependency in Chart.yaml
+    #  namespace: security
+
+    # IMAGE VERSION SUPPORTED BY THE CustomResourceDefinition created into the cluster instance
+    image.tag: v1.11.1
+
+    # ASSIGNMENT TO THE NODE ('layer' label value relative to a cluster area) USING THE CERT-MANAGER
+    ## Node labels for pod assignment
+    # cybnity.io/domains-io-area: "true"
+    # cybnity.io/domains-area: "true"
+    # cybnity.io/user-interfaces-area: "true"
+    # cybnity.io/infrastructure-services-area: "true"
+    nodeSelector:
+        cybnity.io/user-interfaces-area: "true"
+
+    # Labels to add to the cert-manager pod
+    podLabels:
+        type: ui-cert-manager
+
+    ## Node affinity for pod assignment
+    affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: cybnity.io/user-interfaces-area
+                operator: In
+                values:
+                - "true"
+
+    ## Node labels for webhook pod assignment
+    webhook.nodeSelector:
+        cybnity.io/user-interfaces-area: "true"
+
+    ## Node affinity for webhook pod assignment in the same area where the cert-manager pod had been deployed
+    webhook.affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: type
+                  operator: In
+                  values:
+                  - ui-cert-manager
+
+    ## Node labels for cainjector pod assignment
+    cainjector.nodeSelector:
+        cybnity.io/user-interfaces-area: "true"
+
+    ## Node affinity for cainjector pod assignment in the same area where the cert-manager pod had been deployed
+    cainjector.affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: type
+                  operator: In
+                  values:
+                  - ui-cert-manager
+
+    ## Node labels for startupapicheck pod assignment
+    startupapicheck.nodeSelector:
+        cybnity.io/user-interfaces-area: "true"
+
+    ## Node affinity for startupapicheck pod assignment in the same area where the cert-manager pod had been deployed
+    startupapicheck.affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: type
+                  operator: In
+                  values:
+                  - ui-cert-manager
+
+haproxy:
+    ## @param nameOverride String to partially override common.names.fullname
+    ##
+    nameOverride: "ui-apis-gateway-system"
+    ## @param fullnameOverride String to fully override common.names.fullname
+    ##
+    fullnameOverride: "ui-apis-gateway-system"
+
+    ## @param commonLabels Labels to add to all deployed objects
+    ##
+    commonLabels:
+      run: ingress-default-api-gateway
+
+    ## haproxy service parameters
+    ##
+    service:
+      ## @param service.type haproxy service type
+      ##
+      type: LoadBalancer
+      ## @param service.ports [array] List of haproxy service ports (internal terminations)
+      ##
+      ports:
+        - name: http
+          protocol: TCP
+          # Use port 80 in the service
+          port: 80
+          targetPort: 80
+        - name: https
+          protocol: TCP
+          # Use port 80 in the service
+          port: 443
+          targetPort: 443
+      ## @param service.annotations Additional custom annotations for haproxy service
+      ##
+      annotations:
+        haproxy.org/check: "enabled"
+        haproxy.org/forwarded-for: "enabled"
+        haproxy.org/load-balance: "roundrobin"
+
+    ## @param replicaCount Number of haproxy replicas to deploy
+    ##
+    replicaCount: 2
+
+    ## @param configuration [string] haproxy configuration
+    ## Taken from haproxytech/haproxy chart: https://github.com/haproxytech/helm-charts/tree/main/haproxy
+    ## Help about configuration on https://www.haproxy.com/documentation/hapee/latest/configuration/config-sections/frontend/
+    ##
+    configuration: |
+      global
+        #log stdout format raw local0
+        # Set remote or local Syslog server addresses to send log files to
+        log 127.0.0.1 local0
+        log 127.0.0.1 local0 notice
+        # Set a timeout for how long you can stay connected to the Runtime API, which is useful for longer interactive terminal sessions
+        stats timeout 10m
+        maxconn 4096
+
+      defaults
+        # All sections below will inherit the settings defined here
+        # Set the proxy mode to http (layer 7) or tcp (layer 4)
+        mode http
+        log global
+        option httplog
+        option dontlognull
+        option http-server-close
+        # Add or overwrite any existing X-Forwarded-For header with one containing the client's IP address
+        #option forwardfor
+        option redispatch 2
+        # Retry failed HTTP request
+        retries 5
+        timeout connect 3s
+        timeout http-request 20s
+        timeout queue 1m
+        timeout client 60s
+        timeout server 60s
+        timeout http-keep-alive 30s
+        timeout check 10s
+        maxconn 3000
+        balance roundrobin
+
+      frontend www
+        bind *:80
+        # Add or overwrite any existing X-Forwarded-For header with one containing the client's IP address
+        http-request set-header X-Forwarded-For %[src]
+        #http-request replace-value Host (.*):.* \1
+        # CORS routing via CORS backend
+        #acl is_options method OPTIONS
+        #use_backend cors_backend if is_options
+        # URL path mapping configuration
+        use_backend ui_frontend_web_servers if { path_beg /ui/ }
+        use_backend api_backend_servers if { path_beg /api/ }
+        use_backend sso_authentication_servers if { path_beg /auth/ }
+        # Add path required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
+        use_backend sso_authentication_servers if { path_beg /realms/ }
+        use_backend sso_authentication_servers if { path_beg /resources/ }
+        use_backend sso_authentication_servers if { path_beg /js/ }
+        use_backend sso_authentication_servers if { path_beg /robots.txt }
+        # Keycloak administration console exposure (BECAREFULL, AUTHORIZED ONLY FOR DEVELOPMENT)
+        use_backend sso_authentication_servers if { path_beg /admin/ }
+        default_backend ui_frontend_web_servers
+
+      backend ui_frontend_web_servers
+        # Enable HTTP health checks
+        option httpchk
+        # Change the requested URL path before relaying
+        # Example: /ui/xxx become /xxx
+        acl p_map path_beg -i /ui/
+        http-request set-path %[path,regsub(^/ui,/,g)] if p_map
+        # Retry the failed HTTP requests
+        retry-on all-retryable-errors
+        # Rewrite response before sent back to clients
+        # Add an X-Via header containing the hostname of the current HAProxy server processing the traffic
+        #http-response add-header X-Via %[env[HOSTNAME]]
+        # Hide the true name of the server in the response header, and replace it by a logical name as "uiserver"
+        #http-response set-header Server uiserver
+        # Enable compression settings allowed
+        #filter compression
+        #compression algo gzip
+        #compression type text/css text/html text/javascript application/javascript text/plain text/xml application/json
+        server ui_frontend_system web-reactive-frontend-system:80 check port 80
+
+      backend api_backend_servers
+        # Enable HTTP health checks
+        option httpchk
+        # Change the requested URL path before relaying
+        # Example: /api/xxx become /xxx
+        acl p_map path_beg -i /api/
+        http-request set-path %[path,regsub(^/api,/,g)] if p_map
+        # Retry the failed HTTP requests
+        retry-on all-retryable-errors
+        # Rewrite response before sent back to clients
+        # Add an X-Via header containing the hostname of the current HAProxy server processing the traffic
+        #http-response add-header X-Via %[env[HOSTNAME]]
+        # Hide the true name of the server in the response header, and replace it by a logical name as "apiserver"
+        #http-response set-header Server apiserver
+        # Websocket supported (see https://www.haproxy.com/documentation/hapee/latest/load-balancing/protocols/websocket/#configure-websockets)
+        #option http-server-close
+        #timeout tunnel 1h
+        server api_backend_system reactive-backend-system:80 check port 80
+
+      backend sso_authentication_servers
+        # Enable HTTP health checks
+        option httpchk
+        http-check connect port 80
+        http-check send meth HEAD uri /auth/realms/master
+        # Retry the failed HTTP requests
+        retry-on all-retryable-errors
+        # BEGIN CORS configuration : set headers that shall be added for every responses
+        #http-response add-header Access-Control-Allow-Origin "*"
+        #http-response add-header Access-Control-Allow-Headers "*"
+        #http-response add-header Access-Control-Max-Age 3600
+        #http-after-response set-header Access-Control-Allow-Credentials "true"
+        #http-response add-header Access-Control-Allow-Methods "GET, DELETE, OPTIONS, POST, PUT, PATCH"
+        # END CORS configuration
+        # Rewrite response before sent back to clients
+        # Add an X-Via header containing the hostname of the current HAProxy server processing the traffic
+        #http-response add-header X-Via %[env[HOSTNAME]]
+        # Hide the true name of the server in the response header, and replace it by a logical name as "ssoserver"
+        #http-response set-header Server ssoserver
+        # Capture part of header's value via regular expression and replace part with new one: insert a Secure flag on each cookie set up by the server
+        #http-response replace-value Set-Cookie (.*) \1;\ Secure
+        # Session Persistence: routes a client to the same backend server once they have been routed to that server once (avoid session persistence altogether by building the services to be stateless, such as by storing state off of the application servers in a shared database)
+        # Dynamic cookies generation based on hash of the IP address, port and secret key
+        #cookie SERVER_USED insert indirect nocache dynamic
+        #dynamic-cookie-key secretphrase123kjhgf7865.9UFDS
+        # Enable compression settings allowed
+        #filter compression
+        #compression algo gzip
+        #compression type text/css text/html text/javascript application/javascript text/plain text/xml application/json
+        server sso_backend_system access-control-sso-system:80 check
+
+      #backend cors_backend
+        #  http-after-response set-header Access-Control-Allow-Origin "*"
+        #  http-after-response set-header Access-Control-Allow-Headers "*"
+        #  http-after-response set-header Access-Control-Allow-Credentials "true"
+        #  http-after-response set-header Access-Control-Allow-Methods "GET, DELETE, OPTIONS, POST, PUT, PATCH"
+        #  http-after-response set-header Access-Control-Max-Age "31536000"
+        #  http-request return status 200
+
+    ## @param containerPorts [array] List of container ports to enable in the haproxy container
+    ##
+    containerPorts:
+      - name: http
+        containerPort: 80
+      - name: https
+        containerPort: 443
+    ## @param nodeSelector Node labels for haproxy pods assignment
+    ## ref: https://kubernetes.io/docs/user-guide/node-selection/
+    ##
+    nodeSelector:
+      cybnity.io/user-interfaces-area: "true"
+
+    ## @param extraEnvVars Array with extra environment variables to add to haproxy nodes
+    ## e.g:
+    ## extraEnvVars:
+    ##   - name: FOO
+    ##     value: "bar"
+    ##
+    extraEnvVars:
+      - name: LOG_LEVEL
+        value: info

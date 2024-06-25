@@ -30,17 +30,17 @@ Project type: Helm implementation structures.
 
 Description: several generic infrastructure projects required by the CYBNITY implementation architecture are managed.
 
-- [users-interactions-space](charts/users-interactions-space): bitnami Helm project of Redis image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in UI area). This provisioning project is deployable and is supported by a `bitnami/redis` version including `7.0.8-debian-11-r0` operating system libraries. This implementatio (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/goauthentik/redis)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\users-interactions-broker` docker image project.
+- [users-interactions-space](charts/users-interactions-space): bitnami Helm project of Redis image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in UI area). This provisioning project is deployable and is supported by a `Bitnami Redis` version including `Debian` operating system libraries. This implementatio (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/redis)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\users-interactions-broker` docker image project.
 
-- [domains-interactions-space](charts/domains-interactions-space): bitnami Helm project of Kafka image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in Domains I/O area). This provisioning project is deployable and is supported by a `bitnami/kafka` version including `3.3.2-debian-11-r0` operating system libraries. This implementatio (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/kafka)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\domains-interactions-broker` docker image project.
-   - [dis-brokers-registry-system](charts/domains-interactions-space/charts/zookeeper): included sub-project of Zookeeper image provisioning, customized for the CYBNITY needs (e.g included as implementation of Kafka brokers registry). This provisioning project is deployable and is supported by a `bitnami/zookeeper` version including a `3.8.0-debian-11-r74` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/riftbit/zookeeper)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `framework\services-registry-container` docker image project.
+- [domains-interactions-space](charts/domains-interactions-space): bitnami Helm project of Kafka image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in Domains I/O area). This provisioning project is deployable and is supported by a `Bitnami Kafka` version including `Debian` operating system libraries. This implementatio (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/kafka)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\domains-interactions-broker` docker image project.
+   - dis-brokers-registry-system: included sub-project of Zookeeper image provisioning, customized for the CYBNITY needs (e.g included as implementation of Kafka brokers registry). This provisioning project is deployable and is supported by a `Bitnami Zookeeper` version including a `Debian` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/riftbit/zookeeper)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `framework\services-registry-container` docker image project.
 
-- [Keycloak server](/charts/access-control-sso): bitnami Helm project of Keycloak image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `bitnami/keycloak 13.4.0` version hosted on `20.0.5-debian-11-r4` operating system version, and including a `postgresql 12.2.1` database version deployment. This implementation (hosted on [GitHUB](https://github.com/bitnami/charts/tree/main/bitnami/keycloak)) is currently used to reduce the maintenance effort of a dedicated Helm project.
-   - Installation from command line: `helm install access-control-sso-system -f access-control-sso/values.yaml bitnami/keycloak`
+- [Keycloak server](/charts/access-control-sso): bitnami Helm project of Keycloak image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `Bitnami Keycloak` version hosted on `Debian` operating system version, and including a `Postgresql` database version deployment. This implementation (hosted on [GitHUB](https://artifacthub.io/packages/helm/bitnami/keycloak)) is currently used to reduce the maintenance effort of a dedicated Helm project.
+   - Installation from command line: `helm install access-control-sso-system -f access-control-sso/values.yaml`
 
 - [ui-apis-gateway](charts/ui-apis-gateway): bitnami Helm project of NGINX and Ingress controller image provisioning, customized for the CYBNITY needs.
 
-- [knowledge-repository-server](charts/knowledge-repository-server): bitnami Helm project ok JanusGraph image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `bitnami/janusgraph` under 1.0.0-debian-12-r4 version including `12-debian-12-r21` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/janusgraph))
+- [knowledge-repository-server](charts/knowledge-repository-server): bitnami Helm project ok JanusGraph image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `Bitnami Janusgraph` version under `Debian` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/janusgraph)) and include a `Cassandra` backend server supporting the Janusgraph server.
    - Installation from command line: `helm install knowledge-repository-system -f knowledge-repository-server/values.yaml bitnami/janusgraph`
 
 ## PROVISIONED SYSTEMS ARCHITECTURE
@@ -56,8 +56,6 @@ Each defined Node or set of Nodes (e.g multiple nodes supporting a scalability m
 - set label __cybnity.io/domains-io-area__ equals to __true__ to node(s) constituying the layer where processing of API per domain are treated
 - set label __cybnity.io/domains-area__ equals to __true__ to node(s) constituying the layer where the applicative domains processes are performed
 - set label __cybnity.io/infrastructure-services-area__ equals to __true__ to node(s) constituying the layer where transversal infrastructure services are provided
-
-For example and helping the cluster setting by a developer or DevOps, see [cluster-node-labels-add.sh](../cluster-node-labels-add.sh) file that realize the labelling of 4 nodes in a distribution model that add label one each of 4 nodes as "one node per layer".
 
 #### Distribution Strategy of each CYBNITY system
 The distribution of systems is automated according the labels declared by any existing Node into the deployed cluster.
@@ -249,25 +247,26 @@ graph LR
        direction LR
        subgraph uilayer1[" "]
          direction TB
-         subgraph service8["\n #60;#60;LoadBalancer Service#62;#62; \n ui-apis-gateway-system-haproxy "]
+         subgraph service8["\n #60;#60;LoadBalancer Service#62;#62; \n ui-apis-gateway-system "]
             podproxy1["POD"]
          end
          subgraph service1[" #60;#60;Service#62;#62; \n web-reactive-frontend-system "]
             clusterip1["ClusterIP"]
             pod1["POD"]
          end
-         subgraph service2[" #32;#60;#60;Service#62;#62; \n reactive-backend-system#32; "]
+         subgraph service2[" #60;#60;Service#62;#62; \n reactive-backend-system "]
             clusterip4["ClusterIP"]
             pod2["POD"]
          end
          subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system "]
-            clusterip7["ClusterIP"]
             pod3["POD"]
+            pod4["POD"]
+            pod5["POD"]
          end
-         subgraph service4[" #60;#60;Service#62;#62; \n access-control-sso-system-postgresql "]
+         subgraph service4[" #60;#60;Service#62;#62; \n access-control-db-system "]
             clusterip2["ClusterIP"]
          end
-         subgraph service7[" #60;#60;Service#62;#62; \n uis-system-redis "]
+         subgraph service7[" #60;#60;Service#62;#62; \n uis-system "]
             clusterip3["ClusterIP"]
          end
        end
@@ -275,7 +274,7 @@ graph LR
      subgraph di[" #60;#60;Node#62;#62; Domains I/O Area"]
          direction LR
          subgraph applayer1[" "]
-            subgraph service5[" #60;#60;Service#62;#62; \n dis-system-kafka "]
+            subgraph service5[" #60;#60;Service#62;#62; \n dis-system "]
                clusterip5["ClusterIP"]
             end
             subgraph service6[" #60;#60;Service#62;#62; \n dis-brokers-registry-system "]
@@ -289,9 +288,12 @@ graph LR
          %% end
      end
      subgraph is[" #60;#60;Node#62;#62; Infrastructure Services Area "]
-         %% direction LR
-         %% subgraph inflayer1[" "]
-         %% end
+         direction LR
+         subgraph inflayer1[" "]
+            subgraph service9[" #60;#60LoadBalancer Service#62;#62; \n janusgraph-system"]
+            pod6["POD"]
+            end
+         end
      end
   end
   tunnel -- "route x.y.y.y/z" --> controlplane
@@ -299,7 +301,6 @@ graph LR
   podproxy1 -- "80:80" --> service1
   podproxy1 -- "80:80" --> service2
   controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
-  controlplane -. "tcp:80" .-> clusterip7 -.-> pod3
   controlplane -- "ExternalIP/tcp:80 (temporary for admin)" --> service3
   podproxy1 -- "80:80" --> service3
   controlplane -. "tcp:5432" .-> clusterip2
@@ -310,6 +311,7 @@ graph LR
   controlplane -. "tcp:2181" .-> clusterip6
   controlplane -. "tcp:2888" .-> clusterip6
   controlplane -. "tcp:3888" .-> clusterip6
+  controlplane -. "tcp:8182" .-> service9
   
   classDef red fill:#e5302a, stroke:#e5302a, color:#fff, stroke-width:3px
   classDef medium fill:#fff, stroke:#3a5572, color:#3a5572
@@ -318,9 +320,9 @@ graph LR
   classDef reddot fill:#fff, stroke:#e5302a, color:#e5302a, stroke-dasharray: 5 5, stroke-width:3px
   classDef dark fill:#0e2a43, stroke:#fff, color:#fff
   classDef internalconfig fill:#0e2a43, stroke:#fff, color:#fff
-  class service1,service2,service3,service4,service5,service6,service7 mediumfill;
+  class service1,service2,service3,service4,service5,service6,service7,service9 mediumfill;
   class ui,di,da,is medium;
-  class pod1,pod2,pod3,podproxy1,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7 dark;
+  class pod1,pod2,pod3,pod4,pod5,pod6,podproxy1,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6 dark;
   class tunnel,service8 red;
   class controlplane reddot;
 
@@ -332,8 +334,8 @@ When cluster is started, the CYBNITY access via browser is possible after start 
 
 To start VPN tunnel:
 ```shell
-minikube tunnel -p local-env4
+minikube tunnel -p <<your cluster profile name>>
 ```
 
 ## SSO server configuration
-The access to Keycloak configuration is allowed via url externally exposed by the deployed APIs gateway (HAProxy service) on port 80 according to `http:<<external ip>>/auth/`.
+The access to Keycloak configuration is allowed via url externally exposed (external url of `access-control-sso-system`) on port 80 and usable from web browser.

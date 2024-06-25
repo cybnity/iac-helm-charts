@@ -15,7 +15,7 @@ env:
   # Java application environment variables that are logically used by the applicative module
   # via the AppConfigurationVariable enumerations
   - name: "REACTIVE_BACKEND_ENDPOINT_HTTP_SERVER_PORT"
-    value: "8080"
+    value: "80"
   # via the ReadModelConfigurationVariable enumerations
   - name: "REDIS_READMODEL_SERVER_HOST"
     value: "localhost"
@@ -28,7 +28,7 @@ env:
   - name: "REDIS_READMODEL_CONNECTION_DEFAULT_USERACCOUNT"
     value: "default"
   - name: "AUTHORIZED_WHITE_LIST_ORIGIN_SERVER_URLS"
-    value: "http://localhost:8080,http://localhost:3000"
+    value: "http://localhost:80,http://localhost:3000"
   # via the WriteModelConfigurationVariable enumerations
   - name: "REDIS_WRITEMODEL_SERVER_HOST"
     value: "localhost"
@@ -70,7 +70,7 @@ securityContext: {}
   # runAsUser: 1000
 
 deployment:
-  imageHealthCheckPort: 8080
+  imageHealthCheckPort: 80
   imageHealthCheckInitialDelaySeconds: 60
   imageHealthCheckPeriodSeconds: 300
   imageHttpHealthLivenessProbe: /static/health.html
@@ -79,7 +79,7 @@ deployment:
 service:
   # Networking service type (e.g ClusterIP; NodePort is recommended for Minikube). See https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types for more detail
   type: ClusterIP
-  port: 8080
+  port: 80
 
 ingress:
   enabled: false

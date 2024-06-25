@@ -1,6 +1,6 @@
 apiVersion: v2
 name: web-reactive-frontend
-description: User interfaces server Helm chart for Kubernetes
+description: CYBNITY user interfaces server.
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
 
 # A chart can be either an 'application' or a 'library' chart.
