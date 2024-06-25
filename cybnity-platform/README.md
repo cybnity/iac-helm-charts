@@ -305,11 +305,11 @@ graph LR
   end
   tunnel -- "route x.y.y.y/z" --> controlplane
   controlplane -. "tcp:80" .-> clusterip1 -.-> pod1
-  podproxy1 -- "80:80" --> service1
   controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
-  podproxy1 -- "80:80" --> service2
+  podproxy1 & podproxy2 -- "80:80" --> service1
+  podproxy1 & podproxy2 -- "80:80" --> service2
   controlplane -- "ExternalIP/tcp:80 (temporary for admin)" --> service3
-  podproxy1 -- "80:80" --> service3
+  podproxy1 & podproxy2 -- "80:80" --> service3
   controlplane -. "tcp:5432" .-> clusterip2
   controlplane -. "tcp:6379" .-> clusterip3
   controlplane -- "ExternalIP/http:80" --> service8
