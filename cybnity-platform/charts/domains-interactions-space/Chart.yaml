@@ -8,7 +8,7 @@ name: domains-interactions-space
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 version: 0.1.0
 # Project description (see https://artifacthub.io/packages/helm/bitnami/kafka)
-description: Kafka distributed streaming and CYBNITY domains collaboration platform over Zookeeper registry.
+description: Kafka distributed streaming and CYBNITY domains collaboration platform over Kafka Raft (KRaft) protocol.
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
 
 # A chart can be either an 'application' or a 'library' chart.

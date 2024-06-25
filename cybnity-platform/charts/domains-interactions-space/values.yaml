@@ -15,17 +15,3 @@ kafka:
     cybnity.io/domains-io-area: "true"
   provisioning.nodeSelect:
     cybnity.io/domains-io-area: "true"
-
-  zookeeper:
-    # Overriding the Helm chart name ensures configuration files also change
-    nameOverride: "dis-brokers-registry-system"
-    fullnameOverride: "dis-brokers-registry-system"
-
-    ## @param nodeSelector Node labels for pod assignment
-    # cybnity.io/domains-io-area: "true"
-    # cybnity.io/domains-area: "true"
-    # cybnity.io/user-interfaces-area: "true"
-    # cybnity.io/infrastructure-services-area: "true"
-    ##
-    nodeSelector:
-      cybnity.io/domains-io-area: "true"
