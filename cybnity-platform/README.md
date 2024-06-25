@@ -22,6 +22,7 @@ Project type: Maven or Node.js implementation structures; dockerization auto-gen
 Description: each deployable application provisioning is defined via Helm chart and sub-charts.
 - [reactive-messaging-gateway](charts/reactive-messaging-gateway): Helm provisioning project of containerized web backend server.
 - [web-reactive-frontend](charts/web-reactive-frontend): Helm provisioning project of containerized web frontend server.
+- [namespace](charts/namespace): Helm provisioning project regarding namespace implemented into a CYBNITY cluster.
 
 ## REUSABLE PROVISIONING SYSTEM PROJECTS
 Perimeter: some infrastructure third-party software (e.g Zookeeper application) are available on the market as template of provisioning helping to quickly customize the runtime (provisioning of pre-configured Docker image) into a Kubernetes platform. Some infrastructure components are reused by CYBNITY as infrastructure systems with customization of the prepared templates of their images helmization.
@@ -30,17 +31,17 @@ Project type: Helm implementation structures.
 
 Description: several generic infrastructure projects required by the CYBNITY implementation architecture are managed.
 
-- [users-interactions-space](charts/users-interactions-space): bitnami Helm project of Redis image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in UI area). This provisioning project is deployable and is supported by a `Bitnami Redis` version including `Debian` operating system libraries. This implementatio (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/redis)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\users-interactions-broker` docker image project.
-
-- [domains-interactions-space](charts/domains-interactions-space): bitnami Helm project of Kafka image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in Domains I/O area). This provisioning project is deployable and is supported by a `Bitnami Kafka` version with Apache Kafka Raft (KRaft) consensus protocol (metadata management), and including `Debian` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/kafka)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\domains-interactions-broker` docker image project.
-
-- [Keycloak server](/charts/access-control-sso): bitnami Helm project of Keycloak image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `Bitnami Keycloak` version hosted on `Debian` operating system version, and including a `Postgresql` database version deployment. This implementation (hosted on [GitHUB](https://artifacthub.io/packages/helm/bitnami/keycloak)) is currently used to reduce the maintenance effort of a dedicated Helm project.
+- [access-control-sso](/charts/access-control-sso): Bitnami Helm project of Keycloak image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `Bitnami Keycloak` version hosted on `Debian` operating system version, and including a `Postgresql` database version deployment. This implementation (hosted on [GitHUB](https://artifacthub.io/packages/helm/bitnami/keycloak)) is currently used to reduce the maintenance effort of a dedicated Helm project.
    - Installation from command line: `helm install access-control-sso-system -f access-control-sso/values.yaml`
 
-- [ui-apis-gateway](charts/ui-apis-gateway): bitnami Helm project of NGINX and Ingress controller image provisioning, customized for the CYBNITY needs.
+- [domains-interactions-space](charts/domains-interactions-space): Bitnami Helm project of Kafka image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in Domains I/O area). This provisioning project is deployable and is supported by a `Bitnami Kafka` version with Apache Kafka Raft (KRaft) consensus protocol (metadata management), and including `Debian` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/kafka)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\domains-interactions-broker` docker image project.
 
 - [knowledge-repository-server](charts/knowledge-repository-server): bitnami Helm project ok JanusGraph image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `Bitnami Janusgraph` version under `Debian` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/janusgraph)) and include a `Cassandra` backend server supporting the Janusgraph server.
    - Installation from command line: `helm install knowledge-repository-system -f knowledge-repository-server/values.yaml bitnami/janusgraph`
+
+- [ui-apis-gateway](charts/ui-apis-gateway): Bitnami Helm project of NGINX and Ingress controller image provisioning, customized for the CYBNITY needs.
+
+- [users-interactions-space](charts/users-interactions-space): Bitnami Helm project of Redis image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in UI area). This provisioning project is deployable and is supported by a `Bitnami Redis` version including `Debian` operating system libraries. This implementatio (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/redis)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\users-interactions-broker` docker image project.
 
 ## PROVISIONED SYSTEMS ARCHITECTURE
 ### K8S cluster nodes setting
