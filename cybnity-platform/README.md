@@ -313,12 +313,13 @@ graph LR
   controlplane -. "ExternalIP/tcp:80 (temporary for admin)" .-> service3
   podproxy1 & podproxy2 -- "80:80" --> service3
   controlplane -. "tcp:5432" .-> clusterip2
+  pod3 & pod4 & pod5 -- "tcp:5432" --> clusterip2
   controlplane -. "tcp:6379" .-> clusterip3
   controlplane -- "ExternalIP/http:80" --> service8
   controlplane -- "ExternalIP/http:443" --> service8
   controlplane -. "tcp:9092" .-> clusterip5 -.-> pod10 & pod11 & pod12
   controlplane -. "tcp:9043" .-> clusterip7 -.-> pod9
-  pod6 & pod7 & pod8  -- "tcp:9043" --> clusterip7
+  pod6 & pod7 & pod8 -- "tcp:9043" --> clusterip7
   controlplane -. "tcp:8182" .-> service9
   
   classDef red fill:#e5302a, stroke:#e5302a, color:#fff, stroke-width:3px
