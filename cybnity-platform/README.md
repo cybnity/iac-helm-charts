@@ -261,6 +261,7 @@ graph LR
          end
          subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system "]
             subgraph ssolayer1[" "]
+               direction LR
                pod3["POD"]
                pod4["POD"]
                pod5["POD"]
@@ -315,7 +316,6 @@ graph LR
   controlplane -. "tcp:6379" .-> clusterip3
   controlplane -- "ExternalIP/http:80" --> service8
   controlplane -- "ExternalIP/http:443" --> service8
-  controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
   controlplane -. "tcp:9092" .-> clusterip5
   controlplane -. "tcp:2181" .-> clusterip6
   controlplane -. "tcp:2888" .-> clusterip6
@@ -323,6 +323,7 @@ graph LR
   controlplane -. "tcp:9043" .-> clusterip7 -.-> pod9
   pod6 & pod7 & pod8  -- "tcp:9043" --> clusterip7
   controlplane -. "tcp:8182" .-> service9
+  controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
   
   classDef red fill:#e5302a, stroke:#e5302a, color:#fff, stroke-width:3px
   classDef medium fill:#fff, stroke:#3a5572, color:#3a5572
@@ -331,7 +332,7 @@ graph LR
   classDef reddot fill:#fff, stroke:#e5302a, color:#e5302a, stroke-dasharray: 5 5, stroke-width:3px
   classDef dark fill:#0e2a43, stroke:#fff, color:#fff
   classDef internalconfig fill:#0e2a43, stroke:#fff, color:#fff
-  class service1,service2,service3,service4,service5,service6,service7,service9,service10 mediumfill;
+  class service1,service2,service3,ssolayer1,service4,service5,service6,service7,service9,service10 mediumfill;
   class ui,di,da,is medium;
   class pod1,pod2,pod3,pod4,pod5,pod6,pod7,pod8,pod9,podproxy1,podproxy2,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7 dark;
   class tunnel,service8 red;
