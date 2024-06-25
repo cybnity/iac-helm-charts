@@ -109,7 +109,7 @@ graph LR
   subgraph clusterlocal[" #60;#60;Kubernetes Cluster#62;#62; \n Local Dev Environment Cluster "]
       direction LR
       subgraph layerset1[" "]
-         direction LR
+         direction TB
          subgraph unique1[" #60;#60;Node#62;#62; Default \n cybnity.io/user-interfaces-area:true\n cybnity.io/domains-io-area:true\n cybnity.io/domains-area:true\n cybnity.io/infrastructure-services-area:true "]
             subgraph layercomponents1[" "]
                subgraph layercomponents2[" "]
@@ -123,16 +123,16 @@ graph LR
       end
   end
   subgraph clusterdev[" #60;#60;Kubernetes Cluster#62;#62; \n Dev Environment Cluster "]
-      direction LR
+      direction TB
       subgraph layerset4[" "]
          direction LR
          subgraph unique2[" #60;#60;Node#62;#62; Default \n cybnity.io/user-interfaces-area:true\n cybnity.io/domains-io-area:true\n cybnity.io/domains-area:true\n cybnity.io/infrastructure-services-area:true "]
             subgraph layercomponents3[" "]
                subgraph layercomponents4[" "]
                   direction LR
-                  systemx["System X"]
-                  systemy["System Y"]
-                  systemz["System ..."]
+                  systemx4["System X"]
+                  systemy4["System Y"]
+                  systemz4["System ..."]
                end
             end
          end
@@ -215,7 +215,7 @@ graph LR
   classDef transparent fill:#00000000, stroke:#00000000
   class clusterlocal,clusterdev,clusterqa,clusterprod medium;
   class is3,da3,da31,dio3,ui3,ui31,ui311,is2,da2,dio2,ui2,unique1,unique2 mediumfill;
-  class systemx,systemy,systemz,systemx2,systemx2next,systemy2,systemy2next,systemz2,systemz2next,systems2,systemx3,systemx31,systemx311,systemy3,systemz3,systemz31,systems3 dark;
+  class systemx,systemy,systemz,systemx2,systemx2next,systemy2,systemy2next,systemz2,systemz2next,systems2,systemx3,systemx31,systemx311,systemy3,systemz3,systemz31,systems3,systemx4,systemy4,systemz4 dark;
   class layercomponents1,layercomponents2,layercomponents3,layercomponents4,layerset31,layerset32 transparent;
 
 ```
