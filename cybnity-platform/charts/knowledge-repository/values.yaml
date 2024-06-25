@@ -14,6 +14,10 @@ janusgraph:
   volumePermissions:
       enabled: true
 
+  ## @param replicaCount Number of Keycloak replicas to deploy
+  ##
+  replicaCount: 3
+
   cassandra:
     nodeSelector:
       cybnity.io/infrastructure-services-area: "true"

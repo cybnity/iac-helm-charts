@@ -249,6 +249,7 @@ graph LR
          direction TB
          subgraph service8["\n #60;#60;LoadBalancer Service#62;#62; \n ui-apis-gateway-system "]
             podproxy1["POD"]
+            podproxy2["POD"]
          end
          subgraph service1[" #60;#60;Service#62;#62; \n web-reactive-frontend-system "]
             clusterip1["ClusterIP"]
@@ -258,7 +259,7 @@ graph LR
             clusterip4["ClusterIP"]
             pod2["POD"]
          end
-         subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system \n"]
+         subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system "]
             pod3["POD"]
             pod4["POD"]
             pod5["POD"]
@@ -290,12 +291,14 @@ graph LR
      subgraph is[" #60;#60;Node#62;#62; Infrastructure Services Area "]
          direction LR
          subgraph inflayer1[" "]
-            subgraph service9[" #60;#60;LoadBalancer Service#62;#62; \n janusgraph-system \n"]
+            subgraph service9[" #60;#60;LoadBalancer Service#62;#62; \n janusgraph-system "]
                pod6["POD"]
-            end
-            subgraph service10[" #60;#60;Service#62;#62; \n cassandra-db-system \n"]
-               clusterip7["ClusterIP"]
                pod7["POD"]
+               pod8["POD"]
+            end
+            subgraph service10[" #60;#60;Service#62;#62; \n cassandra-db-system "]
+               clusterip7["ClusterIP"]
+               pod9["POD"]
             end
          end
      end
@@ -303,8 +306,8 @@ graph LR
   tunnel -- "route x.y.y.y/z" --> controlplane
   controlplane -. "tcp:80" .-> clusterip1 -.-> pod1
   podproxy1 -- "80:80" --> service1
-  podproxy1 -- "80:80" --> service2
   controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
+  podproxy1 -- "80:80" --> service2
   controlplane -- "ExternalIP/tcp:80 (temporary for admin)" --> service3
   podproxy1 -- "80:80" --> service3
   controlplane -. "tcp:5432" .-> clusterip2
@@ -315,8 +318,9 @@ graph LR
   controlplane -. "tcp:2181" .-> clusterip6
   controlplane -. "tcp:2888" .-> clusterip6
   controlplane -. "tcp:3888" .-> clusterip6
+  controlplane -. "tcp:9043" .-> clusterip7 -.-> pod9
+  pod6 & pod7 & pod8  -- "tcp:9043" --> clusterip7
   controlplane -. "tcp:8182" .-> service9
-  controlplane -. "tcp:9043" .-> clusterip7 -.-> pod7
   
   classDef red fill:#e5302a, stroke:#e5302a, color:#fff, stroke-width:3px
   classDef medium fill:#fff, stroke:#3a5572, color:#3a5572
@@ -327,7 +331,7 @@ graph LR
   classDef internalconfig fill:#0e2a43, stroke:#fff, color:#fff
   class service1,service2,service3,service4,service5,service6,service7,service9,service10 mediumfill;
   class ui,di,da,is medium;
-  class pod1,pod2,pod3,pod4,pod5,pod6,pod7,podproxy1,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7 dark;
+  class pod1,pod2,pod3,pod4,pod5,pod6,pod7,pod8,pod9,podproxy1,podproxy2,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7 dark;
   class tunnel,service8 red;
   class controlplane reddot;
 
