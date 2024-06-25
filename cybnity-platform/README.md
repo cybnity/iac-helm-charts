@@ -245,10 +245,18 @@ graph LR
      subgraph ui[" #60;#60;Node#62;#62; User Interfaces Area "]
        direction LR
        subgraph uilayer1[" "]
-         direction TB
+         %%direction TB
          subgraph service8["\n #60;#60;LoadBalancer Service#62;#62; \n ui-apis-gateway-system "]
             podproxy1["#60;#60;POD#62;#62; \n HAProxy"]
             podproxy2["#60;#60;POD#62;#62; \n HAProxy"]
+         end
+         subgraph service7[" #60;#60;Service#62;#62; \n uis-system "]
+            clusterip3["#60;#60;ClusterIP#62;#62; uis-system-master"]
+            pod13["#60;#60;POD#62;#62; \n Redis"]
+            clusterip8["#60;#60;ClusterIP#62;#62; uis-system-replicas"]
+            pod14["#60;#60;POD#62;#62; \n Redis"]
+            pod15["#60;#60;POD#62;#62; \n Redis"]
+            pod16["#60;#60;POD#62;#62; \n Redis"]
          end
          subgraph service1[" #60;#60;Service#62;#62; \n web-reactive-frontend-system "]
             clusterip1["ClusterIP"]
@@ -265,14 +273,6 @@ graph LR
          end
          subgraph service4[" #60;#60;Service#62;#62; \n access-control-db-system "]
             clusterip2["ClusterIP"]
-         end
-         subgraph service7[" #60;#60;Service#62;#62; \n uis-system "]
-            clusterip3["#60;#60;ClusterIP#62;#62; uis-system-master"]
-            pod13["#60;#60;POD#62;#62; \n Redis"]
-            clusterip8["#60;#60;ClusterIP#62;#62; uis-system-replicas"]
-            pod14["#60;#60;POD#62;#62; \n Redis"]
-            pod15["#60;#60;POD#62;#62; \n Redis"]
-            pod16["#60;#60;POD#62;#62; \n Redis"]
          end
        end
      end
