@@ -344,6 +344,7 @@ graph LR
   controlplane -. "tcp:9043" .-> clusterip7 -.-> pod9
   pod6 & pod7 & pod8 -- "tcp:9043" --> clusterip7
   controlplane -. "tcp:8182" .-> service9
+  pod10 -. "KRaft" .- pod11 -. "KRaft" .- pod12 -. "KRaft" .- pod10
   
   classDef red fill:#e5302a, stroke:#e5302a, color:#fff, stroke-width:3px
   classDef medium fill:#fff, stroke:#3a5572, color:#3a5572
