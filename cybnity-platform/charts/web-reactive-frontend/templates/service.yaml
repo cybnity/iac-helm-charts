@@ -7,9 +7,32 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: health-status
+    {{- if .Values.service.http.enabled }}
+    - name: http
+      port: {{ .Values.service.port }}
       protocol: TCP
-      name: http
+      targetPort: http
+      {{- if (and (or (eq .Values.service.type "NodePort") (eq .Values.service.type "LoadBalancer")) (not (empty .Values.service.nodePorts.http))) }}
+      nodePort: {{ .Values.service.nodePorts.http }}
+      {{- else if eq .Values.service.type "ClusterIP" }}
+      nodePort: null
+      {{- end }}
+    {{- end }}
+    {{- if .Values.service.tls.enabled }}
+    - name: https
+      port: {{ .Values.service.httpsPort }}
+      protocol: TCP
+      targetPort: https
+      {{- if (and (or (eq .Values.service.type "NodePort") (eq .Values.service.type "LoadBalancer")) (not (empty .Values.service.nodePorts.https))) }}
+      nodePort: {{ .Values.service.nodePorts.https }}
+      {{- else if eq .Values.service.type "ClusterIP" }}
+      nodePort: null
+      {{- end }}
+    {{- end }}
+
+    #- port: {{ .Values.service.port }}
+    #  targetPort: health-status
+    #  protocol: TCP
+    #  name: http
   selector:
     {{- include "web-reactive-frontend.selectorLabels" . | nindent 4 }}

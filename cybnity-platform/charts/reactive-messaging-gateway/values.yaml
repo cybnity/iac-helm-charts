@@ -77,9 +77,14 @@ deployment:
   imageHttpHealthReadinessProbe: /static/health.html
 
 service:
+  http:
+    enabled: true
   # Networking service type (e.g ClusterIP; NodePort is recommended for Minikube). See https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types for more detail
   type: ClusterIP
   port: 80
+  tls:
+    enabled: false
+  httpsPort: 443
 
 ingress:
   enabled: false
