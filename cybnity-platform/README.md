@@ -354,8 +354,8 @@ graph LR
   pod6 & pod7 & pod8 -- "tcp:9043" --> clusterip7
   controlplane -. "tcp:8182" .-> service9
   pod10 -. "KRaft:9092" .- pod11 -. "KRaft:9092" .- pod12 -. "KRaft:9092" .- pod10
-  controlpane -. "tcp:9402" .-> clusterip9 -.-> pod19
-  controlpane -. "tcp:443" .-> clusterip10 -.-> pod20
+  controlplane -. "tcp:9402" .-> clusterip9 -.-> pod19
+  controlplane -. "tcp:443" .-> clusterip10 -.-> pod20
 
   classDef red fill:#e5302a, stroke:#e5302a, color:#fff, stroke-width:3px
   classDef medium fill:#fff, stroke:#3a5572, color:#3a5572
