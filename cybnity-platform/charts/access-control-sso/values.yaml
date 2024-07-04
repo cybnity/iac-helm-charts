@@ -106,6 +106,25 @@ keycloak:
         password: "bitnami"
         database: bitnami_keycloak
         existingSecret: ""
+      ## @section PostgreSQL Primary parameters
+      ##
+      primary:
+        nodeSelector:
+          cybnity.io/user-interfaces-area: "true"
+      ## @section PostgreSQL read only replica parameters (only used when `architecture` is set to `replication`)
+      ##
+      readReplicas:
+        nodeSelector:
+          cybnity.io/user-interfaces-area: "true"
+      ## @section Backup parameters
+      ## This section implements a trivial logical dump cronjob of the database.
+      ## This only comes with the consistency guarantees of the dump program.
+      ## This is not a snapshot based roll forward/backward recovery backup.
+      ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
+      backup:
+        nodeSelector:
+          cybnity.io/user-interfaces-area: "true"
+
 
     ## External PostgreSQL configuration
     ## All of these values are only used when postgresql.enabled is set to false

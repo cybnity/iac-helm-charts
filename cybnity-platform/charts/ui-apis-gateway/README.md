@@ -17,7 +17,9 @@ The reverse proxy and its load balancing as cluster's entrypoint is implemented 
 Deployment in an environment is performed via the Helm command line:
 
 ```console
-helm install ui-apis-gateway-system -f ./haproxy/values.yaml bitnami/haproxy
+helm install ui-apis-gateway-system -f ./ui-apis-gateway/values.yaml ./ui-apis-gateway/
+
+# original command: helm install ui-apis-gateway-system -f ./haproxy/values.yaml bitnami/haproxy
 ```
 
 Several elements are deployed:

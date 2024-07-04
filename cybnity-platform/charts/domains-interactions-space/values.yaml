@@ -3,15 +3,28 @@ kafka:
   nameOverride: "dis-system"
   fullnameOverride: "dis-system"
 
-  ## @param nodeSelector Node labels for pod assignment
-  # cybnity.io/domains-io-area: "true"
-  # cybnity.io/domains-area: "true"
-  # cybnity.io/user-interfaces-area: "true"
-  # cybnity.io/infrastructure-services-area: "true"
+  ## Init containers parameters:
+  ## volumePermissions: Change the owner and group of the persistent volume(s) mountpoint(s) to 'runAsUser:fsGroup' on each node
   ##
-  controller.nodeSelector:
-    cybnity.io/domains-io-area: "true"
-  broker.nodeSelector:
-    cybnity.io/domains-io-area: "true"
-  provisioning.nodeSelect:
-    cybnity.io/domains-io-area: "true"
+  volumePermissions:
+    ## @param volumePermissions.enabled Enable init container that changes the owner and group of the persistent volume
+    ##
+    enabled: true
+
+  ## @section Controller-eligible statefulset parameters
+  ##
+  controller:
+    nodeSelector:
+      cybnity.io/domains-io-area: "true"
+
+  ## @section Broker-only statefulset parameters
+  ##
+  broker:
+    nodeSelector:
+      cybnity.io/domains-io-area: "true"
+
+  ## Kafka provisioning
+  ##
+  provisioning:
+    nodeSelector:
+      cybnity.io/domains-io-area: "true"

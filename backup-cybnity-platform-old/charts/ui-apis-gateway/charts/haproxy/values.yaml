@@ -74,12 +74,12 @@ service:
       protocol: TCP
       # Use port 80 in the service
       port: 80
-      targetPort: 80
-    - name: https
-      protocol: TCP
-      # Use port 80 in the service
-      port: 443
-      targetPort: 443
+      targetPort: http
+    #- name: https
+    #  protocol: TCP
+    #  # Use port 80 in the service
+    #  port: 443
+    #  targetPort: 443
   ## @param service.clusterIP haproxy service Cluster IP
   ## e.g.:
   ## clusterIP: None

@@ -15,13 +15,14 @@ redis:
     # Disable RDB persistence, AOF persistence already enabled.
     save ""
 
-  ## @param nodeSelector Node labels for pod assignment
-  # cybnity.io/domains-io-area: "true"
-  # cybnity.io/domains-area: "true"
-  # cybnity.io/user-interfaces-area: "true"
-  # cybnity.io/infrastructure-services-area: "true"
+  ## @section Redis&reg; master configuration parameters
   ##
-  master.nodeSelector:
-    cybnity.io/user-interfaces-area: "true"
-  replica.nodeSelector:
-    cybnity.io/user-interfaces-area: "true"
+  master:
+    nodeSelector:
+      cybnity.io/user-interfaces-area: "true"
+
+  ## @section Redis&reg; replicas configuration parameters
+  ##
+  replica:
+    nodeSelector:
+      cybnity.io/user-interfaces-area: "true"
