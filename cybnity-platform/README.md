@@ -264,15 +264,6 @@ graph LR
             podproxy1["#60;#60;POD#62;#62; \n HAProxy"]
             podproxy2["#60;#60;POD#62;#62; \n HAProxy"]
          end
-         subgraph service6["\n #60;#60;Service#62;#62; \n cert-manager "]
-            clusterip9["ClusterIP"]
-            pod19["#60;#60;POD#62;#62; \n Cert Manager Controller"]
-         end
-         subgraph service11["\n #60;#60;Service#62;#62; \n cert-manager-webhook "]
-            clusterip10["ClusterIP"]
-            pod20["#60;#60;POD#62;#62; \n Cert Manager Controller"]
-         end
-         pod21["#60;#60;POD#62;#62; \n Cert Manager CA Injector"]
        end
        subgraph uilayer2[" "]
          direction TB
@@ -302,6 +293,15 @@ graph LR
             clusterip2["ClusterIP"]
             pod18["#60;#60;POD#62;#62; \n Postgresql"]
          end
+         subgraph service6["\n #60;#60;Service#62;#62; \n cert-manager "]
+            clusterip9["ClusterIP"]
+            pod19["#60;#60;POD#62;#62; \n Cert Manager Controller"]
+         end
+         subgraph service11["\n #60;#60;Service#62;#62; \n cert-manager-webhook "]
+            clusterip10["ClusterIP"]
+            pod20["#60;#60;POD#62;#62; \n Cert Manager Controller"]
+         end
+         pod21["#60;#60;POD#62;#62; \n Cert Manager CA Injector"]
        end
      end
      subgraph di[" #60;#60;Node#62;#62; Domains I/O Area"]
