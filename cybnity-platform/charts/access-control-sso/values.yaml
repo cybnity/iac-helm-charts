@@ -71,19 +71,6 @@ keycloak:
       ## (with the correct destination port).
       ##
       allowExternal: false
-      ## @param networkPolicy.additionalRules Additional NetworkPolicy rules
-      ## Note that all rules are OR-ed.
-      ## Example:
-      ## additionalRules:
-      ##   - matchLabels:
-      ##       - role: frontend
-      ##   - matchExpressions:
-      ##       - key: role
-      ##         operator: In
-      ##         values:
-      ##           - frontend
-      ##
-      additionalRules: {}
 
     ## @section keycloak-config-cli parameters
 

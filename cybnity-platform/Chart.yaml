@@ -1,36 +1,35 @@
+apiVersion: v2
+name: cybnity-platform
+version: 1.0.0 # SemVer 2 version
+# @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
+description: CYBNITY defense platform chart for Kubernetes
+keywords:
+  - cybnity-platform
+home: https://hub.docker.com/r/cybnity/cybnity-platform
+sources:
+  # URLs to source code for the project
+  - https://github.com/cybnity/iac-helm-charts/tree/main/cybnity-platform
+
+dependencies:
+  #- name: common
+  #  version: 2.x.x
+  #  # Required definition to support mutiple used versions of common library versions by sub-charts
+  #  repository: oci://registry-1.docker.io/bitnamicharts
+  #  tags:
+  #    - bitnami-common
+  # Define managed independent projects when not including into the sub-folders
+  #- name: users-interactions-space
+  #  version: ~0.1.0 # chart version
+  #  repository: https://hub.docker.com/r/cybnity/users-interactions-space
+  #  condition: users-interactions-space.enabled # chart enabling/disabling (e.g subchart.enabled)
+
+maintainers:
+  - name: CYBNITY team
+    email: olivier@cybnity.org
+    url: https://github.com/cybnity/iac-helm-charts
+
+appVersion: "0.1.0" # Version of the app that this project contains
+
 annotations:
   category: Infrastructure
   licenses: Apache-2.0
-apiVersion: v2
-appVersion: 0.1.0
-
-# @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
-description: CYBNITY defense platform chart for Kubernetes
-
-home: https://hub.docker.com/r/cybnity/cybnity-platform
-keywords:
-- cybnity-platform
-
-maintainers:
-- name: CYBNITY
-  url: https://github.com/cybnity/iac-helm-charts
-
-name: cybnity-platform
-sources:
-- https://github.com/cybnity/iac-helm-charts/tree/main/cybnity-platform
-
-version: 1.0.0
-
-dependencies:
-- name: common
-  # Required definition to support mutiple used versions of common library versions by sub-charts
-  repository: oci://registry-1.docker.io/bitnamicharts
-  tags:
-  - bitnami-common
-  version: 2.x.x
-
-#- name: ui-apis-gateway
-#  version: 1.0.0
-#  repository: https://hub.docker.com/r/cybnity/ui-apis-gateway
-#  condition: ui-apis-gateway.enabled
-

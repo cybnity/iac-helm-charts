@@ -5,46 +5,6 @@
 # This is a YAML-formatted file specific to the environment
 # Declare variables to be passed into the templates.
 
-## @section Global parameters
-## Global Docker image parameters
-## Please, note that this will override the image parameters, including dependencies, configured to use the global value
-## Current available global Docker image parameters: imageRegistry, imagePullSecrets and storageClass
-
-## @param global.imageRegistry Global Docker image registry
-## @param global.imagePullSecrets Global Docker registry secret names as an array
-## @param global.storageClass Global StorageClass for Persistent Volume(s)
-##
-global:
-  imageRegistry: ""
-  ## E.g.
-  ## imagePullSecrets:
-  ##   - myRegistryKeySecretName
-  ##
-  imagePullSecrets: []
-  storageClass: ""
-
-## @section Common parameters
-## @param kubeVersion Override Kubernetes version
-##
-kubeVersion: ""
-## @param nameOverride String to partially override common.names.fullname
-##
-nameOverride: ""
-## @param fullnameOverride String to fully override common.names.fullname
-##
-fullnameOverride: ""
-## @param clusterDomain Default Kubernetes cluster domain
-##
-clusterDomain: cluster.local
-## @param commonLabels Labels to add to all deployed objects
-##
-commonLabels: {}
-## @param commonAnnotations Annotations to add to all deployed objects
-##
-commonAnnotations: {}
-## @param extraDeploy Array of extra objects to deploy with the release
-##
-extraDeploy: []
 ## Enable diagnostic mode in the statefulset
 ##
 diagnosticMode:
@@ -59,3 +19,20 @@ diagnosticMode:
   ##
   args:
     - infinity
+
+## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform deployed ---
+users-interactions-space:
+  redis:
+    ## @param architecture Redis&reg; architecture. Allowed values: `standalone` or `replication`
+    ##
+    architecture: standalone # limitation to unique master instance by default
+
+domains-interactions-space:
+  kafka:
+    ## @section Controller-eligible statefulset parameters
+    ##
+    controller:
+      ## @param controller.replicaCount Number of Kafka controller-eligible nodes
+      ## Ignore this section if running in Zookeeper mode.
+      ##
+      replicaCount: 1 # Limitation to unique replica instance by default

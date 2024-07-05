@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - '**/*.yaml'
-      - '**/*.yml'
+      - 'cybnity-platform/**/*.yaml'
+      - 'cybnity-platform/**/*.yml'
 
 jobs:
   package:
