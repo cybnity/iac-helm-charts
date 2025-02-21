@@ -104,6 +104,7 @@ The dynamic search of Node labels by the system during their initialization, ens
     'flowchart': { 'curve': 'monotoneY' }
   }
 }%%
+
 graph LR
   chart1["\n #60;#60;Helm Chart#62;#62; \n cybnity-platform "]
 
@@ -214,7 +215,6 @@ graph LR
   class is3,da3,da31,dio3,ui3,ui31,ui311,is2,da2,dio2,ui2,unique1,unique2 mediumfill;
   class systemx,systemy,systemz,systemx2,systemx2next,systemy2,systemy2next,systemz2,systemz2next,systems2,systemx3,systemx31,systemx311,systemy3,systemz3,systemz31,systems3,systemx4,systemy4,systemz4 dark;
   class layercomponents1,layercomponents2,layercomponents3,layercomponents4,layerset31,layerset32 transparent;
-
 ```
 
 ### Channels Configuration
@@ -249,6 +249,7 @@ Multiple channels are activated between systems constituying a standard CYBNITY 
     'flowchart': { 'curve': 'monotoneY' }
   }
 }%%
+
 graph LR
   subgraph cluster["Dev-Env Cluster"]
      direction LR
@@ -369,7 +370,6 @@ graph LR
   class pod1,pod2,pod3,pod4,pod5,pod6,pod7,pod8,pod9,pod10,pod11,pod12,pod13,pod14,pod15,pod16,pod17,pod18,pod19,pod20,pod21,podproxy1,podproxy2,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7,clusterip8,clusterip9,clusterip10 dark;
   class tunnel,service8 red;
   class controlplane reddot;
-
 ```
 
 # CYBNITY PLATFORM USAGE
