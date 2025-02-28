@@ -1,9 +1,23 @@
 name: Package & Publish Workflow
-
+run-name: PACKAGING & DOCKERHUB PUBLISH
 on:
   push:
+    # execution when ...
     branches:
-      - main
+      - 'feature*'
+      - 'main'
+      - 'integration'
+      - 'staging'
+    paths:
+      - '**/*.yaml'
+      - '**/*.yml'
+  delete:
+    # execution when ...
+    branches:
+      - 'feature*'
+      - 'main'
+      - 'integration'
+      - 'staging'
     paths:
       - '**/*.yaml'
       - '**/*.yml'
