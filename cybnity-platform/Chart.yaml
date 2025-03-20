@@ -2,9 +2,11 @@ apiVersion: v2
 name: cybnity-platform
 version: 1.0.0 # SemVer 2 version
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
-description: CYBNITY defense platform chart for Kubernetes
+description: CYBNITY systems packaged and integrated defense platform allowing deployment on Kubernetes cluster.
+
 keywords:
   - cybnity-platform
+
 home: https://hub.docker.com/r/cybnity/cybnity-platform
 
 sources:
@@ -12,24 +14,42 @@ sources:
   - https://github.com/cybnity/iac-helm-charts/tree/main/cybnity-platform
 
 dependencies:
-  #- name: common
-  #  version: 2.x.x
-  #  # Required definition to support mutiple used versions of common library versions by sub-charts
-  #  repository: oci://registry-1.docker.io/bitnamicharts
-  #  tags:
-  #    - bitnami-common
-  # Define managed independent projects when not including into the sub-folders
-  #- name: users-interactions-space
-  #  version: ~0.1.0 # chart version
-  #  repository: https://hub.docker.com/r/cybnity/users-interactions-space
-  #  condition: users-interactions-space.enabled # chart enabling/disabling (e.g subchart.enabled)
+  # GENERIC INFRASTRUCTURE MODULES
+  - condition: namespace.enabled
+    name: domains-interactions-space
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+
+  - condition: namespace.enabled
+    name: users-interactions-space
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+
+  - condition: namespace.enabled
+    name: knowledge-repository
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+
+  # APPLICATION MODULES
+  - condition: namespace.enabled, users-interactions-space.enabled
+    name: access-control-sso
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+
+  - condition: namespace.enabled, users-interactions-space.enabled, access-control-sso.enabled
+    name: reactive-messaging-gateway
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+
+  - condition: namespace.enabled, reactive-messaging-gateway.enabled, access-control-sso.enabled
+    name: web-reactive-frontend
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+
+  - condition: namespace.enabled, reactive-messaging-gateway.enabled, web-reactive-frontend.enabled, access-control-sso.enabled
+    name: ui-apis-gateway
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
 maintainers:
   - name: CYBNITY team
     email: olivier@cybnity.org
     url: https://github.com/cybnity/iac-helm-charts
 
-appVersion: "0.1.0" # Version of the app that this project contains
+appVersion: "0.1.0" # Version of the defense integrated solution that this project contains
 
 annotations:
   category: Infrastructure

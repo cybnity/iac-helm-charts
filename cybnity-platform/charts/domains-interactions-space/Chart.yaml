@@ -1,10 +1,12 @@
 apiVersion: v2
 name: domains-interactions-space
-version: 0.1.0  # SemVer 2 version
+version: 1.0.0  # SemVer 2 version
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
 # Project description (see https://artifacthub.io/packages/helm/bitnami/kafka)
 description: Kafka distributed streaming and CYBNITY domains collaboration platform over Kafka Raft (KRaft) protocol.
+
 type: application
+
 sources:
   # URLs to source code for the project
   - https://github.com/cybnity/iac-helm-charts/tree/main/cybnity-platform/charts/domains-interactions-space

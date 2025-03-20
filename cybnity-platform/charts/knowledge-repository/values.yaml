@@ -16,9 +16,9 @@ janusgraph:
   volumePermissions:
     enabled: true
 
-  ## @param replicaCount Number of Keycloak replicas to deploy
+  ## @param replicaCount Number of Graph server replicas to deploy
   ##
-  replicaCount: 3
+  replicaCount: 1
 
   cassandra:
     nodeSelector:
@@ -33,3 +33,15 @@ janusgraph:
     ##
     volumePermissions:
       enabled: true
+
+    ## Database credentials
+    ## @param dbUser.user Cassandra admin user
+    ## @param dbUser.forcePassword Force the user to provide a non
+    ## @param dbUser.password Password for `dbUser.user`. Randomly generated if empty
+    ## @param dbUser.existingSecret Use an existing secret object for `dbUser.user` password (will ignore `dbUser.password`)
+    ##
+    dbUser:
+        user: admin
+        forcePassword: false
+        password: "LKJJH6dgu"
+

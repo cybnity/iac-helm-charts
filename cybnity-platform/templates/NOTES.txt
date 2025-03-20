@@ -1,0 +1,3 @@
+Module installed by Helm according to Chart.yaml:
+- Generic infrastructure modules
+- CYBNITY application modules
