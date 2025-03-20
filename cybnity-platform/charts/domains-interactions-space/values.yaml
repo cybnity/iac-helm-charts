@@ -14,6 +14,10 @@ kafka:
   ## @section Controller-eligible statefulset parameters
   ##
   controller:
+    ## @param controller.replicaCount Number of Kafka controller-eligible nodes
+    ## Ignore this section if running in Zookeeper mode.
+    ##
+    replicaCount: 1 # Limitation to unique replica instance by default
     nodeSelector:
       cybnity.io/domains-io-area: "true"
 

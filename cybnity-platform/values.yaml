@@ -1,12 +1,10 @@
-# Default values for cybnity-platform.
+# Default configuration values for cybnity-platform systems packaging including application components (Docker containerized applications), technical components (e.g integration solution, persistence systems) and infrastructure resources (e.g Kubernetes services).
+
 # This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-# Default values for cybnity-platform.
-# This is a YAML-formatted file specific to the environment
-# Declare variables to be passed into the templates.
+# Definition of variables to be passed into the templates.
+# Default values for cybnity-platform as basically defined in this file.
 
 ## Enable diagnostic mode in the statefulset
-##
 diagnosticMode:
   ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
   ##
@@ -20,19 +18,63 @@ diagnosticMode:
   args:
     - infinity
 
-## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform deployed ---
-users-interactions-space:
-  redis:
+# values authorized: keep, delete
+helmResourcePolicy: delete
+
+## ---------------
+
+## --- KUBERNETES TEMPLATES values ---
+
+### Namespace object configuration
+namespaces:
+  - cybnity-system
+  # To support cert-manager
+  - cert-manager
+
+annotations:
+  certmanager.k8s.io/disable-validation: "true"
+
+namespace:
+  labels: {}
+   #  additional_label1: myvalue
+
+## ---------------
+
+## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform infrastructure modules deployed ---
+## Custom redefined value according to the version deployed of application systems
+
+### domains-interactions-space:
+#kafka:
+
+### users-interactions-space:
+# redis:
     ## @param architecture Redis&reg; architecture. Allowed values: `standalone` or `replication`
     ##
-    architecture: standalone # limitation to unique master instance by default
+#   architecture: standalone # limitation to unique master instance by default
 
-domains-interactions-space:
-  kafka:
-    ## @section Controller-eligible statefulset parameters
+### knowledge-repository:
+janusgraph:
+  ## @param replicaCount Number of Graph server replicas to deploy
+  ##
+  replicaCount: 1
+  #cassandra:
+
+### access-control-sso
+keycloak:
+    ## @param replicaCount Number of Keycloak replicas to deploy
     ##
-    controller:
-      ## @param controller.replicaCount Number of Kafka controller-eligible nodes
-      ## Ignore this section if running in Zookeeper mode.
-      ##
-      replicaCount: 1 # Limitation to unique replica instance by default
+    replicaCount: 3
+
+## ---------------
+
+## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform application modules deployed ---
+
+### reactive-messaging-gateway:
+
+### web-reactive-frontend:
+
+### ui-apis-gateway
+#cert-manager:
+#haproxy:
+
+## ---------------
