@@ -52,5 +52,5 @@ maintainers:
 appVersion: "0.1.0" # Version of the defense integrated solution that this project contains
 
 annotations:
-  category: Infrastructure
+  category: Solution
   licenses: Apache-2.0
