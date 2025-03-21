@@ -1,5 +1,5 @@
-# Values regarding CANDIDATE or PERFORMANTE version of cybnity-platform packaged systems.
-# The version of cybnity-platform is based on latest stable versions of application components (and optionnaly evaluated regarding its level of performance) that are currently eligible for deploymnent into a production environment.
+# Values regarding BETA or CANDIDATE version of cybnity-platform packaged systems.
+# The CANDIDATE version of cybnity-platform is based on latest stable versions of application components that are currently eligible for deploymnent into a capacity and performance evaluation environment.
 
 # It's including application components (Docker containerized application components), technical components (e.g integration middleware systems, data storage systems) and infrastructure resources (e.g Kubernetes services, network components, configuration objects).
 

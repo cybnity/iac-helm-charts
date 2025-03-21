@@ -1,6 +1,6 @@
 apiVersion: v2
-name: cybnity-platform
-version: 1.0.0 # SemVer 2 version
+name: cybnity-platform # Chart name
+version: 1.0.0 # SemVer 2 Chart version
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
 description: CYBNITY systems packaged and integrated defense platform allowing deployment on Kubernetes cluster.
 
@@ -44,7 +44,7 @@ dependencies:
     name: ui-apis-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-maintainers:
+maintainers: # Referent maintainers of this Helm project
   - name: CYBNITY team
     email: olivier@cybnity.org
     url: https://github.com/cybnity/iac-helm-charts

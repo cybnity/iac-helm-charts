@@ -33,7 +33,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ github.token }}
       PACKAGED_PROJECT: "cybnity-platform"
-      PROJECT_VERSION: "0.1.0"
+      PROJECT_VERSION: "1.0.0"
       # See doc : https://github.com/atomicfi-engineering/action-build-push-chart-oci-registry
       # Path to chart. Required
       CHART_DEST: "packages"
@@ -42,6 +42,7 @@ jobs:
       update-dependencies: true
     outputs:
       artifact_fullname: ${{ env.ARTIFACT_FULLNAME }}
+      alpha_artifact_fullname: ${{ env.ALPHA_ARTIFACT_FULLNAME }}
     steps:
       - name: Helm source codes checkout
         id: checkout_step
@@ -65,7 +66,7 @@ jobs:
         run: |
           helm dependency update ${{ env.PACKAGED_PROJECT }}
           
-      - name: Helm Packaging
+      - name: Project Revision Helm Packaging
         run: |
           PACKAGE_VERSION_NAME="$PROJECT_VERSION+$(git rev-parse --short "$GITHUB_SHA")"
           echo "PACKAGE_VERSION_NAME=$PACKAGE_VERSION_NAME" >> $GITHUB_ENV
@@ -82,7 +83,25 @@ jobs:
           path: ${{ env.CHART_PATH }}
           if-no-files-found: error
           retention-days: 5
-    
+
+      - name: Alpha Version Helm Packaging
+        run: |
+          PACKAGE_ALPHA_VERSION_NAME="alpha"
+          echo "PACKAGE_ALPHA_VERSION_NAME=$PACKAGE_ALPHA_VERSION_NAME" >> $GITHUB_ENV
+          helm package ${{ env.PACKAGED_PROJECT }} --version "$PACKAGE_ALPHA_VERSION_NAME" -d ${{ env.CHART_DEST }}
+          ALPHA_ARTIFACT_FULLNAME="${{ env.PACKAGED_PROJECT }}-$PACKAGE_ALPHA_VERSION_NAME.tgz"
+          echo "ALPHA_ARTIFACT_FULLNAME=$ALPHA_ARTIFACT_FULLNAME" >> $GITHUB_ENV
+          ALPHA_CHART_PATH="${{ env.CHART_DEST }}/${{ env.ALPHA_ARTIFACT_FULLNAME }}"
+          echo "ALPHA_CHART_PATH=$ALPHA_CHART_PATH" >> $GITHUB_ENV
+
+      - uses: actions/upload-artifact@v4
+        # See docc at https://github.com/actions/upload-artifact
+        with:
+          name: ${{ env.ALPHA_ARTIFACT_FULLNAME }}
+          path: ${{ env.ALPHA_CHART_PATH }}
+          if-no-files-found: error
+          retention-days: 5
+
   publish:
     name: Repository Publishing
     needs: [package]
@@ -96,6 +115,7 @@ jobs:
       DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_ACCESS_TOKEN }}
       OCI_PATH: ${{ secrets.DOCKERHUB_OLIVIER_PATH }}
       PACKAGED_CHART_PATH: ${{ needs.package.outputs.artifact_fullname }}
+      PACKAGED_ALPHA_CHART_PATH: ${{ needs.package.outputs.alpha_artifact_fullname }}
       # URL of registry, excluding the protocol. Required.
       registry-url: registry-1.docker.io
       # Repository in registry to push to
@@ -117,8 +137,14 @@ jobs:
           --password ${{ env.OCI_PATH }} \
           ${{ env.registry-url }}
           
-      - name: Push Chart
+      - name: Push Project Chart Revision
         shell: bash
         run: |
           # Store sha version of artifact
           helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
+
+      - name: Push Alpha Chart Version
+        shell: bash
+        run: |
+          # Store ALPHA version of artifact
+          helm push ${{ env.PACKAGED_ALPHA_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}

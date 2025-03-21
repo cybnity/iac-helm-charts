@@ -22,12 +22,11 @@ Project type: Maven or Node.js implementation structures; dockerization auto-gen
 Description: each deployable application provisioning is defined via Helm chart and sub-charts.
 - [reactive-messaging-gateway](charts/reactive-messaging-gateway): Helm provisioning project of containerized web backend server.
 - [web-reactive-frontend](charts/web-reactive-frontend): Helm provisioning project of containerized web frontend server.
-- [namespace](charts/namespace): Helm provisioning project regarding namespace implemented into a CYBNITY cluster.
 
 ## REUSABLE PROVISIONING SYSTEM PROJECTS
 Perimeter: some infrastructure third-party software (e.g Zookeeper application) are available on the market as template of provisioning helping to quickly customize the runtime (provisioning of pre-configured Docker image) into a Kubernetes platform. Some infrastructure components are reused by CYBNITY as infrastructure systems with customization of the prepared templates of their images helmization.
 
-Project type: Helm implementation structures.
+Project type: Helm implementation structure.
 
 Description: several generic infrastructure projects required by the CYBNITY implementation architecture are managed.
 
@@ -59,6 +58,7 @@ Each defined Node or set of Nodes (e.g multiple nodes supporting a scalability m
 
 #### Distribution Strategy of each CYBNITY system
 The distribution of systems is automated according the labels declared by any existing Node into the deployed cluster.
+
 Each CYBNITY component is configured by a Helm Chart with `NodeSelector` declaration (e.g see `values.yaml` files) that identify on with type of Node the component should be installed and started by the K8s Control Plane.
 
 For example, the reactive-messaging-gateway system is provisionned to be deployed on the Node constitying an isolated cluster part named `user-interfaces-area` with the directive indicated into its [value.yaml file](/charts/reactive-messaging-gateway/values.yaml) equals `true` that means _"install this element on a node that have a defined label named cybnity.io/user-interfaces-area equals to true"_:
@@ -372,6 +372,23 @@ graph LR
   class controlplane reddot;
 ```
 
+## PROVISIONED APPLICATION SYSTEMS PROJECTS
+Perimeter: the deployable Kubernetes components required by the CYBNITY solution in terms of K8S technical components, scripts and/or configuration elements supporting the CYBNITY solution deployment into a cluster.
+
+Project type: Helm implementation structure.
+
+Description: each deployable resource provisioning is defined via dedicated file and/or sub-folder:
+- [templated K8S resources](templates/README.md): Helm provisioning Kubernetes objects (e.g namespace, deployment, service, ingress, configmap) implemented into a cluster deployed.
+- [pre- or post-deployment tasks](scripts/README.md): Helm provisioning scripts implemented before or after deployment of CYBNITY solution onto a cluster deployed.
+
+# SYSTEM VERSION PROJECTS
+For helping to manage deployment of several types of CYBNITY application solution version on several type of environment according to their steps of development, multiple __values.yaml__ are defined and usable by developer and/or Continuous Delivery tools:
+- __values-dev.yaml__: version of CYBNITY packaged Systems including alpha version of application components (ready for deployment onto a shared development environment)
+- __values-qa.yaml__: version of CYBNITY packaged Systems including alpha version of application components (ready for execution of acceptance test stage including integration quality test, via deployment onto a QA environment)
+- __values-uat.yaml__: version of CYBNITY packaged Systems including beta version of application components (ready for execution of user acceptance test stage with deployment onto a UAT environment).
+- __values-performance.yaml__: version of CYBNITY packaged Systems including beta or candidate version of application components (already validated by UAT stage process, and ready for capacity and performance evaluation via deployment on a PERFORMANCE environment).
+- __values.yaml__: version of CYBNITY packaged Systems including candidate or performant version of application components (optionally already tested about its performance, and ready for deployment onto a production environment) considered as Baseline latest production version.
+
 # CYBNITY PLATFORM USAGE
 ## VPN tunnel to K8s cluster
 When cluster is started, the CYBNITY access via browser is possible after start of a VPN tunnel.
@@ -383,3 +400,6 @@ minikube tunnel -p <<your cluster profile name>>
 
 ## SSO server configuration
 The access to Keycloak configuration is allowed via url externally exposed (external url of `access-control-sso-system`) on port 80 and usable from web browser.
+
+#
+[Back To Home](../README.md)

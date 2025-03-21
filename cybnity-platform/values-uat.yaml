@@ -1,7 +1,9 @@
-# Values regarding CANDIDATE or PERFORMANTE version of cybnity-platform packaged systems.
-# The version of cybnity-platform is based on latest stable versions of application components (and optionnaly evaluated regarding its level of performance) that are currently eligible for deploymnent into a production environment.
+# Values regarding BETA version of cybnity-platform packaged systems.
+# The BETA version of cybnity-platform is based on latest stable versions of application components that are currently eligible for deploymnent into a user acceptance test stage environment.
 
 # It's including application components (Docker containerized application components), technical components (e.g integration middleware systems, data storage systems) and infrastructure resources (e.g Kubernetes services, network components, configuration objects).
+
+# BETA version: this packaged solution version SHALL NOT BE USED IN PRODUCTION because without any guaranted about successly validated by executed user acceptance test stage (end-to-end usage scenation tests not performed).
 
 # This is a YAML-formatted file, that define variables to be passed into the templates.
 
