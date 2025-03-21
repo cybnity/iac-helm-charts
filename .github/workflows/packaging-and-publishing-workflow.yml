@@ -86,7 +86,7 @@ jobs:
 
       - name: Alpha Version Helm Packaging
         run: |
-          PACKAGE_ALPHA_VERSION_NAME="alpha"
+          PACKAGE_ALPHA_VERSION_NAME="$PROJECT_VERSION+alpha"
           echo "PACKAGE_ALPHA_VERSION_NAME=$PACKAGE_ALPHA_VERSION_NAME" >> $GITHUB_ENV
           helm package ${{ env.PACKAGED_PROJECT }} --version "$PACKAGE_ALPHA_VERSION_NAME" -d ${{ env.CHART_DEST }}
           ALPHA_ARTIFACT_FULLNAME="${{ env.PACKAGED_PROJECT }}-$PACKAGE_ALPHA_VERSION_NAME.tgz"
