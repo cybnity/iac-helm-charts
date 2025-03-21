@@ -377,17 +377,9 @@ Perimeter: the deployable Kubernetes components required by the CYBNITY solution
 
 Project type: Helm implementation structure.
 
-Description: each deployable resource provisioning is defined via dedicated file and/or sub-folder:
+Description: each deployable resource provisioning is defined via dedicated file and/or sub-folder.
 - [templated K8S resources](templates/README.md): Helm provisioning Kubernetes objects (e.g namespace, deployment, service, ingress, configmap) implemented into a cluster deployed.
 - [pre- or post-deployment tasks](scripts/README.md): Helm provisioning scripts implemented before or after deployment of CYBNITY solution onto a cluster deployed.
-
-# SYSTEM VERSION PROJECTS
-For helping to manage deployment of several types of CYBNITY application solution version on several type of environment according to their steps of development, multiple __values.yaml__ are defined and usable by developer and/or Continuous Delivery tools:
-- __values-dev.yaml__: version of CYBNITY packaged Systems including alpha version of application components (ready for deployment onto a shared development environment)
-- __values-qa.yaml__: version of CYBNITY packaged Systems including alpha version of application components (ready for execution of acceptance test stage including integration quality test, via deployment onto a QA environment)
-- __values-uat.yaml__: version of CYBNITY packaged Systems including beta version of application components (ready for execution of user acceptance test stage with deployment onto a UAT environment).
-- __values-performance.yaml__: version of CYBNITY packaged Systems including beta or candidate version of application components (already validated by UAT stage process, and ready for capacity and performance evaluation via deployment on a PERFORMANCE environment).
-- __values.yaml__: version of CYBNITY packaged Systems including candidate or performant version of application components (optionally already tested about its performance, and ready for deployment onto a production environment) considered as Baseline latest production version.
 
 # CYBNITY PLATFORM USAGE
 ## VPN tunnel to K8s cluster
