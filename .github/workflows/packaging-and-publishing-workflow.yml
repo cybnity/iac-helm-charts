@@ -84,9 +84,9 @@ jobs:
           if-no-files-found: error
           retention-days: 5
 
-      - name: Alpha Version Helm Packaging
+      - name: Latest Version Helm Packaging
         run: |
-          PACKAGE_ALPHA_VERSION_NAME="$PROJECT_VERSION-alpha"
+          PACKAGE_ALPHA_VERSION_NAME="$PROJECT_VERSION-latest"
           echo "PACKAGE_ALPHA_VERSION_NAME=$PACKAGE_ALPHA_VERSION_NAME" >> $GITHUB_ENV
           helm package ${{ env.PACKAGED_PROJECT }} --version "$PACKAGE_ALPHA_VERSION_NAME" -d ${{ env.CHART_DEST }}
           ALPHA_ARTIFACT_FULLNAME="${{ env.PACKAGED_PROJECT }}-$PACKAGE_ALPHA_VERSION_NAME.tgz"
@@ -147,8 +147,8 @@ jobs:
         with:
           name: ${{ env.PACKAGED_ALPHA_CHART_PATH }}
 
-      - name: Push Alpha Chart Version
+      - name: Push Latest Chart Version
         shell: bash
         run: |
-          # Store ALPHA version of artifact
+          # Store LATEST version of artifact
           helm push ${{ env.PACKAGED_ALPHA_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
