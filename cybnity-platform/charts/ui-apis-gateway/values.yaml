@@ -85,7 +85,7 @@ cert-manager:
       helm.sh/hook-weight: "1"
       helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
       # Disable Linkerd
-      linkerd.io/inject: disabled
+      #linkerd.io/inject: disabled
 
 haproxy:
   ## @section Global parameters
