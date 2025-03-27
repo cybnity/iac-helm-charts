@@ -11,6 +11,9 @@ on:
     paths:
       - '**/*.yaml'
       - '**/*.yml'
+      - '**/*.json'
+      - '**/*.tpl'
+      - '**/*.txt'
   delete:
     # execution when ...
     branches:
@@ -21,6 +24,9 @@ on:
     paths:
       - '**/*.yaml'
       - '**/*.yml'
+      - '**/*.json'
+      - '**/*.tpl'
+      - '**/*.txt'
 
 jobs:
   package:
