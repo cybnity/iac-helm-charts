@@ -4,7 +4,6 @@
 # It's including application components (Docker containerized application components), technical components (e.g integration middleware systems, data storage systems) and infrastructure resources (e.g Kubernetes services, network components, configuration objects).
 
 # This is a YAML-formatted file, that define variables to be passed into the templates.
-
 ## Enable diagnostic mode in the statefulset
 diagnosticMode:
   ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
