@@ -5,4 +5,4 @@ Presentation of pre- or post-deployment tasks defined into the scripts directory
 - Clean up resources after deployment
 
 #
-[Back To Home](../README.md)
+[Back To Home](README.md)

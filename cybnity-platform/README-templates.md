@@ -27,4 +27,4 @@ Example of each namespace configuration in __values.xml__:
 ```
 
 #
-[Back To Home](../README.md)
+[Back To Home](README.md)
