@@ -12,6 +12,7 @@ home: https://hub.docker.com/r/cybnity/cybnity-platform
 sources:
   # URLs to source code for the project
   - https://github.com/cybnity/iac-helm-charts/tree/main/cybnity-platform
+  - https://github.com/bitnami/charts/tree/main/bitnami/common
 
 dependencies:
   # GENERIC INFRASTRUCTURE MODULES

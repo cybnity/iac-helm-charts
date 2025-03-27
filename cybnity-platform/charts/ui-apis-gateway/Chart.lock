@@ -1,9 +1,0 @@
-dependencies:
-- name: cert-manager
-  repository: https://charts.jetstack.io
-  version: v1.12.0
-- name: haproxy
-  repository: https://charts.bitnami.com/bitnami
-  version: 0.6.16
-digest: sha256:ab33d96f0c38291177c12f33ae735f42758660e3d728f6083f951246acec92c7
-generated: "2024-06-25T10:02:28.339301+02:00"
