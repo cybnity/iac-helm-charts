@@ -8,6 +8,8 @@ cert-manager:
   image:
     tag: v1.11.1
 
+  installCRDs: true
+
   # ASSIGNMENT TO THE NODE ('layer' label value relative to a cluster area) USING THE CERT-MANAGER
   ## Node labels for pod assignment
   # cybnity.io/domains-io-area: "true"
@@ -76,6 +78,14 @@ cert-manager:
     #            operator: In
     #            values:
     #            - ui-cert-manager
+
+    # Optional additional annotations to add to the startupapicheck Job
+    jobAnnotations:
+      helm.sh/hook: post-install
+      helm.sh/hook-weight: "1"
+      helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+      # Disable Linkerd
+      linkerd.io/inject: disabled
 
 haproxy:
   ## @section Global parameters
