@@ -26,17 +26,16 @@ helmResourcePolicy: delete
 ## --- KUBERNETES TEMPLATES values ---
 
 ### Namespace objects configuration
-namespaces:
-  - cybnity-system
+namespaces: {}
+  #- cybnity-system
   # To support cert-manager
-  - cert-manager
-
-annotations:
-  certmanager.k8s.io/disable-validation: "true"
-
+  #- cert-manager
 namespace:
   labels: {}
    #  additional_label1: myvalue
+
+annotations:
+  certmanager.k8s.io/disable-validation: "true"
 
 ## ---------------
 
