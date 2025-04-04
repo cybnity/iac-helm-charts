@@ -15,7 +15,7 @@ sources:
 dependencies:
   - condition: keycloak.enabled
     name: keycloak
-    version: "21.4.4"
+    version: "21.4.4" # Keycloak project documentation at https://github.com/bitnami/charts/tree/main/bitnami/keycloak
     repository: https://charts.bitnami.com/bitnami # URL of the Bitnami repository
 
 appVersion: "0.1.0" # Version of the app that this project contains

@@ -1,3 +1,4 @@
+# Origin values.yaml documentation at https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml
 kafka:
   # Overriding the Helm chart name ensures configuration files also change
   nameOverride: "dis-system"
