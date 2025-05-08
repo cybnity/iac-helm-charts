@@ -6,7 +6,7 @@ cert-manager:
 
   # IMAGE VERSION SUPPORTED BY THE CustomResourceDefinition created into the cluster instance
   image:
-    tag: v1.11.1
+    tag: v1.17.2 #v1.11.1 previously
 
   installCRDs: true
 

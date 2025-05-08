@@ -6,10 +6,16 @@ Install the Cert Manager addon into Kubernetes from [ArtifactHUB Helm chart](htt
 The Helm chart project is managed as reference chart on [GitHub project](https://github.com/cert-manager/cert-manager).
 
 ## CRD
-Installation of CustomResourceDefinition resources is recommended by kubectl and not from Helm chart avoiding an automatic CRDs instances deletion when CYBNITY Platform environment is upgraded or deleted from Helm CLI:
+Installation of CustomResourceDefinition resources is recommended by kubectl (see [cert-manager tutorial](https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/) for help) and not from Helm chart avoiding an automatic CRDs instances deletion when CYBNITY Platform environment is upgraded or deleted from Helm CLI:
 
 ```shell
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.1/cert-manager.crds.yaml
+# kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.1/cert-manager.crds.yaml
+# Install cert-manager
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.2/cert-manager.yaml
+
+# Check that deployment and resources have been installed
+kubectl -n cert-manager get all
+
 ```
 
 ## HELM CHART
