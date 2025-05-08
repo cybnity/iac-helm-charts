@@ -1,15 +1,19 @@
+# Origin values.yaml documentation at https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml
 kafka:
   # Overriding the Helm chart name ensures configuration files also change
   nameOverride: "dis-system"
   fullnameOverride: "dis-system"
 
-  ## Init containers parameters:
-  ## volumePermissions: Change the owner and group of the persistent volume(s) mountpoint(s) to 'runAsUser:fsGroup' on each node
+  ## Default init Containers
   ##
-  volumePermissions:
-    ## @param volumePermissions.enabled Enable init container that changes the owner and group of the persistent volume
+  defaultInitContainers:
+    ## 'volume-permissions' init container
+    ## Used to change the owner and group of the persistent volume(s) mountpoint(s) to 'runAsUser:fsGroup' on each node
     ##
-    enabled: true
+    volumePermissions:
+      ## @param volumePermissions.enabled Enable init container that changes the owner and group of the persistent volume
+      ##
+      enabled: true
 
   ## @section Controller-eligible statefulset parameters
   ##
