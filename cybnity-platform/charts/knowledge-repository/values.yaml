@@ -41,7 +41,7 @@ janusgraph:
     ## @param dbUser.existingSecret Use an existing secret object for `dbUser.user` password (will ignore `dbUser.password`)
     ##
     dbUser:
-        user: admin
-        forcePassword: false
-        password: "LKJJH6dgu"
+      user: admin
+      forcePassword: false
+      password: "LKJJH6dgu"
 

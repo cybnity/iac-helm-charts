@@ -1,3 +1,4 @@
+# See documentation at https://github.com/bitnami/charts/blob/main/bitnami/redis/README.md#parameters
 redis:
   global:
     redis:
