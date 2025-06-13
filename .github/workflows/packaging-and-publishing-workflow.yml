@@ -139,8 +139,6 @@ jobs:
         run: |
           resolvectl status
           sudo cat /etc/resolv.conf
-          echo ${{ env.registry-url }}
-          echo ${{ env.OCI_PATH }}
           #sudo echo "nameserver 8.8.8.8" >> /etc/resolv.conf
           #sudo echo "nameserver 8.8.4.4" >> /etc/resolv.conf
           #sudo systemctl daemon-reload
@@ -151,8 +149,8 @@ jobs:
         shell: bash
         run: |
           helm registry login \
-          --username ${{ env.DOCKER_REGISTRY_USERNAME }} \
-          --password-stdin ${{ env.OCI_PATH }} \
+          -u ${{ env.DOCKER_REGISTRY_USERNAME }} \
+          -p ${{ env.OCI_PATH }} \
           ${{ env.registry-url }}
           
       - name: Push Project Chart Revision
