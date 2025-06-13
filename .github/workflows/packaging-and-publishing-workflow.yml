@@ -137,7 +137,7 @@ jobs:
       - name: Helm Registry Login
         shell: bash
         run: |
-          helm registry login -u ${{ env.DOCKER_REGISTRY_USERNAME }} --password-stdin ${{ env.OCI_PATH }} ${{ env.registry-url }}
+          helm registry login -u ${{ env.DOCKER_REGISTRY_USERNAME }} -p ${{ env.OCI_PATH }} ${{ env.registry-url }}
           
       - name: Push Project Chart Revision
         shell: bash
