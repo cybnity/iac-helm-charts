@@ -115,7 +115,7 @@ jobs:
     if: success()
     permissions:
       # permits an action to upload and publish packaged files
-      contents: write
+      contents: read
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
