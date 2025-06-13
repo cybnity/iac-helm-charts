@@ -14,6 +14,7 @@ on:
       - '**/*.json'
       - '**/*.tpl'
       - '**/*.txt'
+      - '.github/workflows/*.yml'
   delete:
     # execution when ...
     branches:
