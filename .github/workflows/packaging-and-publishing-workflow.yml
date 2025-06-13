@@ -139,6 +139,16 @@ jobs:
         run: |
           helm registry login -u ${{ env.DOCKER_REGISTRY_USERNAME }} -p ${{ env.OCI_PATH }} ${{ env.registry-url }}
           
+      - name: Push Project Chart Revision to OCI compatible registry (DockerHub)
+        uses: bsord/helm-push@4.2.0
+        with:
+          useOCIRegistry: true
+          registry-url:  oci://${{ env.registry-url }}/${{ env.repository }}
+          username: ${{ env.DOCKER_REGISTRY_USERNAME }}
+          access-token: ${{ env.OCI_PATH }}
+          force: true
+          chart-folder: chart
+
       - name: Push Project Chart Revision
         shell: bash
         run: |
