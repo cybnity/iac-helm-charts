@@ -138,8 +138,8 @@ jobs:
         shell: bash
         run: |
           resolvectl status \
-          echo "nameserver 8.8.8.8" >> /etc/resolv.conf \
-          echo "nameserver 8.8.4.4" >> /etc/resolv.conf \
+          sudo echo "nameserver 8.8.8.8" >> /etc/resolv.conf \
+          sudo echo "nameserver 8.8.4.4" >> /etc/resolv.conf \
           sudo systemctl daemon-reload \
           sudo systemctl restart docker
           resolvectl status
