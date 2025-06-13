@@ -139,7 +139,7 @@ jobs:
         run: |
           helm registry login \
           --username ${{ env.DOCKER_REGISTRY_USERNAME }} \
-          --password ${{ env.OCI_PATH }} \
+          --password-stdin ${{ env.OCI_PATH }} \
           ${{ env.registry-url }}
           
       - name: Push Project Chart Revision
