@@ -117,19 +117,17 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     env:
-      DOCKER_REGISTRY_USERNAME: ${{ secrets.DOCKER_REGISTRY_ACCESS_ACCOUNT }}
-      DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_ACCESS_TOKEN }}
-      OCI_PATH: ${{ secrets.DOCKERHUB_OLIVIER_PATH }}
+      # Username to login to Dockerhub registry
+      DOCKER_REGISTRY_USERNAME: ${{ secrets.DOCKERHUB_CYBNITY_ACCOUNT }}
+      #DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_ACCESS_TOKEN }}
+      # Password to login to registry
+      OCI_PATH: ${{ secrets.DOCKERHUB_CYBNITY_PATH }}
       PACKAGED_CHART_PATH: ${{ needs.package.outputs.artifact_fullname }}
       PACKAGED_ALPHA_CHART_PATH: ${{ needs.package.outputs.alpha_artifact_fullname }}
       # URL of registry, excluding the protocol. Required.
       registry-url: registry-1.docker.io
       # Repository in registry to push to
       repository: cybnity
-      # Username to login to registry
-      username: cybnity
-      # Password to login to registry
-      # password: ${{ secrets.DOCKERHUB_OLIVIER_PATH }}
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -139,7 +137,7 @@ jobs:
         shell: bash
         run: |
           helm registry login \
-          --username ${{ env.username }} \
+          --username ${{ env.DOCKER_REGISTRY_USERNAME }} \
           --password ${{ env.OCI_PATH }} \
           ${{ env.registry-url }}
           
