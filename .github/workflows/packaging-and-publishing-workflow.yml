@@ -138,12 +138,14 @@ jobs:
         shell: bash
         run: |
           helm registry login -u ${{ env.DOCKER_REGISTRY_USERNAME }} -p ${{ env.OCI_PATH }} ${{ env.registry-url }}
+          # Store sha version of artifact
+          helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
           
       - name: Push Project Chart Revision to DockerHub
         shell: bash
         run: |
           # Store sha version of artifact
-          helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }} --username ${{ env.DOCKER_REGISTRY_USERNAME }} --password ${{ env.OCI_PATH }}
+          helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
 
       - uses: actions/download-artifact@v4
         with:
