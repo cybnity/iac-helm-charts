@@ -143,7 +143,7 @@ jobs:
         shell: bash
         run: |
           # Store sha version of artifact
-          helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }} -p ${{ env.OCI_PATH }} -u ${{ env.DOCKER_REGISTRY_USERNAME }}
+          helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }} --plain-http
 
       - uses: actions/download-artifact@v4
         with:
