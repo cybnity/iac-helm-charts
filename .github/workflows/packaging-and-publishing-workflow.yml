@@ -118,6 +118,7 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     env:
+      GITHUB_TOKEN: ${{ github.token }}
       # Username to login to Dockerhub registry
       DOCKER_REGISTRY_USERNAME: ${{ secrets.DOCKERHUB_CYBNITY_ACCOUNT }}
       #DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_ACCESS_TOKEN }}
@@ -143,7 +144,7 @@ jobs:
         shell: bash
         run: |
           # Store sha version of artifact
-          helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }} --plain-http
+          helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
 
       - uses: actions/download-artifact@v4
         with:
