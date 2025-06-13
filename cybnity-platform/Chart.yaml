@@ -1,6 +1,7 @@
 apiVersion: v2
 name: cybnity-platform # Chart name
 version: 1.0.0 # SemVer 2 Chart version
+icon: https://github.com/cybnity/foundation/blob/main/cybnity-logo.png # Internet accessible URL to icon image, or base64 formatted icon
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
 description: CYBNITY systems packaged and integrated defense platform allowing deployment on Kubernetes cluster.
 

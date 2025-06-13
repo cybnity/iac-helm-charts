@@ -31,3 +31,7 @@ redis:
   replica:
     nodeSelector:
       cybnity.io/user-interfaces-area: "true"
+
+    # Custom labels usable into cluster (e.g from selector configuration to target this system for externalization outside of the cluster)
+    podLabels:
+      cybnity.io/app-system: redis
