@@ -139,12 +139,13 @@ jobs:
         run: |
           resolvectl status
           sudo cat /etc/resolv.conf
-          ping google.com
-          sudo echo "nameserver 8.8.8.8" >> /etc/resolv.conf
-          sudo echo "nameserver 8.8.4.4" >> /etc/resolv.conf
-          sudo systemctl daemon-reload
-          sudo systemctl restart docker
-          resolvectl status
+          echo ${{ env.registry-url }}
+          echo ${{ env.OCI_PATH }}
+          #sudo echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+          #sudo echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+          #sudo systemctl daemon-reload
+          #sudo systemctl restart docker
+          #resolvectl status
 
       - name: Helm Registry Login
         shell: bash
