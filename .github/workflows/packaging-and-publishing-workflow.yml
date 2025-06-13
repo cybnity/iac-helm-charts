@@ -131,6 +131,9 @@ jobs:
       # Repository in registry to push to
       repository: cybnity
     steps:
+      - name: Install Helm tool
+        uses: azure/setup-helm@v4
+
       - uses: actions/download-artifact@v4
         with:
           name: ${{ env.PACKAGED_CHART_PATH }}
@@ -144,7 +147,7 @@ jobs:
         shell: bash
         run: |
           # Store sha version of artifact
-          helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }} --insecure-skip-tls-verify
+          helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
 
       - uses: actions/download-artifact@v4
         with:
