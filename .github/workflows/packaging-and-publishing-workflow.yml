@@ -131,6 +131,7 @@ jobs:
       # Repository in registry to push to
       repository: cybnity
     steps:
+      # Required Helm tool activation allowing permission for remote repository publish
       - name: Install Helm tool
         uses: azure/setup-helm@v4
 
@@ -141,20 +142,21 @@ jobs:
       - name: Helm Registry Login
         shell: bash
         run: |
+          # Login to Helm registry (DockerHub hosted)
           helm registry login -u ${{ env.DOCKER_REGISTRY_USERNAME }} -p ${{ env.OCI_PATH }} ${{ env.registry-url }}
           
       - name: Push Project Chart Revision to DockerHub
         shell: bash
         run: |
-          # Store sha version of artifact
+          # Store sha version of artifact into Helm repository
           helm push ${{ env.PACKAGED_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
 
       - uses: actions/download-artifact@v4
         with:
           name: ${{ env.PACKAGED_ALPHA_CHART_PATH }}
 
-      - name: Push Latest Chart Version
+      - name: Push Latest Chart Version to DockerHub
         shell: bash
         run: |
-          # Store LATEST version of artifact
+          # Store LATEST version of artifact into Helm repository
           helm push ${{ env.PACKAGED_ALPHA_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
