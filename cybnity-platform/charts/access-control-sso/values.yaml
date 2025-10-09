@@ -118,7 +118,7 @@ keycloak:
         existingSecret: "" ## Name of existing secret to use for PostgreSQL credentials
         secretKeys:
           userPasswordKey: "password" ## Name of key in existing secret to use for PostgreSQL credentials. Only used when 'auth.existingSecret' is set
-      architecture: standalone ## PostgreSQL architecture ('standalone' or 'replication)
+      architecture: standalone ## PostgreSQL architecture ('standalone' or 'replication')
 
       ## @section PostgreSQL Primary parameters
       ##
