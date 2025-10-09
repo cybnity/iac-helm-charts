@@ -440,8 +440,8 @@ haproxy:
       http-request set-header X-Forwarded-For %[src]
       #http-request replace-value Host (.*):.* \1
       # CORS routing via CORS backend
-      #acl is_options method OPTIONS
-      #use_backend cors_backend if is_options
+      # acl is_options method OPTIONS
+      # use_backend cors_backend if is_options
       # URL path mapping configuration
       use_backend ui_frontend_web_servers if { path_beg /ui/ }
       use_backend api_backend_servers if { path_beg /api/ }

@@ -1,3 +1,4 @@
+## See github.com/bitnami/charts/blob/main/keycloak/values.yaml for help
 keycloak:
     ## @param nameOverride String to partially override common.names.fullname
     ##
@@ -17,6 +18,13 @@ keycloak:
       ##
       adminPassword: "admin"
 
+      ## If non static admin password used, and password which should be managed over a K8 secret resource
+      existingSecret: "keycloak-admin-password" ## Secret name
+      passwordSecretKey: "postgresql-password"
+
+    ## Run Keycloak in production mode. TLS configuration is required except when using proxy headers
+    production: false
+
     ## @param nodeSelector Node labels for pod assignment
     ## Assigning to node dedicated to layer
     ## cybnity.io/domains-io-area: "true"
@@ -33,7 +41,18 @@ keycloak:
     ## Service configuration
     ##
     service:
+      ## Type of exposure for service
+      ## LoadBalancer to expose Keycloak to external users (allow distribution automated of traffic between the Keycloak Pods fof HA and adapted for high traffic volumes); accessible from outside the cluster via a load balancer
+      ## ClusterIP if only internal communications between application components with Keycloak. Only accessible from the cluster
       type: LoadBalancer
+
+    ## Keycloak ingress parameters
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+    ## Make HTTP (or HTTPS) network service available (Layer 7: application layer) to expose routes from outside the cluster to services within the cluster. Traffis routing is controlled by rules defined on the Ingress resouce.
+    ##
+    ingress:
+      ## ingress.enabled Enable ingress recor generation for Keycloak
+      enabled: false
 
     ## @section Metrics parameters
     ##
@@ -56,7 +75,6 @@ keycloak:
 
     ## @section Exposure parameters
     ##
-
     ## Network Policy configuration
     ## ref: https://kubernetes.io/docs/concepts/services-networking/network-policies/
     ##
@@ -84,15 +102,24 @@ keycloak:
       nodeSelector:
         cybnity.io/user-interfaces-area: "true"
 
+    persistence:
+      existingSecretUsernameKey: "persistenceCustomDBUsernameKey" ## Key for the database user name used into the secret generated (when empty, the value of keycloak.persistence.dbUser is applied)
+
+    ## PostgreSQL chart configuration
     postgresql:
       nameOverride: "access-control-db-system"
       fullnameOverride: "access-control-db-system"
+      enabled: true
       auth:
-        postgresPassword: "bitnami"
-        username: bn_keycloak
-        password: "bitnami"
-        database: bitnami_keycloak
-        existingSecret: ""
+        postgresPassword: "bitnami" ## Password for the 'portgre' admin user. Ignored if 'auth.existingSecret' with key 'postgres-password' is provided
+        username: bn_keycloak ## Name for a custom user to create
+        password: "bitnami" ## Password for the custom user to create
+        database: bitnami_keycloak ## Name for a custom database to create
+        existingSecret: "" ## Name of existing secret to use for PostgreSQL credentials
+        secretKeys:
+          userPasswordKey: "password" ## Name of key in existing secret to use for PostgreSQL credentials. Only used when 'auth.existingSecret' is set
+      architecture: standalone ## PostgreSQL architecture ('standalone' or 'replication)
+
       ## @section PostgreSQL Primary parameters
       ##
       primary:
@@ -112,7 +139,6 @@ keycloak:
         nodeSelector:
           cybnity.io/user-interfaces-area: "true"
 
-
     ## External PostgreSQL configuration
     ## All of these values are only used when postgresql.enabled is set to false
     ## @param externalDatabase.host Database host
@@ -124,10 +150,14 @@ keycloak:
     ## @param externalDatabase.existingSecretPasswordKey Name of an existing secret key containing the database credentials
     ##
     externalDatabase:
-      host: ""
-      port: 5432
-      user: bn_keycloak
-      database: bitnami_keycloak
-      password: "bitnami"
-      existingSecret: ""
-      existingSecretPasswordKey: ""
+      host: "" ## Database host
+      port: 5432 ## Database port number
+      user: bn_keycloak ## Non-root usernamen for Keycloak
+      database: bitnami_keycloak ## Keycloak database name
+      password: "bitnami" ## Password for the non-root username for Keycloak
+      schema: public ## Keycloak database schema
+      existingSecret: "keycloak-postgresql" ## Name of an existing secret resource containing the database credentials
+      existingSecretUserKey: "" ## Name of an existing secret key containing the database user
+      existingSecretPasswordKey: "postgresql-password" ## Name of an existing secret key containing the database credentials
+      annotations: {} ## Additional custom annotations for external database secret object
+      extraParams: "" ## Additional JDBC connection parameters appended to the JDBC URL (KC_DB_URL)
