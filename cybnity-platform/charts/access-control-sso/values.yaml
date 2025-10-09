@@ -19,7 +19,7 @@ keycloak:
       adminPassword: "admin"
 
       ## If non static admin password used, and password which should be managed over a K8 secret resource
-      existingSecret: "keycloak-admin-password" ## Secret name
+      #existingSecret: "keycloak-admin-password" ## Secret name
       passwordSecretKey: "postgresql-password"
 
     ## Run Keycloak in production mode. TLS configuration is required except when using proxy headers
