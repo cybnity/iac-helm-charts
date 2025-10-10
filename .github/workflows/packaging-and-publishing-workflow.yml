@@ -49,6 +49,7 @@ jobs:
       update-dependencies: true
     outputs:
       artifact_fullname: ${{ env.ARTIFACT_FULLNAME }}
+      app_artifact_fullname: ${{ env.APP_ARTIFACT_FULLNAME }}
       alpha_artifact_fullname: ${{ env.ALPHA_ARTIFACT_FULLNAME }}
     steps:
       - name: Helm source codes checkout
@@ -73,7 +74,7 @@ jobs:
         run: |
           helm dependency update ${{ env.PACKAGED_PROJECT }}
           
-      - name: Project Revision Helm Packaging
+      - name: Project Committed Revision Helm Packaging
         run: |
           PACKAGE_VERSION_NAME="$PROJECT_VERSION+$(git rev-parse --short "$GITHUB_SHA")"
           echo "PACKAGE_VERSION_NAME=$PACKAGE_VERSION_NAME" >> $GITHUB_ENV
@@ -88,6 +89,24 @@ jobs:
         with:
           name: ${{ env.ARTIFACT_FULLNAME }}
           path: ${{ env.CHART_PATH }}
+          if-no-files-found: error
+          retention-days: 5
+
+      - name: Project Application Version Helm Packaging
+        run: |
+          PACKAGE_APP_VERSION_NAME="$PROJECT_VERSION"
+          echo "PACKAGE_APP_VERSION_NAME=$PACKAGE_APP_VERSION_NAME" >> $GITHUB_ENV
+          helm package ${{ env.PACKAGED_PROJECT }} --version "$PACKAGE_APP_VERSION_NAME" -d ${{ env.CHART_DEST }}
+          APP_ARTIFACT_FULLNAME="${{ env.PACKAGED_PROJECT }}-$PACKAGE_APP_VERSION_NAME.tgz"
+          echo "APP_ARTIFACT_FULLNAME=$APP_ARTIFACT_FULLNAME" >> $GITHUB_ENV
+          APP_CHART_PATH="${{ env.CHART_DEST }}/${{ env.APP_ARTIFACT_FULLNAME }}"
+          echo "APP_CHART_PATH=$APP_CHART_PATH" >> $GITHUB_ENV
+
+      - uses: actions/upload-artifact@v4
+        # See docc at https://github.com/actions/upload-artifact
+        with:
+          name: ${{ env.APP_ARTIFACT_FULLNAME }}
+          path: ${{ env.APP_CHART_PATH }}
           if-no-files-found: error
           retention-days: 5
 
@@ -125,7 +144,8 @@ jobs:
       # Password to login to registry
       OCI_PATH: ${{ secrets.DOCKERHUB_CYBNITY_PATH }}
       PACKAGED_CHART_PATH: ${{ needs.package.outputs.artifact_fullname }}
-      PACKAGED_ALPHA_CHART_PATH: ${{ needs.package.outputs.alpha_artifact_fullname }}
+      PACKAGED_APP_CHART_PATH: ${{ needs.package.outputs.app_artifact_fullname }}
+      PACKAGED_LATEST_CHART_PATH: ${{ needs.package.outputs.alpha_artifact_fullname }}
       # URL of registry, excluding the protocol. Required.
       registry-url: registry-1.docker.io
       # Repository in registry to push to
@@ -145,7 +165,7 @@ jobs:
           # Login to Helm registry (DockerHub hosted)
           helm registry login -u ${{ env.DOCKER_REGISTRY_USERNAME }} -p ${{ env.OCI_PATH }} ${{ env.registry-url }}
           
-      - name: Push Project Chart Revision to DockerHub
+      - name: Push Project Chart Commited Revision to DockerHub
         shell: bash
         run: |
           # Store sha version of artifact into Helm repository
@@ -153,10 +173,20 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: ${{ env.PACKAGED_ALPHA_CHART_PATH }}
+          name: ${{ env.PACKAGED_APP_CHART_PATH }}
+
+      - name: Push Application Chart Version to DockerHub
+        shell: bash
+        run: |
+          # Store APP version of artifact into Helm repository
+          helm push ${{ env.PACKAGED_APP_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.PACKAGED_LATEST_CHART_PATH }}
 
       - name: Push Latest Chart Version to DockerHub
         shell: bash
         run: |
-          # Store LATEST version of artifact into Helm repository
-          helm push ${{ env.PACKAGED_ALPHA_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
+          # Store LATEST copy of artifact into Helm repository
+          helm push ${{ env.PACKAGED_LATEST_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
