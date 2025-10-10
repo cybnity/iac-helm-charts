@@ -51,7 +51,7 @@ maintainers: # Referent maintainers of this Helm project
     email: olivier@cybnity.org
     url: https://github.com/cybnity/iac-helm-charts
 
-appVersion: "1.0.0" # Version of the defense integrated solution that this project contains
+appVersion: "0.1.0" # Version of the defense integrated solution that this project contains
 
 annotations:
   category: Solution
