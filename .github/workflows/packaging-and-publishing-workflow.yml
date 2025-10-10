@@ -92,7 +92,7 @@ jobs:
           if-no-files-found: error
           retention-days: 5
 
-      - name: Project Application Version Helm Packaging
+      - name: Project Chart Version Helm Packaging
         run: |
           PACKAGE_APP_VERSION_NAME="$PROJECT_VERSION"
           echo "PACKAGE_APP_VERSION_NAME=$PACKAGE_APP_VERSION_NAME" >> $GITHUB_ENV
@@ -110,7 +110,7 @@ jobs:
           if-no-files-found: error
           retention-days: 5
 
-      - name: Latest Version Helm Packaging
+      - name: Project Latest Version Helm Packaging
         run: |
           PACKAGE_ALPHA_VERSION_NAME="$PROJECT_VERSION+latest"
           echo "PACKAGE_ALPHA_VERSION_NAME=$PACKAGE_ALPHA_VERSION_NAME" >> $GITHUB_ENV
@@ -175,7 +175,7 @@ jobs:
         with:
           name: ${{ env.PACKAGED_APP_CHART_PATH }}
 
-      - name: Push Application Chart Version to DockerHub
+      - name: Push Project Chart Version to DockerHub
         shell: bash
         run: |
           # Store APP version of artifact into Helm repository
@@ -185,7 +185,7 @@ jobs:
         with:
           name: ${{ env.PACKAGED_LATEST_CHART_PATH }}
 
-      - name: Push Latest Chart Version to DockerHub
+      - name: Push copy of Chart Version to DockerHub as Project Latest Version
         shell: bash
         run: |
           # Store LATEST copy of artifact into Helm repository
