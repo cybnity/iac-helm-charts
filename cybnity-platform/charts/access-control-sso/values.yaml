@@ -38,6 +38,15 @@ keycloak:
     ##
     replicaCount: 3
 
+    ## @param hostnameStrict Disables dynamically resolving the hostname from request headers (ignored if ingress.enabled is false).
+    ## Should always be set to true in production, unless your reverse proxy overwrites the Host header.
+    ## If enabled, the ingress.hostname option needs to be specified.
+    ##
+    hostnameStrict: false
+    ## @param adminRealm Name of the admin realm
+    ##
+    adminRealm: "master"
+
     ## Service configuration
     ##
     service:
@@ -53,6 +62,9 @@ keycloak:
     ingress:
       ## ingress.enabled Enable ingress recor generation for Keycloak
       enabled: false
+      ## @param ingress.hostname Default host for the ingress record (evaluated as template)
+      ##
+      hostname: keycloak.local ## Default value
 
     ## @section Metrics parameters
     ##
@@ -154,7 +166,7 @@ keycloak:
       port: 5432 ## Database port number
       user: bn_keycloak ## Non-root usernamen for Keycloak
       database: bitnami_keycloak ## Keycloak database name
-      password: "bitnami" ## Password for the non-root username for Keycloak
+      password: "bitnami" ## Password for the non-root username for Keycloak  (must be equals to postgresql.auth.password)
       schema: public ## Keycloak database schema
       existingSecret: "keycloak-postgresql" ## Name of an existing secret resource containing the database credentials
       existingSecretUserKey: "" ## Name of an existing secret key containing the database user
