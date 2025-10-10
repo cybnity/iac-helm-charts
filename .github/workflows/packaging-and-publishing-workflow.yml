@@ -79,7 +79,7 @@ jobs:
       - name: Read Project version from Chart
         id: get_version
         run: |
-          PROJECT_VERSION="$(cat Chart.yaml| ./yq -r  '.version')"
+          PROJECT_VERSION="helm show chart ./cybnity-platform --output yaml | grep version"
           echo "PROJECT_VERSION=$PROJECT_VERSION" >> $GITHUB_ENV
           echo "Project chart identified version to package is $PROJECT_VERSION" >> $GITHUB_OUTPUT
 
