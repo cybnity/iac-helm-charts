@@ -110,9 +110,9 @@ jobs:
           if-no-files-found: error
           retention-days: 5
 
-      - name: Project Latest Version Helm Packaging
+      - name: Project Alpha Version Helm Packaging
         run: |
-          PACKAGE_ALPHA_VERSION_NAME="$PROJECT_VERSION+latest"
+          PACKAGE_ALPHA_VERSION_NAME="alpha+latest"
           echo "PACKAGE_ALPHA_VERSION_NAME=$PACKAGE_ALPHA_VERSION_NAME" >> $GITHUB_ENV
           helm package ${{ env.PACKAGED_PROJECT }} --version "$PACKAGE_ALPHA_VERSION_NAME" -d ${{ env.CHART_DEST }}
           ALPHA_ARTIFACT_FULLNAME="${{ env.PACKAGED_PROJECT }}-$PACKAGE_ALPHA_VERSION_NAME.tgz"
@@ -145,7 +145,7 @@ jobs:
       OCI_PATH: ${{ secrets.DOCKERHUB_CYBNITY_PATH }}
       PACKAGED_CHART_PATH: ${{ needs.package.outputs.artifact_fullname }}
       PACKAGED_APP_CHART_PATH: ${{ needs.package.outputs.app_artifact_fullname }}
-      PACKAGED_LATEST_CHART_PATH: ${{ needs.package.outputs.alpha_artifact_fullname }}
+      PACKAGED_ALPHA_CHART_PATH: ${{ needs.package.outputs.alpha_artifact_fullname }}
       # URL of registry, excluding the protocol. Required.
       registry-url: registry-1.docker.io
       # Repository in registry to push to
@@ -183,10 +183,10 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: ${{ env.PACKAGED_LATEST_CHART_PATH }}
+          name: ${{ env.PACKAGED_ALPHA_CHART_PATH }}
 
-      - name: Push copy of Chart Version to DockerHub as Project Latest Version
+      - name: Push copy of Chart Version to DockerHub as Project ALPHA Version
         shell: bash
         run: |
-          # Store LATEST copy of artifact into Helm repository
-          helm push ${{ env.PACKAGED_LATEST_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
+          # Store ALPHA copy of artifact into Helm repository
+          helm push ${{ env.PACKAGED_ALPHA_CHART_PATH}} oci://${{ env.registry-url }}/${{ env.repository }}
