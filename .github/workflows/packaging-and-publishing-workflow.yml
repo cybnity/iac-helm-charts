@@ -40,8 +40,6 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ github.token }}
       PACKAGED_PROJECT: "cybnity-platform"
-      #PROJECT_VERSION: "1.0.0"
-      ALPHA_VERSION_PREFIX: ""
       # See doc : https://github.com/atomicfi-engineering/action-build-push-chart-oci-registry
       # Path to chart. Required
       CHART_DEST: "packages"
@@ -75,7 +73,6 @@ jobs:
         run: |
           helm dependency update ${{ env.PACKAGED_PROJECT }}
           
-
       - name: Read Project version from Chart
         id: get_version
         run: |
