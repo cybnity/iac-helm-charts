@@ -164,7 +164,7 @@ keycloak:
     externalDatabase:
       host: "" ## Database host
       port: 5432 ## Database port number
-      user: bn_keycloak ## Non-root usernamen for Keycloak
+      user: bn_keycloak ## Non-root username for Keycloak
       database: bitnami_keycloak ## Keycloak database name
       password: "bitnami" ## Password for the non-root username for Keycloak  (must be equals to postgresql.auth.password)
       schema: public ## Keycloak database schema
