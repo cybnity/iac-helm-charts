@@ -15,7 +15,8 @@ sources:
 dependencies:
   - condition: janusgraph.enabled
     name: janusgraph
-    version: "1.5.4" #"0.3.12" # Version of the Janusgraph server chart, including Cassandra
+    version: "1.4.10" #"0.3.12" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/janusgraph
+    # Version of the Janusgraph server chart, including Cassandra
     repository: oci://registry-1.docker.io/bitnamicharts # https://charts.bitnami.com/bitnami # URL of the Bitnami repository
 
 appVersion: "1.0.0" # Version of the app that this project contains
