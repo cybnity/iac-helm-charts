@@ -15,7 +15,7 @@ sources:
 dependencies:
   - condition: kafka.enabled
     name: kafka
-    version: ">=32.4.4" # Kakfa Bitnami Helm project documentation at https://github.com/bitnami/charts/blob/main/bitnami/kafka/README.md
+    version: "33.2.8" # Kakfa Bitnami Helm project documentation at https://github.com/bitnami/charts/blob/main/bitnami/kafka/README.md
     repository: oci://registry-1.docker.io/bitnamicharts #https://charts.bitnami.com/bitnami # URL of the Bitnami repository
 
 appVersion: "1.0.0" # Version of the app that this project contains
