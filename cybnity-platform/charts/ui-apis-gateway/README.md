@@ -7,12 +7,16 @@ The [Bitnami GitHub project](https://github.com/bitnami/charts/tree/main/bitnami
 - Reactive-messaging-gateway system over SockJS/HTTPS (Vert.x messaging server)
 
 # HAProxy
-HAProxy solution is reused as reverse proxy. See [HAProxy documentation](https://www.haproxy.com/documentation/kubernetes/latest/community/install/kubernetes/) for mode detail on its configuration, and [HAPEE-LB technical documentation](https://www.haproxy.com/documentation/hapee/latest/onepage/) about detailed features and settings (e.g filters, logging, cahing, ACLs, binding, proxyies, global parameters).
+HAProxy solution is reused as reverse proxy.
 
-Bitnami helm charts if used to define a reverse proxy via a Kubernetes Deployment (type of controller used to manage a set of pods that is responsible for replicating and scaling the proxy pods).
+Bitnami helm charts ([Helm chart project on DockerHub](https://hub.docker.com/r/bitnamicharts/haproxy)) is used to define a reverse proxy via a Kubernetes Deployment (type of controller used to manage a set of pods that is responsible for replicating and scaling the proxy pods).
+
+See [HAProxy documentation](https://www.haproxy.com/documentation/kubernetes/latest/community/install/kubernetes/) for mode detail on its configuration, and [HAPEE-LB technical documentation](https://www.haproxy.com/documentation/hapee/latest/onepage/) about detailed features and settings (e.g filters, logging, caching, ACLs, binding, proxies, global parameters).
 
 ## Installation of ui-apis-gateway-system-haproxy
-The reverse proxy and its load balancing as cluster's entrypoint is implemented via HAProxy packaged by [Helm project](haproxy).
+The reverse proxy and its load balancing as cluster's entrypoint is implemented via HAProxy packaged by Bitnami Helm chart for HAProxy project.
+
+The [HAProject helm chart project is a GitHub sub-project](https://github.com/bitnami/charts/tree/main/bitnami/haproxy) of all Bitnami projects.
 
 Deployment in an environment is performed via the Helm command line:
 
@@ -24,7 +28,7 @@ helm install ui-apis-gateway-system -f ./ui-apis-gateway/values.yaml ./ui-apis-g
 
 Several elements are deployed:
 - A ConfigMap representing the deployed routing rules taht are defined by haproxy configuration coming from the Helm chart regarding the Service provisioning
-- A Service (LoadBalander type) to handle all unrouted traffic (e.g return 404), and defining HAProxy configuration (e.g http characteristics changes via HAProxy configuration file)
+- A Service (LoadBalancer type) to handle all unrouted traffic (e.g return 404), and defining HAProxy configuration (e.g http characteristics changes via HAProxy configuration file)
 - Two Replica Sets managing the fault tolerance of the HAProxy Service's pods (e.g 2 instance of HAProxy services executed for scaling management)
 - A Deployment managing the Replica Sets instance and recovery (e.g during rolling and recovery phase)
 
@@ -38,4 +42,4 @@ The Ingress Controller continuously watches for changes (e.g pods that have arbi
 
 ## Routing
 The HAProxy configuration file (values.yaml) help to customize the original Bitnami HAProxy Helm charts, including:
-- external exposure of unified entrypoint (proxy on port 80) > internal routing configuration (e.g port mapping) > dedicated serviecs (e.g access-control-sso-system, reactive-backend-system, web-reactive-frontend-system)
+- external exposure of unified entrypoint (proxy on port 80) > internal routing configuration (e.g port mapping) > dedicated services (e.g access-control-sso-system, reactive-backend-system, web-reactive-frontend-system)

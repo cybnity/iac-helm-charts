@@ -91,6 +91,7 @@ haproxy:
   ## Please, note that this will override the image parameters, including dependencies, configured to use the global value
   ## Current available global Docker image parameters: imageRegistry, imagePullSecrets and storageClass
   ##
+  ## See HAProxy Helm chart project configuration page for help at https://github.com/bitnami/charts/tree/main/bitnami/haproxy .
 
   ## @param global.imageRegistry Global Docker image registry
   ## @param global.imagePullSecrets Global Docker registry secret names as an array
@@ -229,7 +230,7 @@ haproxy:
   image:
     registry: docker.io
     repository: bitnami/haproxy
-    tag: 2.7.6-debian-11-r1
+    tag: 2.7.6-debian-11-r1 # latest
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -398,7 +399,6 @@ haproxy:
     values: []
 
   ## @param configuration [string] haproxy configuration
-  ## Taken from haproxytech/haproxy chart: https://github.com/haproxytech/helm-charts/tree/main/haproxy
   ## Help about configuration on https://www.haproxy.com/documentation/hapee/latest/configuration/config-sections/frontend/
   ##
   configuration: |

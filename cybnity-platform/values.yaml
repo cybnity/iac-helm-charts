@@ -1,4 +1,4 @@
-# Values regarding CANDIDATE or PERFORMANTE version of cybnity-platform packaged systems.
+# Values regarding CANDIDATE or PERFORMANT version of cybnity-platform packaged systems.
 # The version of cybnity-platform is based on latest stable versions of application components (and optionnaly evaluated regarding its level of performance) that are currently eligible for deploymnent into a production environment.
 
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
