@@ -1,7 +1,7 @@
 ## PURPOSE
 Presentation of the procedure for installation and configuration of an HAProxy service providing an API gateway as endpoint of all http/https services exposed by the UI layer.
 
-The [Bitnami GitHub project](https://github.com/bitnami/charts/tree/main/bitnami/haproxy/#installing-the-chart) is reused, allowing to initialize a basic reverse proxy module sufficient for the exposure of exposed services:
+The [Bitnami GitHub project](https://github.com/bitnami/charts/tree/main/bitnami/haproxy/#installing-the-chart) is reused, allowing to initialize a basic reverse proxy module sufficient for the exposure of exposed services as promoted by Bitnami onto the [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/haproxy):
 - Access-control-sso system over HTTP/HTTPS (Keycloak server)
 - Web-reactive-frontend application system over HTTP/HTTPS (Javascript/HTML5 web application)
 - Reactive-messaging-gateway system over SockJS/HTTPS (Vert.x messaging server)
