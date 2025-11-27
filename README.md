@@ -26,7 +26,7 @@ helm repo add cybnity https://cybnity.github.io/iac-helm-charts
 
 See the packaged versions of CYBNITY platform that are hosted on `https://hub.docker.com/r/cybnity/cybnity-platform/tags` repository.
 
-To pull a version from the CYBNITY Docker Hub repository where packaged Helm project are stored:
+To pull a version from the CYBNITY Docker Hub repository where packaged Helm project is stored:
 ```shell
 helm pull oci://registry-1.docker.io/cybnity/cybnity-platform
 ```
