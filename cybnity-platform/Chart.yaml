@@ -37,12 +37,10 @@ dependencies:
   - condition: namespace.enabled, users-interactions-space.enabled, access-control-sso.enabled
     name: reactive-messaging-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
-    repository: https://cybnity.github.io/iac-helm-charts # Official CYBNITY repository hosted on GitHub
 
   - condition: namespace.enabled, reactive-messaging-gateway.enabled, access-control-sso.enabled
     name: web-reactive-frontend
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
-    repository: https://cybnity.github.io/iac-helm-charts # Official CYBNITY repository hosted on GitHub
 
   - condition: namespace.enabled, reactive-messaging-gateway.enabled, web-reactive-frontend.enabled, access-control-sso.enabled
     name: ui-apis-gateway
