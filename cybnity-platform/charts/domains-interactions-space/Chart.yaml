@@ -15,7 +15,7 @@ sources:
 dependencies:
   - condition: kafka.enabled
     name: kafka
-    version: "32.2.9" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/kafka
+    version: "latest" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/kafka
     # Kakfa Bitnami Helm project documentation at https://github.com/bitnami/charts/blob/main/bitnami/kafka/README.md
     repository: https://charts.bitnami.com/bitnami # URL of the Bitnami repository
 
