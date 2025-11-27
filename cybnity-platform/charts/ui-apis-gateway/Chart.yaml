@@ -14,14 +14,14 @@ sources:
 dependencies:
   - condition: cert-manager.enabled
     name: cert-manager
-    version: ">=v1.19.1"
-    repository: https://charts.jetstack.io
+    version: "1.19.1" # Free 1.19.1 version provided by ArtifactHub repo at https://artifacthub.io/packages/helm/cert-manager/cert-manager
+    repository: https://charts.jetstack.io # URL of the Cert Manager repository
     alias: cert-manager
 
   - condition: haproxy.enabled
     name: haproxy
-    version: ">=3.0.0" # ">=0.6.16"
-    repository: oci://registry-1.docker.io/bitnamicharts # https://charts.bitnami.com/bitnami # URL of the Bitnami repository
+    version: "3.2.3" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/haproxy
+    repository: https://charts.bitnami.com/bitnami # URL of the Bitnami repository
 
 appVersion: "1.0.0" # Version of the app that this project contains
 
