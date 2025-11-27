@@ -24,7 +24,7 @@ Description: each deployable application provisioning is defined via Helm chart 
 - [web-reactive-frontend](charts/web-reactive-frontend): Helm provisioning project of containerized web frontend server.
 
 ## REUSABLE PROVISIONING SYSTEM PROJECTS
-Perimeter: some infrastructure third-party software (e.g Zookeeper application) are available on the market as template of provisioning helping to quickly customize the runtime (provisioning of pre-configured Docker image) into a Kubernetes platform. Some infrastructure components are reused by CYBNITY as infrastructure systems with customization of the prepared templates of their images helmization.
+Perimeter: some infrastructure third-party software (e.g containerized applications and provided via [Bitnami Containers Library GitHHUB](https://github.com/bitnami/containers) are available on the market as template of provisioning helping to quickly customize the runtime (provisioning of pre-configured Docker image) into a Kubernetes platform. Some infrastructure components are reused by CYBNITY as infrastructure systems with customization of the prepared templates of their images helmization.
 
 Project type: Helm implementation structure.
 
