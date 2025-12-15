@@ -1,3 +1,4 @@
+# Configuration of service exposing the application to external area
 apiVersion: v1
 kind: Service
 metadata:
