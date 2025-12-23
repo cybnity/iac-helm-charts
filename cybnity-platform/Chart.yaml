@@ -17,32 +17,29 @@ sources:
 
 dependencies:
   # GENERIC INFRASTRUCTURE MODULES
-  - condition: namespace.enabled
-    name: domains-interactions-space
+  - name: domains-interactions-space
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - condition: namespace.enabled
-    name: users-interactions-space
+  - name: users-interactions-space
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - condition: namespace.enabled
-    name: knowledge-repository
+  - name: knowledge-repository
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   # APPLICATION MODULES
-  - condition: namespace.enabled, users-interactions-space.enabled
+  - condition: users-interactions-space.enabled
     name: access-control-sso
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - condition: namespace.enabled, users-interactions-space.enabled, access-control-sso.enabled
+  - condition: users-interactions-space.enabled, access-control-sso.enabled
     name: reactive-messaging-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - condition: namespace.enabled, reactive-messaging-gateway.enabled, access-control-sso.enabled
+  - condition: reactive-messaging-gateway.enabled, access-control-sso.enabled
     name: web-reactive-frontend
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - condition: namespace.enabled, reactive-messaging-gateway.enabled, web-reactive-frontend.enabled, access-control-sso.enabled
+  - condition: reactive-messaging-gateway.enabled, web-reactive-frontend.enabled, access-control-sso.enabled
     name: ui-apis-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
