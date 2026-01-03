@@ -13,8 +13,7 @@ sources:
 
 # list of sub-chart required
 dependencies:
-  - condition: kafka.enabled
-    name: kafka
+  - name: kafka
     version: "32.4.3" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/kafka
     # Kakfa Bitnami Helm project documentation at https://github.com/bitnami/charts/blob/main/bitnami/kafka/README.md
     repository: oci://registry-1.docker.io/bitnamicharts # URL of the Bitnami legacy repository (non production only) publicly stored on DockerHub

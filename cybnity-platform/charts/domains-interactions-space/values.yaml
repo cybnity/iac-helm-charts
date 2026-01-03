@@ -15,8 +15,6 @@ kafka:
       ##
       enabled: true
 
-
-
   ## @section Controller-eligible statefulset parameters
   ##
   controller:

@@ -12,14 +12,12 @@ sources:
 
 # list of sub-chart required
 dependencies:
-  - condition: cert-manager.enabled
-    name: cert-manager
+  - name: cert-manager
     version: "1.19.1" # Free 1.19.1 version provided by ArtifactHub repo at https://artifacthub.io/packages/helm/cert-manager/cert-manager
     repository: https://charts.jetstack.io # URL of the Cert Manager repository
     alias: cert-manager
 
-  - condition: haproxy.enabled
-    name: haproxy
+  - name: haproxy
     version: "3.2.3" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/haproxy
     repository: oci://registry-1.docker.io/bitnamicharts # URL of the Bitnami legacy repository (non production only) publicly stored on DockerHub
 

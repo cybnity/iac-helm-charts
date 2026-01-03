@@ -13,8 +13,7 @@ sources:
 
 # list of sub-chart required
 dependencies:
-  - condition: janusgraph.enabled
-    name: janusgraph
+  - name: janusgraph
     version: "1.4.10" #"0.3.12" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/janusgraph
     # Version of the Janusgraph server chart, including Cassandra
     repository: oci://registry-1.docker.io/bitnamicharts # URL of the Bitnami legacy repository (non production only) publicly stored on DockerHub
