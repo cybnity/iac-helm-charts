@@ -27,20 +27,16 @@ dependencies:
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   # APPLICATION MODULES
-  - condition: users-interactions-space.enabled
-    name: access-control-sso
+  - name: access-control-sso
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - condition: users-interactions-space.enabled, access-control-sso.enabled
-    name: reactive-messaging-gateway
+  - name: reactive-messaging-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - condition: reactive-messaging-gateway.enabled, access-control-sso.enabled
-    name: web-reactive-frontend
+  - name: web-reactive-frontend
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - condition: reactive-messaging-gateway.enabled, web-reactive-frontend.enabled, access-control-sso.enabled
-    name: ui-apis-gateway
+  - name: ui-apis-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
 maintainers: # Referent maintainers of this Helm project
