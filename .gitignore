@@ -1,4 +1,3 @@
 **/.idea
-*.lock
+**/*.lock
 **/*.DS_Store
-cybnity-platform/Chart.lock
