@@ -17,18 +17,18 @@ sources:
 
 dependencies:
   # GENERIC INFRASTRUCTURE MODULES
-  - name: domains-interactions-space
-    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  #- name: domains-interactions-space
+  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - name: users-interactions-space
-    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  #- name: users-interactions-space
+  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - name: knowledge-repository
-    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  #- name: knowledge-repository
+  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   # APPLICATION MODULES
-  - name: access-control-sso
-    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  #- name: access-control-sso
+  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   - name: reactive-messaging-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
@@ -36,8 +36,8 @@ dependencies:
   - name: web-reactive-frontend
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  - name: ui-apis-gateway
-    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  #- name: ui-apis-gateway
+  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
 maintainers: # Referent maintainers of this Helm project
   - name: CYBNITY team
