@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: cybnity/web-reactive-frontend
   pullPolicy: IfNotPresent
-  tag: "latest" # Version of docker relative to the application to deploy as POD
+  tag: "latest" # Tag or Version attribute of docker image to deploy as POD
 
 imagePullSecrets: []
 # Overriding the Helm chart name ensures configuration files also change
