@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: cybnity/web-reactive-frontend
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 # Overriding the Helm chart name ensures configuration files also change
