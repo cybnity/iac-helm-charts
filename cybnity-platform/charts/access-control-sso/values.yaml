@@ -1,5 +1,3 @@
-enabled: true
-
 ## See github.com/bitnami/charts/blob/main/keycloak/values.yaml for help
 keycloak:
     ## @param nameOverride String to partially override common.names.fullname

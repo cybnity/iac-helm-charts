@@ -31,7 +31,7 @@ dependencies:
 
   # APPLICATION MODULES
   - name: access-control-sso
-    condition: access-control-sso.enabled
+    #condition: access-control-sso.enabled
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   - name: reactive-messaging-gateway
