@@ -34,13 +34,13 @@ dependencies:
     condition: access-control-sso.enabled
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  #- name: reactive-messaging-gateway
-  #  condition: reactive-messaging-gateway.enabled
-  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  - name: reactive-messaging-gateway
+    condition: reactive-messaging-gateway.enabled
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
-  #- name: web-reactive-frontend
-  #  condition: web-reactive-frontend.enabled
-  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  - name: web-reactive-frontend
+    condition: web-reactive-frontend.enabled
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   - name: ui-apis-gateway
     condition: ui-apis-gateway.enabled
