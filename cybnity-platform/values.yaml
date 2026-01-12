@@ -5,10 +5,10 @@
 replicaCount: 1
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
-image:
-  repository: cybnity/cybnity-platform
+#image:
+#  repository: cybnity/cybnity-platform
   # This sets the pull policy for images.
-  pullPolicy: IfNotPresent
+#  pullPolicy: IfNotPresent
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
@@ -191,16 +191,9 @@ keycloak:
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform application modules deployed ---
 
 ### reactive-messaging-gateway
-reactive-messaging-gateway:
-    image:
-      repository: "https://cybnity.github.io/iac-helm-charts/cybnity-platform/charts/reactive-messaging-gateway"
-      pullPolicy: IfNotPresent
 
 ### web-reactive-frontend
-web-reactive-frontend:
-    image:
-      repository: "https://cybnity.github.io/iac-helm-charts/cybnity-platform/charts/web-reactive-frontend"
-      pullPolicy: IfNotPresent
+
 ### ui-apis-gateway
 #cert-manager:
 #haproxy:
