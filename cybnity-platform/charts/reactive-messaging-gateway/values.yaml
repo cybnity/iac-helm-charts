@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: cybnity/reactive-messaging-gateway
   pullPolicy: Always
-  version: "latest" # Version of docker relative to the application to deploy as POD
+  tag: "latest" # Version of docker relative to the application to deploy as POD
 
 # Application environment variable configuration regarding a dedicated image runtime
 env:
