@@ -2,7 +2,6 @@ apiVersion: v2
 name: access-control-sso
 version: 1.0.0  # SemVer 2 version
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
-# Project description (see https://artifacthub.io/packages/helm/bitnami/keycloak)
 description: CYBNITY identity and access management server.
 
 type: application
@@ -13,6 +12,7 @@ sources:
 
 # list of sub-chart required by module
 dependencies:
+  # Project description (see https://artifacthub.io/packages/helm/bitnami/keycloak)
   - name: keycloak
     version: "25.2.0" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/keycloak
     #Chart version "21.4.4" # Keycloak project documentation at https://github.com/bitnami/charts/tree/main/bitnami/keycloak

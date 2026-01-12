@@ -15,7 +15,7 @@ sources:
   - https://github.com/cybnity/iac-helm-charts/tree/main/cybnity-platform
   - https://github.com/bitnami/charts/tree/main/bitnami/common
 
-dependencies:
+##dependencies:
   # GENERIC INFRASTRUCTURE MODULES
   #- name: domains-interactions-space
   #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
