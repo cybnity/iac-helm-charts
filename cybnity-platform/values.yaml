@@ -183,17 +183,33 @@ janusgraph:
 
 ### access-control-sso
 keycloak:
-    ## @param replicaCount Number of Keycloak replicas to deploy
-    ##
-    replicaCount: 3
+  ## @param replicaCount Number of Keycloak replicas to deploy
+  ##
+  replicaCount: 3
 
 ## ---------------
 
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform application modules deployed ---
+domains-interactions-space:
+  enable: true
 
-### reactive-messaging-gateway
+users-interactions-space:
+  enable: true
 
-### web-reactive-frontend
+knowledge-repository:
+  enable: true
+
+access-control-sso:
+  enable: true
+
+reactive-messaging-gateway:
+  enable: true
+
+web-reactive-frontend:
+  enable: true
+
+ui-apis-gateway:
+  enable: true
 
 ### ui-apis-gateway
 #cert-manager:
