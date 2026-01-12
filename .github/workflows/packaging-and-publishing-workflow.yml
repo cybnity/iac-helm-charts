@@ -80,7 +80,6 @@ jobs:
           echo "PROJECT_VERSION=$PROJECT_VERSION" >> $GITHUB_ENV
           echo "Project chart identified version to package is $PROJECT_VERSION"
 
-
       - name: Project Committed Revision Helm Packaging
         run: |
           PACKAGE_VERSION_NAME="$PROJECT_VERSION+$(git rev-parse --short "$GITHUB_SHA")"
@@ -90,7 +89,7 @@ jobs:
           echo "ARTIFACT_FULLNAME=$ARTIFACT_FULLNAME" >> $GITHUB_ENV
           CHART_PATH="${{ env.CHART_DEST }}/${{ env.ARTIFACT_FULLNAME }}"
           echo "CHART_PATH=$CHART_PATH" >> $GITHUB_ENV
-          
+
       - uses: actions/upload-artifact@v4
         # See docc at https://github.com/actions/upload-artifact
         with:
