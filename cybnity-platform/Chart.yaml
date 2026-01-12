@@ -31,10 +31,10 @@ dependencies:
   #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   - name: reactive-messaging-gateway
-    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    version: "1.0.0" # dependency Chart.yaml SemVer 2 version
 
   - name: web-reactive-frontend
-    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    version: "1.0.0" # dependency Chart.yaml SemVer 2 version
 
   #- name: ui-apis-gateway
   #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
