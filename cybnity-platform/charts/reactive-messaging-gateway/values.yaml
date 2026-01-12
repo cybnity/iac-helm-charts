@@ -7,8 +7,6 @@ replicaCount: 1
 image:
   repository: cybnity/reactive-messaging-gateway
   pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
-  #tag: "latest"
 
 # Application environment variable configuration regarding a dedicated image runtime
 env:

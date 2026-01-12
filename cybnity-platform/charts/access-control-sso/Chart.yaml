@@ -15,10 +15,10 @@ dependencies:
   # Project description (see https://artifacthub.io/packages/helm/bitnami/keycloak)
   - name: keycloak
     version: "25.2.0" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/keycloak
-    #Chart version "21.4.4" # Keycloak project documentation at https://github.com/bitnami/charts/tree/main/bitnami/keycloak
+    # Chart version "21.4.4" # Keycloak project documentation at https://github.com/bitnami/charts/tree/main/bitnami/keycloak
     repository: oci://registry-1.docker.io/bitnamicharts # URL of the Bitnami legacy repository (non production only) publicly stored on DockerHub
 
-#appVersion: "1.0.0" # Version of the app that this project contains
+appVersion: "1.0.0" # Version of the app that this project contains
 
 annotations:
   category: Infrastructure

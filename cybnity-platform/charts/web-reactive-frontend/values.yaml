@@ -7,8 +7,6 @@ replicaCount: 1
 image:
   repository: cybnity/web-reactive-frontend
   pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
-  #tag: "latest"
 
 imagePullSecrets: []
 # Overriding the Helm chart name ensures configuration files also change
