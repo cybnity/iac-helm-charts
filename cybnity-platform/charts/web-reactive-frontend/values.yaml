@@ -4,9 +4,9 @@
 
 replicaCount: 1
 
-#image:
-#  repository: cybnity/web-reactive-frontend
-#  pullPolicy: IfNotPresent
+image:
+  repository: cybnity/web-reactive-frontend
+  pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 # Overriding the Helm chart name ensures configuration files also change
