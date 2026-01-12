@@ -15,29 +15,50 @@ sources:
   - https://github.com/cybnity/iac-helm-charts/tree/main/cybnity-platform
   - https://github.com/bitnami/charts/tree/main/bitnami/common
 
-##dependencies:
+dependencies:
   # GENERIC INFRASTRUCTURE MODULES
-  #- name: domains-interactions-space
-  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  - name: domains-interactions-space
+    condition: domains-interactions-space.enabled
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    repository: file://./charts/domains-interactions-space
+    alias: dis-alias
 
-  #- name: users-interactions-space
-  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  - name: users-interactions-space
+    condition: users-interactions-space.enabled
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    repository: file://./charts/users-interactions-space
+    alias: uis-alias
 
-  #- name: knowledge-repository
-  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  - name: knowledge-repository
+    condition: knowledge-repository.enabled
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    repository: file://./charts/knowledge-repository
+    alias: knr-alias
 
   # APPLICATION MODULES
-  #- name: access-control-sso
-  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  - name: access-control-sso
+    condition: access-control-sso.enabled
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    repository: file://./charts/access-control-sso
+    alias: acs-alias
 
-  #- name: reactive-messaging-gateway
-  #  version: "1.0.0" # dependency Chart.yaml SemVer 2 version
+  - name: reactive-messaging-gateway
+    condition: reactive-messaging-gateway.enabled
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    repository: file://./charts/reactive-messaging-gateway
+    alias: rmg-alias
 
-  #- name: web-reactive-frontend
-  #  version: "1.0.0" # dependency Chart.yaml SemVer 2 version
+  - name: web-reactive-frontend
+    condition: web-reactive-frontend.enabled
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    repository: file://./charts/web-reactive-frontend
+    alias: wrf-alias
 
-  #- name: ui-apis-gateway
-  #  version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+  - name: ui-apis-gateway
+    condition: ui-apis-gateway.enabled
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    repository: file://./charts/ui-apis-gateway
+    alias: uag-alias
 
 maintainers: # Referent maintainers of this Helm project
   - name: CYBNITY team
