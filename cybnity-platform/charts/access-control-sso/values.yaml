@@ -1,28 +1,23 @@
-# Default values regarding CANDIDATE or PERFORMANT version of cybnity-platform packaged systems.
-# The version of cybnity-platform is based on latest stable versions of application components (and optionnaly evaluated regarding its level of performance) that are currently eligible for deploymnent into a production environment.
-
-# Global deployment values that are common to all implementation module selected for deployment
-# and that can be accessed by any sub-module Templae from .Values.global.<<value_name>>
-# Each value defined in global set, are available to all charts
-global:
-  app: cybnity # Allocation name about of started sub-chart dedicated to a cybnity-platform deployment
+# Default values for access-control-sso.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
-#image:
-#  repository: cybnity/cybnity-platform
+image:
+  repository: quay.io/keycloak/keycloak
   # This sets the pull policy for images.
-#  pullPolicy: IfNotPresent
-#  version: "1.0.0"
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  version: "26.5.1"
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
-
 # This is to override the chart name.
-#nameOverride: ""
-#fullnameOverride: ""
+nameOverride: ""
+fullnameOverride: ""
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
@@ -64,19 +59,19 @@ service:
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   enabled: false
-  #className: ""
-  #annotations: {}
+  className: ""
+  annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  #hosts:
-    #- host: chart-cybnity.local
-      #paths:
-        #- path: /
-          #pathType: ImplementationSpecific
-  #tls: []
-  #  - secretName: chart-cybnity-tls
+  hosts:
+    - host: access-control-sso.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
   #    hosts:
-  #      - chart-cybnity.local
+  #      - chart-example.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -95,21 +90,17 @@ livenessProbe:
   httpGet:
     path: /
     port: http
-  initialDelaySeconds: 5
-  periodSeconds: 10
 readinessProbe:
   httpGet:
     path: /
     port: http
-  initialDelaySeconds: 5
-  periodSeconds: 10
 
 # This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:
   enabled: false
-  #minReplicas: 1
-  #maxReplicas: 100
-  #targetCPUUtilizationPercentage: 80
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
@@ -130,88 +121,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-# It's including application components (Docker containerized application components), technical components (e.g integration middleware systems, data storage systems) and infrastructure resources (e.g Kubernetes services, network components, configuration objects).
-
-# This is a YAML-formatted file, that define variables to be passed into the templates.
-## Enable diagnostic mode in the statefulset
-diagnosticMode:
-  ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
-  ##
-  enabled: false
-  ## @param diagnosticMode.command Command to override all containers in the statefulset
-  ##
-  command:
-    - sleep
-  ## @param diagnosticMode.args Args to override all containers in the statefulset
-  ##
-  args:
-    - infinity
-
-# values authorized: keep, delete
-helmResourcePolicy: delete
-
-## ---------------
-
-## --- KUBERNETES TEMPLATES values ---
-
-### Namespace objects configuration
-namespaces: {}
-  #- cybnity-system
-  # To support cert-manager
-  #- cert-manager
-namespace:
-  labels: {}
-   #  additional_label1: myvalue
-
-annotations:
-  certmanager.k8s.io/disable-validation: "true"
-
-## ---------------
-
-## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform infrastructure modules deployed ---
-## Custom redefined value according to the version deployed of application systems
-
-### domains-interactions-space:
-#kafka:
-
-### users-interactions-space:
-# redis:
-    ## @param architecture Redis&reg; architecture. Allowed values: `standalone` or `replication`
-    ##
-#   architecture: standalone # limitation to unique master instance by default
-
-### knowledge-repository:
-janusgraph:
-  ## @param replicaCount Number of Graph server replicas to deploy
-  ##
-  replicaCount: 1
-  #cassandra:
-
-## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform application modules deployed ---
-access-control-sso:
-  enable: true
-
-domains-interactions-space:
-  enable: true
-
-users-interactions-space:
-  enable: true
-
-knowledge-repository:
-  enable: true
-
-reactive-messaging-gateway:
-  enable: true
-
-web-reactive-frontend:
-  enable: true
-
-ui-apis-gateway:
-  enable: true
-
-### ui-apis-gateway
-#cert-manager:
-#haproxy:
-
-## ---------------
