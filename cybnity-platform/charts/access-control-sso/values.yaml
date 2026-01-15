@@ -23,25 +23,10 @@ image:
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
+
 # This is to override the chart name.
 nameOverride: "access-control-sso-system"
 fullnameOverride: "access-control-sso-system"
-
-
-# Application environment variable configuration regarding a dedicated image runtime
-# See https://www.keycloak.org/server/containers
-env:
-  # Java application environment variables that are logically used by the applicative module
-  - name: "KC_BOOTSTRAP_ADMIN_USERNAME"
-    value: "admin"
-  - name: "KC_BOOTSTRAP_ADMIN_PASSWORD"
-    value: "password"
-    # Enable health and metrics support
-  - name: "KC_HEALTH_ENABLED"
-    value: "true"
-  - name: "ENV KC_METRICS_ENABLED"
-    value: "true"
-
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
@@ -78,11 +63,25 @@ service:
   # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
   type: ClusterIP
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
-  port: 80
+  port: 8080
+  targetPort: http
+  protocol: TCP
+  name: http
 
-# This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
-  enabled: false
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  tls:
+    - secretName: access-control-sso-tls
+      hosts:
+        - KEYCLOAK_HOST
+  hosts:
+    - host: KEYCLOAK_HOST
+      paths:
+        - path: /
+          pathType: Prefix
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -95,23 +94,6 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
-## Configure extra options for containers' liveness and readiness probes
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param startupProbe.enabled Enable startupProbe on haproxy nodes
-## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
-## @param startupProbe.periodSeconds Period seconds for startupProbe
-## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
-## @param startupProbe.failureThreshold Failure threshold for startupProbe
-## @param startupProbe.successThreshold Success threshold for startupProbe
-##
-startupProbe:
-  enabled: false
-  failureThreshold: 5
-  initialDelaySeconds: 15
-  periodSeconds: 10
-  successThreshold: 1
-  timeoutSeconds: 5
 
 ## @param livenessProbe.enabled Enable livenessProbe on haproxy nodes
 ## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
@@ -142,7 +124,6 @@ readinessProbe:
   successThreshold: 1
   timeoutSeconds: 5
 
-# This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:
   enabled: false
   minReplicas: 1
@@ -157,7 +138,7 @@ autoscaling:
 ## cybnity.io/user-interfaces-area: "true"
 ## cybnity.io/infrastructure-services-area: "true"
 nodeSelector:
-    cybnity.io/user-interfaces-area: "true"
+  cybnity.io/user-interfaces-area: "true"
 
 # Additional volumes on the output Deployment definition.
 volumes: []
@@ -171,8 +152,6 @@ volumeMounts: []
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
-
-nodeSelector: {}
 
 tolerations: []
 
