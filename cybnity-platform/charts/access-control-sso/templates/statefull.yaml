@@ -7,12 +7,12 @@ metadata:
   labels:
     {{- include "access-control-sso.labels" . | nindent 4 }}
 spec:
-  serviceName: keycloak-discovery
+  serviceName: {{ .Values.statefull.serviceName }}
   # Run with one replica to save resources, or with two replicas to allow for rolling updates for configuration changes
-  replicas: 2
+  replicas: {{ .Values.statefull.replicas }}
   selector:
     matchLabels:
-      {{- include "access-control-sso.labels" . | nindent 6 }}
+      {{- include "access-control-sso.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:

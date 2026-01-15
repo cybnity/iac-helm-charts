@@ -3,21 +3,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: {{ .Values.postgre.serviceName }}
   labels:
-    app: postgres
+    app: {{ .Values.postgre.serviceName }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: {{ .Values.postgre.serviceName }}
   template:
     metadata:
       labels:
-        app: postgres
+        app: {{ .Values.postgre.serviceName }}
     spec:
       containers:
-        - name: postgres
+        - name: {{ .Values.postgre.serviceName }}
           image: mirror.gcr.io/postgres:17
           env:
             - name: POSTGRES_USER

@@ -191,6 +191,9 @@ janusgraph:
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform application modules deployed ---
 access-control-sso:
   enable: true
+  replicaCount: 2
+  statefull:
+    replicas: 2
 
 domains-interactions-space:
   enable: true

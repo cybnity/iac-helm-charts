@@ -20,7 +20,7 @@ kind: Service
 metadata:
   labels:
     {{- include "access-control-sso.labels" . | nindent 4 }}
-  name: keycloak-discovery
+  name: {{ .Values.statefull.serviceName }}
 spec:
   selector:
     {{- include "access-control-sso.selectorLabels" . | nindent 4 }}
@@ -31,13 +31,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: postgres
-  name: postgres
+    app: {{ .Values.postgre.serviceName }}
+  name: {{ .Values.postgre.serviceName }}
 spec:
   selector:
-    app: postgres
+    app: {{ .Values.postgre.serviceName }}
   ports:
-    - protocol: TCP
-      port: 5432
-      targetPort: 5432
-  type: ClusterIP
+    - protocol: {{ .Values.postgre.protocol }}
+      port: {{ .Values.postgre.port }}
+      targetPort: {{ .Values.postgre.targetPort }}
+  type: {{ .Values.postgre.type }}

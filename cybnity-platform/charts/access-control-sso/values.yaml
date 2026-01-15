@@ -58,6 +58,10 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+statefull:
+  serviceName: access-control-sso-discovery-system
+  replicas: 1
+
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
   # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
@@ -67,6 +71,13 @@ service:
   targetPort: http
   protocol: TCP
   name: http
+
+postgre:
+  serviceName: access-control-sso-db-system
+  port: 5432
+  targetPort: 5432
+  protocol: TCP
+  type: ClusterIP
 
 ingress:
   enabled: true
