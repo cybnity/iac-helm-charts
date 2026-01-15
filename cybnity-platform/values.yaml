@@ -1,5 +1,11 @@
-# Values regarding CANDIDATE or PERFORMANT version of cybnity-platform packaged systems.
+# Default values regarding CANDIDATE or PERFORMANT version of cybnity-platform packaged systems.
 # The version of cybnity-platform is based on latest stable versions of application components (and optionnaly evaluated regarding its level of performance) that are currently eligible for deploymnent into a production environment.
+
+# Global deployment values that are common to all implementation module selected for deployment
+# and that can be accessed by any sub-module Templae from .Values.global.<<value_name>>
+# Each value defined in global set, are available to all charts
+global:
+  app: cybnity # Allocation name about of started sub-chart dedicated to a cybnity-platform deployment
 
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
@@ -182,11 +188,277 @@ janusgraph:
   replicaCount: 1
   #cassandra:
 
-### access-control-sso
+### access-control-sso sub-chart values
+## See https://github.com/bitnami/charts/blob/main/bitnami/keycloak/values.yaml for help
 keycloak:
+  enable: true
   ## @param replicaCount Number of Keycloak replicas to deploy
   ##
   replicaCount: 3
+
+  ## @param nameOverride String to partially override common.names.fullname
+  ##
+  nameOverride: "access-control-sso-system"
+  ## @param fullnameOverride String to fully override common.names.fullname
+  ##
+  fullnameOverride: "access-control-sso-system"
+
+  ## Keycloak authentication parameters
+  ## ref: https://github.com/bitnami/containers/tree/main/bitnami/keycloak#admin-credentials
+  ##
+  auth:
+    ## @param auth.adminUser Keycloak administrator user
+    ##
+    adminUser: admin
+    ## @param auth.adminPassword Keycloak administrator password for the new user
+    ##
+    adminPassword: "admin"
+
+    ## If non static admin password used, and password which should be managed over a K8 secret resource
+    #existingSecret: "keycloak-admin-password" ## Secret name
+    passwordSecretKey: "postgresql-password"
+
+  ## Run Keycloak in production mode. TLS configuration is required except when using proxy headers
+  production: false
+
+  ## @param nodeSelector Node labels for pod assignment
+  ## Assigning to node dedicated to layer
+  ## cybnity.io/domains-io-area: "true"
+  ## cybnity.io/domains-area: "true"
+  ## cybnity.io/user-interfaces-area: "true"
+  ## cybnity.io/infrastructure-services-area: "true"
+  nodeSelector:
+    cybnity.io/user-interfaces-area: "true"
+
+  ## @param hostnameStrict Disables dynamically resolving the hostname from request headers (ignored if ingress.enabled is false).
+  ## Should always be set to true in production, unless your reverse proxy overwrites the Host header.
+  ## If enabled, the ingress.hostname option needs to be specified.
+  ##
+  hostnameStrict: false
+  ## @param adminRealm Name of the admin realm
+  ##
+  adminRealm: "master"
+
+  ## Service configuration
+  ##
+  service:
+    ## Type of exposure for service
+    ## LoadBalancer to expose Keycloak to external users (allow distribution automated of traffic between the Keycloak Pods fof HA and adapted for high traffic volumes); accessible from outside the cluster via a load balancer
+    ## ClusterIP if only internal communications between application components with Keycloak. Only accessible from the cluster
+    type: LoadBalancer
+
+  ## Keycloak ingress parameters
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+  ## Make HTTP (or HTTPS) network service available (Layer 7: application layer) to expose routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resouce.
+  ##
+  ingress:
+    ## ingress.enabled Enable ingress record generation for Keycloak
+    enabled: false
+    ## @param ingress.hostname Default host for the ingress record (evaluated as template)
+    ##
+    hostname: keycloak.local ## Default value
+    ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (evaluated as template)
+    ## Required if you have more than one IngressClass marked as the default for your cluster
+    ##
+    ingressClassName: ""
+    ## @param ingress.servicePort Backend service port to use
+    ## Default is http. Alternative is https.
+    ##
+    servicePort: http
+    ## @param ingress.annotations [object] Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
+    ## Use this parameter to set the required annotations for cert-manager, see
+    ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+    ## e.g:
+    ## annotations:
+    ##   kubernetes.io/ingress.class: nginx
+    ##   cert-manager.io/cluster-issuer: cluster-issuer-name
+    ##
+    annotations: {}
+    ## @param ingress.labels Additional labels for the Ingress resource.
+    ## e.g:
+    ## labels:
+    ##   app: keycloak
+    ##
+    labels:
+      app: keycloak
+    ## @param ingress.tls Enable TLS configuration for the host defined at `ingress.hostname` parameter
+    ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" (tpl .Values.ingress.hostname .) }}`
+    ## You can:
+    ##   - Use the `ingress.secrets` parameter to create this TLS secret
+    ##   - Rely on cert-manager to create it by setting the corresponding annotations
+    ##   - Rely on Helm to create self-signed certificates by setting `ingress.selfSigned=true`
+    ##
+    tls: false
+    ## @param ingress.selfSigned Create a TLS secret for this ingress record using self-signed certificates generated by Helm
+    ##
+    selfSigned: false
+    ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
+    ## e.g:
+    ## extraHosts:
+    ##   - name: keycloak.local
+    ##     path: /
+    ##
+    extraHosts: []
+    ## @param ingress.extraPaths Any additional arbitrary paths that may need to be added to the ingress under the main host.
+    ## For example: The ALB ingress controller requires a special rule for handling SSL redirection.
+    ## extraPaths:
+    ## - path: /*
+    ##   backend:
+    ##     serviceName: ssl-redirect
+    ##     servicePort: use-annotation
+    ##
+    extraPaths: []
+    ## @param ingress.extraTls The tls configuration for additional hostnames to be covered with this ingress record.
+    ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+    ## extraTls:
+    ## - hosts:
+    ##     - keycloak.local
+    ##   secretName: keycloak.local-tls
+    ##
+    extraTls: []
+    ## @param ingress.secrets If you're providing your own certificates, please use this to add the certificates as secrets
+    ## key and certificate should start with -----BEGIN CERTIFICATE----- or
+    ## -----BEGIN RSA PRIVATE KEY-----
+    ##
+    ## name should line up with a tlsSecret set further up
+    ## If you're using cert-manager, this is unneeded, as it will create the secret for you if it is not set
+    ##
+    ## It is also possible to create and manage the certificates outside of this helm chart
+    ## Please see README.md for more information
+    ## e.g:
+    ## - name: keycloak.local-tls
+    ##   key:
+    ##   certificate:
+    ##
+    secrets: []
+    ## @param ingress.extraRules Additional rules to be covered with this ingress record
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-rules
+    ## e.g:
+    ## extraRules:
+    ## - host: keycloak.local
+    ##     http:
+    ##       path: /
+    ##       backend:
+    ##         service:
+    ##           name: keycloak
+    ##           port:
+    ##             name: http
+    ##
+    extraRules: []
+
+  ## @section Exposure parameters
+  ##
+  ## Network Policy configuration
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/network-policies/
+  ##
+  networkPolicy:
+    ## @param networkPolicy.enabled Enable the default NetworkPolicy policy
+    ##
+    enabled: true
+    ## @param networkPolicy.allowExternal Don't require client label for connections
+    ## The Policy model to apply. When set to false, only pods with the correct
+    ## client label will have network access to the ports Keycloak is listening
+    ## on. When true, Keycloak will accept connections from any source
+    ## (with the correct destination port).
+    ##
+    allowExternal: false
+    ## @param networkPolicy.allowExternalEgress Allow the pod to access any range of port and all destinations.
+    ##
+    allowExternalEgress: true
+    ## @param networkPolicy.addExternalClientAccess Allow access from pods with client label set to "true". Ignored if `networkPolicy.allowExternal` is true.
+    ##
+    addExternalClientAccess: true
+
+  ## @section Metrics parameters
+  ##
+
+  ## Metrics configuration
+  ##
+  metrics:
+    ## @param metrics.enabled Enable exposing Keycloak statistics
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/keycloak#enabling-statistics
+    ##
+    enabled: true
+    ## Keycloak metrics service parameters
+    ##
+    service:
+      ## @param metrics.service.annotations [object] Annotations for enabling prometheus to access the metrics endpoints
+      ##
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "{{ .Values.metrics.service.ports.http }}"
+
+  ## @section keycloak-config-cli parameters
+
+  ## Configuration for keycloak-config-cli
+  ## ref: https://github.com/adorsys/keycloak-config-cli
+  ##
+  keycloakConfigCli:
+    ## @param keycloakConfigCli.enabled Whether to enable keycloak-config-cli job
+    ##
+    enabled: false
+    nodeSelector:
+      cybnity.io/user-interfaces-area: "true"
+
+  persistence:
+    existingSecretUsernameKey: "persistenceCustomDBUsernameKey" ## Key for the database user name used into the secret generated (when empty, the value of keycloak.persistence.dbUser is applied)
+
+  ## PostgreSQL chart configuration
+  postgresql:
+    nameOverride: "access-control-db-system"
+    fullnameOverride: "access-control-db-system"
+    enabled: true
+    auth:
+      postgresPassword: "bitnami" ## Password for the 'portgre' admin user. Ignored if 'auth.existingSecret' with key 'postgres-password' is provided
+      username: bn_keycloak ## Name for a custom user to create
+      password: "bitnami" ## Password for the custom user to create
+      database: bitnami_keycloak ## Name for a custom database to create
+      existingSecret: "" ## Name of existing secret to use for PostgreSQL credentials
+      secretKeys:
+        userPasswordKey: "password" ## Name of key in existing secret to use for PostgreSQL credentials. Only used when 'auth.existingSecret' is set
+    architecture: standalone ## PostgreSQL architecture ('standalone' or 'replication')
+
+    ## @section PostgreSQL Primary parameters
+    ##
+    primary:
+      nodeSelector:
+        cybnity.io/user-interfaces-area: "true"
+    ## @section PostgreSQL read only replica parameters (only used when `architecture` is set to `replication`)
+    ##
+    readReplicas:
+      nodeSelector:
+        cybnity.io/user-interfaces-area: "true"
+    ## @section Backup parameters
+    ## This section implements a trivial logical dump cronjob of the database.
+    ## This only comes with the consistency guarantees of the dump program.
+    ## This is not a snapshot based roll forward/backward recovery backup.
+    ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
+    backup:
+      nodeSelector:
+        cybnity.io/user-interfaces-area: "true"
+
+  ## External PostgreSQL configuration
+  ## All of these values are only used when postgresql.enabled is set to false
+  ## @param externalDatabase.host Database host
+  ## @param externalDatabase.port Database port number
+  ## @param externalDatabase.user Non-root username for Keycloak
+  ## @param externalDatabase.password Password for the non-root username for Keycloak
+  ## @param externalDatabase.database Keycloak database name
+  ## @param externalDatabase.existingSecret Name of an existing secret resource containing the database credentials
+  ## @param externalDatabase.existingSecretPasswordKey Name of an existing secret key containing the database credentials
+  ##
+  externalDatabase:
+    host: "" ## Database host
+    port: 5432 ## Database port number
+    user: bn_keycloak ## Non-root username for Keycloak
+    database: bitnami_keycloak ## Keycloak database name
+    password: "bitnami" ## Password for the non-root username for Keycloak  (must be equals to postgresql.auth.password)
+    schema: public ## Keycloak database schema
+    existingSecret: "keycloak-postgresql" ## Name of an existing secret resource containing the database credentials
+    existingSecretUserKey: "" ## Name of an existing secret key containing the database user
+    existingSecretPasswordKey: "postgresql-password" ## Name of an existing secret key containing the database credentials
+    annotations: {} ## Additional custom annotations for external database secret object
+    extraParams: "" ## Additional JDBC connection parameters appended to the JDBC URL (KC_DB_URL)
 
 ## ---------------
 
@@ -198,9 +470,6 @@ users-interactions-space:
   enable: true
 
 knowledge-repository:
-  enable: true
-
-access-control-sso:
   enable: true
 
 reactive-messaging-gateway:
