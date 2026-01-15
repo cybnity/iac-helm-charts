@@ -24,13 +24,13 @@ Description: each deployable application provisioning is defined via Helm chart 
 - [web-reactive-frontend](charts/web-reactive-frontend): Helm provisioning project of containerized web frontend server.
 
 ## REUSABLE PROVISIONING SYSTEM PROJECTS
-Perimeter: some infrastructure third-party software (e.g containerized applications and provided via [Bitnami Containers Library GitHHUB](https://github.com/bitnami/containers) are available on the market as template of provisioning helping to quickly customize the runtime (provisioning of pre-configured Docker image) into a Kubernetes platform. Some infrastructure components are reused by CYBNITY as infrastructure systems with customization of the prepared templates of their images helmization.
+Perimeter: some infrastructure third-party software (e.g containerized applications and provided via 3rd-parties are available on the market as template of provisioning helping to quickly customize the runtime (provisioning of pre-configured Docker image) into a Kubernetes platform. Some infrastructure components are reused by CYBNITY as infrastructure systems with customization of the prepared templates of their images helmization.
 
 Project type: Helm implementation structure.
 
 Description: several generic infrastructure projects required by the CYBNITY implementation architecture are managed.
 
-- [access-control-sso](/charts/access-control-sso): Bitnami Helm project of Keycloak image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `Bitnami Keycloak` version hosted on `Debian` operating system version, and including a `Postgresql` database version deployment. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/keycloak)) is currently used to reduce the maintenance effort of a dedicated Helm project.
+- [access-control-sso](/charts/access-control-sso): Helm project of standard Keycloak image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a __Quay.io Keycloak image__ version hosted on `Debian` operating system version, and including a `Postgresql` database additional deployment. This implementation is currently used to reduce the maintenance effort of a dedicated Helm project.
    - Installation from command line: `helm install access-control-sso-system -f access-control-sso/values.yaml`
 
 - [domains-interactions-space](charts/domains-interactions-space): Bitnami Helm project of Kafka image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in Domains I/O area). This provisioning project is deployable and is supported by a `Bitnami Kafka` version with Apache Kafka Raft (KRaft) consensus protocol (metadata management), and including `Debian` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/kafka)) is currently used to reduce the maintenance effort of a dedicated Helm project based on the `infrastructure\integration\system\domains-interactions-broker` docker image project.
