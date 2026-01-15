@@ -76,9 +76,9 @@ ingress:
   tls:
     - secretName: access-control-sso-tls
       hosts:
-        - KEYCLOAK_HOST
+        - access-control-sso.local
   hosts:
-    - host: KEYCLOAK_HOST
+    - host: access-control-sso.local
       paths:
         - path: /
           pathType: Prefix

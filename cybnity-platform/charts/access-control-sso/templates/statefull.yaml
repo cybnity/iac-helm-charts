@@ -19,7 +19,7 @@ spec:
         {{- include "access-control-sso.labels" . | nindent 8 }}
     spec:
       containers:
-        - name: keycloak
+        - name: {{ include "access-control-sso.fullname" . }}
           image: quay.io/keycloak/keycloak:26.5.1
           args: ["start"]
           env:
