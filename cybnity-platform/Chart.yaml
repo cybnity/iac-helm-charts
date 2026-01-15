@@ -37,7 +37,7 @@ dependencies:
 
   # Project description (see https://artifacthub.io/packages/helm/bitnami/keycloak)
   - name: keycloak # Origin Keycloak Chart.yaml name
-    version: "25.2.0" # Chart.yaml SemVer 2 version. Chart version "21.4.4" # Keycloak project documentation at https://github.com/bitnami/charts/tree/main/bitnami/keycloak
+    version: "25.1.2" # Chart.yaml SemVer 2 version. Chart version "21.4.4" # Keycloak project documentation at https://github.com/bitnami/charts/tree/main/bitnami/keycloak
     repository: oci://registry-1.docker.io/bitnamicharts # URL of the Bitnami legacy repository (non production only) publicly stored on DockerHub
     condition: keycloak.enabled
     alias: access-control-sso ## access-control-sso extended name usable into custom cybnity-platform templates in place of keycloak default name for access to keycloak project attributes via logical name different than keycloak implementation name (for e.g. .Values.access_control_sso.<<value_name>>
