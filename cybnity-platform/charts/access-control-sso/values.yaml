@@ -6,12 +6,19 @@
 replicaCount: 1
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+## @param image.registry HAProxy image registry
+## @param image.repository HAProxy image repository
+## @param image.tag HAProxy image tag (immutable tags are recommended)
+## @param image.digest HAProxy image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
+## @param image.pullPolicy HAProxy image pull policy
+## @param image.pullSecrets HAProxy image pull secrets
 image:
-  repository: quay.io/keycloak/keycloak
+  registry: quay.io
+  repository: keycloak/keycloak
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  version: "26.5.1"
+  tag: "26.5.1"
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
