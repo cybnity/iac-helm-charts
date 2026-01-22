@@ -7,25 +7,11 @@ description: Kafka distributed streaming and CYBNITY domains collaboration platf
 
 home: https://cybnity.org
 icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/kafka/img/kafka-stack-220x234.png
-keywords:
-- kafka
-- streaming
-- producer
-- consumer
-
 type: application
 
 sources:
   # URLs to source code for the project
   - https://github.com/cybnity/iac-helm-charts/tree/main/cybnity-platform/charts/domains-interactions-space
-
-# list of sub-chart required
-dependencies:
-  - name: common
-    repository: oci://registry-1.docker.io/bitnamicharts # URL of the Bitnami legacy repository (non production only) publicly stored on DockerHub
-    tags:
-    - bitnami-common
-    version: 2.x.x
 
 maintainers:
 - name: CYBNITY
@@ -34,15 +20,4 @@ maintainers:
 annotations:
   category: Infrastructure
   licenses: Apache-2.0
-  images: |
-    - name: jmx-exporter
-      image: docker.io/bitnami/jmx-exporter:latest
-    - name: kafka
-      image: docker.io/apache/kafka:4.0.0-rc4
-    - name: kubectl
-      image: docker.io/bitnami/kubectl:latest
-    - name: os-shell
-      image: docker.io/bitnami/os-shell:latest
-  tanzuCategory: service
-
 appVersion: "1.0.0" # Version of the app that this project contains

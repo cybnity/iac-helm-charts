@@ -190,28 +190,26 @@ janusgraph:
 
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform application modules deployed ---
 access-control-sso:
-  enable: true
-  replicaCount: 2
   statefull:
-    replicas: 2
+    replicas: 1
 
 domains-interactions-space:
-  enable: true
+  kafka:
+    controller:
+      ## @param controller.replicaCount Number of Kafka controller-eligible nodes
+      ## Ignore this section if running in Zookeeper mode.
+      ##
+      replicaCount: 1
 
-users-interactions-space:
-  enable: true
+#users-interactions-space:
 
-knowledge-repository:
-  enable: true
+#knowledge-repository:
 
-reactive-messaging-gateway:
-  enable: true
+#reactive-messaging-gateway:
 
-web-reactive-frontend:
-  enable: true
+#web-reactive-frontend:
 
-ui-apis-gateway:
-  enable: true
+#ui-apis-gateway:
 
 ### ui-apis-gateway
 #cert-manager:
