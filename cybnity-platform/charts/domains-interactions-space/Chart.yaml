@@ -3,7 +3,15 @@ name: domains-interactions-space
 version: 1.0.0  # SemVer 2 version
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
 # Project description (see https://artifacthub.io/packages/helm/bitnami/kafka)
-description: Kafka distributed streaming and CYBNITY domains collaboration platform over Kafka Raft (KRaft) protocol.
+description: Kafka distributed streaming and CYBNITY domains collaboration platform over Kafka Raft (KRaft) protocol. Apache Kafka is a distributed streaming platform designed to build real-time pipelines and can be used as a message broker or as a replacement for a log aggregation solution for big data applications.
+
+home: https://cybnity.org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/kafka/img/kafka-stack-220x234.png
+keywords:
+- kafka
+- streaming
+- producer
+- consumer
 
 type: application
 
@@ -13,13 +21,28 @@ sources:
 
 # list of sub-chart required
 dependencies:
-  - name: kafka
-    version: "32.4.3" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/kafka
-    # Kakfa Bitnami Helm project documentation at https://github.com/bitnami/charts/blob/main/bitnami/kafka/README.md
+  - name: common
     repository: oci://registry-1.docker.io/bitnamicharts # URL of the Bitnami legacy repository (non production only) publicly stored on DockerHub
+    tags:
+    - bitnami-common
+    version: 2.x.x
 
-appVersion: "1.0.0" # Version of the app that this project contains
+maintainers:
+- name: CYBNITY
+  url: https://github.com/cybnity/iac-helm-charts
 
 annotations:
   category: Infrastructure
   licenses: Apache-2.0
+  images: |
+    - name: jmx-exporter
+      image: docker.io/bitnami/jmx-exporter:latest
+    - name: kafka
+      image: docker.io/apache/kafka:4.0.0-rc4
+    - name: kubectl
+      image: docker.io/bitnami/kubectl:latest
+    - name: os-shell
+      image: docker.io/bitnami/os-shell:latest
+  tanzuCategory: service
+
+appVersion: "1.0.0" # Version of the app that this project contains

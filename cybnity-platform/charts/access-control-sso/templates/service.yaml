@@ -25,19 +25,19 @@ spec:
   selector:
     {{- include "access-control-sso.selectorLabels" . | nindent 4 }}
   clusterIP: None
-  type: {{ .Values.service.type }}
+  type: {{ .Values.statefull.type }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: {{ .Values.postgre.serviceName }}
-  name: {{ .Values.postgre.serviceName }}
+    app: {{ .Values.postgres.serviceName }}
+  name: {{ .Values.postgres.serviceName }}
 spec:
   selector:
-    app: {{ .Values.postgre.serviceName }}
+    app: {{ .Values.postgres.serviceName }}
   ports:
-    - protocol: {{ .Values.postgre.protocol }}
-      port: {{ .Values.postgre.port }}
-      targetPort: {{ .Values.postgre.targetPort }}
-  type: {{ .Values.postgre.type }}
+    - protocol: {{ .Values.postgres.protocol }}
+      port: {{ .Values.postgres.port }}
+      targetPort: {{ .Values.postgres.targetPort }}
+  type: {{ .Values.postgres.type }}

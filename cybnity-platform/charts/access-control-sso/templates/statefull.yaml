@@ -56,9 +56,9 @@ spec:
             - name: 'KC_DB_URL_DATABASE'
               value: 'keycloak'
             - name: 'KC_DB_URL_HOST'
-              value: 'postgres'
+              value: {{ .Values.postgres.serviceName }}
             - name: 'KC_DB'
-              value: 'postgres'
+              value: {{ .Values.postgres.portName }}
             # In a production environment, use a secret to store username and password to the database
             - name: 'KC_DB_PASSWORD'
               value: 'keycloak'

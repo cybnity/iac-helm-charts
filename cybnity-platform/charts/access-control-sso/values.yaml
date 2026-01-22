@@ -61,7 +61,9 @@ securityContext: {}
 
 statefull:
   serviceName: access-control-sso-discovery-system
-  replicas: 1
+  replicas: 2
+  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: ClusterIP
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
@@ -73,8 +75,9 @@ service:
   protocol: TCP
   name: http
 
-postgre:
+postgres:
   serviceName: access-control-sso-db-system
+  portName: postgres # must be no more than 15 characters
   port: 5432
   targetPort: 5432
   protocol: TCP
