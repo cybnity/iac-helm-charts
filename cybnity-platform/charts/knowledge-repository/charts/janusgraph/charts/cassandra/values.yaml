@@ -38,10 +38,10 @@ global:
 
 ## @param nameOverride String to partially override common.names.fullname
 ##
-nameOverride: "cassandra-db-system""
+nameOverride: "cassandra-db-system"
 ## @param fullnameOverride String to fully override common.names.fullname
 ##
-fullnameOverride: "cassandra-db-system""
+fullnameOverride: "cassandra-db-system"
 ## @param kubeVersion Force target Kubernetes version (using Helm capabilities if not set)
 ##
 kubeVersion: ""
