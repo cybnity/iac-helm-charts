@@ -183,10 +183,6 @@ knowledge-repository:
       ##
       replicaCount: 1
 
-## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform application modules deployed ---
-access-control-sso:
-  statefull:
-    replicas: 1
 
 domains-interactions-space:
   kafka:
@@ -211,6 +207,12 @@ users-interactions-space:
       ##
       replicaCount: 3
 
+access-control-sso:
+  statefull:
+    replicas: 1
+
+## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform application modules deployed ---
+
 ui-apis-gateway:
   traefik:
     deployment:
@@ -218,16 +220,6 @@ ui-apis-gateway:
       kind: Deployment
       # -- Number of pods of the deployment (only applies when kind == Deployment)
       replicas: 1
-
-    ingressRoute:
-      dashboard:
-        # Exposed local dashboard
-        # See https://doc.traefik.io/traefik/reference/install-configuration/api-dashboard/ documentation for security of dashboard api
-        enabled: true
-        # Custom match rule with host domain
-        matchRule: Host(`dashboard.localhost`) # e.g. traefik-dev.cybnity.tech
-        entryPoints:
-          - web
 
 #reactive-messaging-gateway:
 

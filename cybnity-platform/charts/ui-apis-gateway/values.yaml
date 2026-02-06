@@ -106,6 +106,10 @@ traefik:
     dashboard:
       # By default, don't expose the local Traefik dashboard
       enabled: false
+      # Custom match rule with host domain
+      matchRule: Host(`dashboard.localhost`)
+      entryPoints:
+        - web
 
   # Enable Gateway API Provider & Disables the KubernetesIngress provider
   # Providers tell Traefik where to find routing configuration.
