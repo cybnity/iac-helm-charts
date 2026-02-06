@@ -8,24 +8,9 @@ home: https://cybnity.org
 icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/redis/img/redis-stack-220x234.png
 type: application
 
-keywords:
-- redis
-- keyvalue
-- database
-
 sources:
   # URLs to source code for the project
   - https://github.com/cybnity/iac-helm-charts/tree/main/cybnity-platform/charts/users-interactions-space
-
-# list of sub-chart required
-dependencies:
-  - name: common
-    repository: oci://registry-1.docker.io/bitnamicharts # URL of the Bitnami legacy repository (non production only) publicly stored on DockerHub
-    tags:
-    - bitnami-common
-    version: 2.x.x
-
-appVersion: "1.0.0" # Version of the app that this project contains
 
 maintainers:
 - name: CYBNITY
@@ -34,3 +19,5 @@ maintainers:
 annotations:
   category: Infrastructure
   licenses: Apache-2.0
+
+appVersion: "1.0.0" # Version of the app that this project contains

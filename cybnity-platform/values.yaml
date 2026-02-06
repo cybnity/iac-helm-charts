@@ -172,21 +172,16 @@ annotations:
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform infrastructure modules deployed ---
 ## Custom redefined value according to the version deployed of application systems
 
-### domains-interactions-space:
-#kafka:
-
-### users-interactions-space:
-# redis:
-    ## @param architecture Redis&reg; architecture. Allowed values: `standalone` or `replication`
+knowledge-repository:
+  janusgraph:
+    ## @param replicaCount Number of Graph server replicas to deploy
     ##
-#   architecture: standalone # limitation to unique master instance by default
+    replicaCount: 2
 
-### knowledge-repository:
-janusgraph:
-  ## @param replicaCount Number of Graph server replicas to deploy
-  ##
-  replicaCount: 1
-  #cassandra:
+    cassandra:
+      ## @param replicaCount Number of Cassandra replicas
+      ##
+      replicaCount: 1
 
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform application modules deployed ---
 access-control-sso:
@@ -201,9 +196,20 @@ domains-interactions-space:
       ##
       replicaCount: 1
 
-#users-interactions-space:
+users-interactions-space:
+  redis:
+    ## @param architecture Redis&reg; architecture. Allowed values: `standalone` or `replication`
+    ##
+    architecture: replication
 
-#knowledge-repository:
+    replica:
+      ## @param replica.kind Use either DaemonSet or StatefulSet (default)
+      ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
+      ##
+      kind: StatefulSet
+      ## @param replica.replicaCount Number of Redis(R) replicas to deploy
+      ##
+      replicaCount: 3
 
 #reactive-messaging-gateway:
 
