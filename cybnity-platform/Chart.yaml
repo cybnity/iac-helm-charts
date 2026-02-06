@@ -19,32 +19,25 @@ sources:
 dependencies:
   # GENERIC INFRASTRUCTURE MODULES
   - name: domains-interactions-space
-    condition: domains-interactions-space.enabled
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   - name: users-interactions-space
-    condition: users-interactions-space.enabled
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   - name: knowledge-repository
-    condition: knowledge-repository.enabled
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   # APPLICATION MODULES
   - name: access-control-sso
-    condition: access-control-sso.enabled
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   - name: reactive-messaging-gateway
-    condition: reactive-messaging-gateway.enabled
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   - name: web-reactive-frontend
-    condition: web-reactive-frontend.enabled
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   - name: ui-apis-gateway
-    condition: ui-apis-gateway.enabled
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
 maintainers: # Referent maintainers of this Helm project
