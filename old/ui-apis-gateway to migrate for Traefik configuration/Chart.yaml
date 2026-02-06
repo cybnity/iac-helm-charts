@@ -12,11 +12,14 @@ sources:
 
 # list of sub-chart required
 dependencies:
-  ## Official Traefik Docker image from https://hub.docker.com/_/traefik
-  - name: traefik
-    version: 39.0.0 # Free version provided on https://github.com/traefik/traefik-helm-chart/tree/master
-    repository: https://traefik.github.io/charts #oci://ghcr.io/traefik/helm/traefik # Repo at https://traefik.github.io/charts
-    alias: traefik
+  - name: cert-manager
+    version: "1.19.1" # Free 1.19.1 version provided by ArtifactHub repo at https://artifacthub.io/packages/helm/cert-manager/cert-manager
+    repository: https://charts.jetstack.io # URL of the Cert Manager repository
+    alias: cert-manager
+
+  #- name: haproxy
+  #  version: "3.2.3" # Free ArtifactHub repo at https://artifacthub.io/packages/helm/bitnami/haproxy
+  #  repository: oci://registry-1.docker.io/bitnamicharts # URL of the Bitnami legacy repository (non production only) publicly stored on DockerHub
 
 appVersion: "1.0.0" # Version of the app that this project contains
 

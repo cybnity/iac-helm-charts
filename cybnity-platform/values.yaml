@@ -211,14 +211,26 @@ users-interactions-space:
       ##
       replicaCount: 3
 
+ui-apis-gateway:
+  traefik:
+    deployment:
+      # -- Deployment or DaemonSet
+      kind: Deployment
+      # -- Number of pods of the deployment (only applies when kind == Deployment)
+      replicas: 1
+
+    ingressRoute:
+      dashboard:
+        # Exposed local dashboard
+        # See https://doc.traefik.io/traefik/reference/install-configuration/api-dashboard/ documentation for security of dashboard api
+        enabled: true
+        # Custom match rule with host domain
+        matchRule: Host(`dashboard.localhost`) # e.g. traefik-dev.cybnity.tech
+        entryPoints:
+          - web
+
 #reactive-messaging-gateway:
 
 #web-reactive-frontend:
-
-#ui-apis-gateway:
-
-### ui-apis-gateway
-#cert-manager:
-#haproxy:
 
 ## ---------------
