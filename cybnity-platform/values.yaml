@@ -159,21 +159,8 @@ fullnameOverride: ""
 
 selectorLabels: {}
 
+# Cybnity platform common labels
 labels: {}
-
-# values authorized: keep, delete
-helmResourcePolicy: delete
-
-### Namespace objects configuration
-namespaces:
-  - cybnity
-  # To support cert-manager
-  #- cert-manager
-
-# Configuration of namespace resource
-namespace:
-  labels: {}
-   #  additional_label1: myvalue
 
 annotations: {}
   #certmanager.k8s.io/disable-validation: "true"
