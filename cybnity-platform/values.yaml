@@ -30,6 +30,24 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+## Enable diagnostic mode in the deployment to check that application initialized
+## Startup probes were introduced to address a specific problem: applications with variable or long startup times.
+## Before startup probes, you had to configure liveness probes with long initial delays to accommodate the worst-case startup scenario—but this meant slow detection of failures after startup.
+## A startup probe checks if a container has successfully started. While the startup probe is running, liveness and readiness probes are disabled. Once the startup probe succeeds, these other probes become active.
+##
+diagnosticMode:
+  ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
+  ##
+  enabled: false
+  ## @param diagnosticMode.command Command to override all containers in the deployment
+  ##
+  command:
+    - sleep
+  ## @param diagnosticMode.args Args to override all containers in the deployment
+  ##
+  args:
+    - infinity
+
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
 
