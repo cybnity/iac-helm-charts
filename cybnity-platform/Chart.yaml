@@ -4,7 +4,7 @@ name: cybnity-platform # Chart name
 version: 1.0.0 # SemVer 2 Chart version
 icon: https://github.com/cybnity/foundation/blob/main/cybnity-logo.png # Internet accessible URL to icon image, or base64 formatted icon
 # @Requirement(reqType = RequirementCategory.Maintainability, reqId = "REQ_MAIN_1")
-description: CYBNITY systems packaged and integrated defense platform allowing deployment on Kubernetes cluster.
+description: CYBNITY systems packaged and integrated cybersecurity platform allowing instantiation into a Kubernetes cluster.
 
 keywords:
   - cybnity-platform
@@ -55,7 +55,7 @@ maintainers: # Referent maintainers of this Helm project
 # pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
 
-appVersion: "1.0.0" # Version of the defense integrated solution that this project contains
+appVersion: "1.0.0" # Version of the defense integrated solution that this project contains; if not defined, the version are only managed into sub-charts
 
 annotations:
   category: Solution
