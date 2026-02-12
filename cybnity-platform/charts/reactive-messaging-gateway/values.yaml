@@ -55,12 +55,12 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: "cybnity-backend-system"
 
-podAnnotations: {}
+#podAnnotations: {}
 
-podSecurityContext: {}
+#podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
+#securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -98,7 +98,7 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+#resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -109,6 +109,14 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+## @param module labels for the deployed component
+##   app.kubernetes.io/component (architecture level): <<name of implemented via>> (see https://www.notion.so/cybnity/5a681e57f2164d4f8a3f228129294db9?v=348e6a0d04e449f883616c948abec85d) as ui, application, domain, infrastructure, security-control
+##   app.kubernetes.io/part-of (application level): <<name of deploybale system>> (see https://cybnity.notion.site/5a681e57f2164d4f8a3f228129294db9?v=02fde7cb6f8e4d69b8497d6ca97e4316); for e.g. Asset Control Domain Gateway
+##
+labels:
+  app.kubernetes.io/component: ui
+  app.kubernetes.io/part-of: reactive-messaging-gateway-server
 
 autoscaling:
   enabled: false
@@ -125,6 +133,6 @@ autoscaling:
 nodeSelector:
   cybnity.io/user-interfaces-area: "true"
 
-tolerations: []
+#tolerations: []
 
-affinity: {}
+#affinity: {}

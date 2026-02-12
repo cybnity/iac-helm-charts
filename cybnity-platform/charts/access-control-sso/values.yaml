@@ -110,6 +110,14 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+## @param module labels for the deployed component
+##   app.kubernetes.io/component (architecture level): <<name of implemented via>> (see https://www.notion.so/cybnity/5a681e57f2164d4f8a3f228129294db9?v=348e6a0d04e449f883616c948abec85d) as ui, application, domain, infrastructure, security-control
+##   app.kubernetes.io/part-of (application level): <<name of deploybale system>> (see https://cybnity.notion.site/5a681e57f2164d4f8a3f228129294db9?v=02fde7cb6f8e4d69b8497d6ca97e4316); for e.g. Asset Control Domain Gateway
+##
+labels:
+  app.kubernetes.io/component: ui
+  app.kubernetes.io/part-of: access-control-sso-server
+
 ## @param livenessProbe.enabled Enable livenessProbe on haproxy nodes
 ## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
 ## @param livenessProbe.periodSeconds Period seconds for livenessProbe
