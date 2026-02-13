@@ -3,8 +3,8 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: "access-control-sso-system-routes"
-  labels:
-    {{- include "ui-apis-gateway.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "post-install" # Execute this resource creation after all other resources loaded into K8S (doc at https://helm.sh/docs/topics/charts_hooks/#the-available-hooks) for allow endpoint found
 spec:
   entryPoints:
     - web
