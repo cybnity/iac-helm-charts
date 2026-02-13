@@ -1,0 +1,18 @@
+# See doc at https://doc.traefik.io/traefik/getting-started/kubernetes/#exposing-the-application-using-the-gateway-api
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: sso-authentication-servers-route
+spec:
+  parentRefs:
+    - name: traefik-gateway
+  hostnames:
+    - "access-control-sso-gatewayapi.local"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: access-control-sso
+          port: 80

@@ -110,6 +110,39 @@ traefik:
   nodeSelector:
     cybnity.io/user-interfaces-area: "true"
 
+  # @schema mergeProperties: true
+  ports:
+    # @schema additionalProperties: false
+    traefik:
+      port: 8080
+      # Defines whether the port is exposed if service.type is LoadBalancer or
+      # NodePort.
+      #
+      # -- You SHOULD NOT expose the traefik port on production deployments.
+      # If you want to access it from outside your cluster,
+      # use `kubectl port-forward` or create a secure ingress
+      expose:
+        default: false
+      # -- The exposed port for this service
+      exposedPort: 8080
+    web:
+      port: 8000
+      # hostPort: 8000
+      # containerPort: 8000
+      expose:
+        default: true
+      exposedPort: 80
+
+    websecure:
+      ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
+      # asDefault: true
+      port: 8443
+      hostPort:  # @schema type:[integer, null]; minimum:0
+      containerPort:  # @schema type:[integer, null]; minimum:0
+      expose:
+        default: true
+      exposedPort: 443
+
   ingressRoute:
     dashboard:
       # By default, don't expose the local Traefik dashboard
@@ -133,13 +166,50 @@ traefik:
       enabled: false
     kubernetesGateway:
       # Enable the Kubernetes Gateway API specification support for configure ingress in Kubernetes
-      # Automatic created default GatewayClass named traefik (exposure based on HTTPRoute resource)
+      # Automatic created default GatewayClass named traefik (see Gateway API doc at https://gateway-api.sigs.k8s.io/)
       enabled: true
 
   ## Gateway Listeners
   gateway:
+    # Custom name to gateway
+    name: "ui-apis-gateway"
+    # -- By default, Gateway is created in the same `Namespace` as Traefik.
+    namespace: ""
+    # -- Additional gateway annotations (e.g. for cert-manager.io/issuer)
+    annotations: {}
+    # -- [Infrastructure](https://kubernetes.io/blog/2023/11/28/gateway-api-ga/#gateway-infrastructure-labels)
+    infrastructure: {}
+    # -- Configure this Gateway as a [Default Gateway](https://kubernetes.io/blog/2025/11/06/gateway-api-v1-4/#introducing-default-gateways)
+    # by setting the `defaultScope` field (e.g. `All` or `Namespace`).
+    defaultScope: null  # @schema enum:["All", "None", null]; type:[string, null]; default: null
+
     listeners:
       web:
-        namespacePolicy:
+        # -- Port is the network port. Multiple listeners may use the same port, subject to the Listener compatibility rules.
+        # The port must match a port declared in ports section.
+        port: 8000
+        # -- Optional hostname. See [Hostname](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname)
+        hostname: ""
+        # Specify expected protocol on this listener. See [ProtocolType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ProtocolType)
+        protocol: HTTP
+        # -- (object) Routes are restricted to namespace of the gateway [by default](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.FromNamespaces
+        namespacePolicy:  # @schema type:[object, null]
           # ALlows the Gateway to expose HTTPRoutes from all namespaces
           from: All
+
+        # websecure listener is disabled by default because certificateRefs needs to be added,
+        # or you may specify TLS protocol with Passthrough mode and add "--providers.kubernetesGateway.experimentalChannel=true" in additionalArguments section.
+        #websecure:
+        #   # -- Port is the network port. Multiple listeners may use the same port, subject to the Listener compatibility rules.
+        #   # The port must match a port declared in ports section.
+        #   port: 8443
+        #   # -- Optional hostname. See [Hostname](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname)
+        #   hostname:
+        #   # Specify expected protocol on this listener See [ProtocolType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ProtocolType)
+        #   protocol: HTTPS
+        #   # -- Routes are restricted to namespace of the gateway [by default](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.FromNamespaces)
+        #   namespacePolicy:
+        #   # -- Add certificates for TLS or HTTPS protocols. See [GatewayTLSConfig](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.GatewayTLSConfig)
+        #   certificateRefs:
+        #   # -- TLS behavior for the TLS session initiated by the client. See [TLSModeType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.TLSModeType).
+        #   mode:
