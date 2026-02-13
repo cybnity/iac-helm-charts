@@ -15,7 +15,7 @@ dependencies:
   ## Official Traefik Docker image from https://hub.docker.com/_/traefik
   - name: traefik
     version: 39.0.0 # Free version provided on https://github.com/traefik/traefik-helm-chart/tree/master
-    repository: oci://ghcr.io/traefik/helm/traefik # https://traefik.github.io/charts
+    repository: https://traefik.github.io/charts/traefik # oci://ghcr.io/traefik/helm/traefik
     alias: traefik
 
 appVersion: "1.0.0" # Version of the app that this project contains
