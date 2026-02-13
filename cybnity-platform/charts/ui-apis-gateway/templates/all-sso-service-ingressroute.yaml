@@ -2,7 +2,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ include "ui-apis-gateway.fullname" . }}
+  name: "access-control-sso-system-routes"
   labels:
     {{- include "ui-apis-gateway.labels" . | nindent 4 }}
 spec:
