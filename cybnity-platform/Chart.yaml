@@ -20,12 +20,15 @@ dependencies:
   # GENERIC INFRASTRUCTURE MODULES
   - name: domains-interactions-space
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    alias: domains-interactions-space
 
   - name: users-interactions-space
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    alias: users-interactions-space
 
   - name: knowledge-repository
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    alias: knowledge-repository
 
   # APPLICATION MODULES
   - name: access-control-sso
@@ -34,9 +37,11 @@ dependencies:
 
   - name: reactive-messaging-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    alias: reactive-messaging-gateway
 
   - name: web-reactive-frontend
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    alias: web-reactive-frontend
 
   - name: ui-apis-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
