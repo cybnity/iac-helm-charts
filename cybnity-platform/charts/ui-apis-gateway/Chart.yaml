@@ -12,11 +12,6 @@ sources:
 
 # list of sub-chart required
 dependencies:
-  # APPLICATION MODULES
-  - name: access-control-sso
-    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
-    alias: access-control-sso
-
   ## Official Traefik Docker image from https://hub.docker.com/_/traefik
   - name: traefik
     version: 39.0.0 # Free version provided on https://github.com/traefik/traefik-helm-chart/tree/master

@@ -28,6 +28,10 @@ dependencies:
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
   # APPLICATION MODULES
+  - name: access-control-sso
+    version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    alias: access-control-sso
+
   - name: reactive-messaging-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
 
