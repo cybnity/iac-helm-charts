@@ -94,8 +94,21 @@ ingress:
         - access-control-sso.local
   hosts:
     - host: access-control-sso.local
+      # Default path to resources provided by the same Keycloak service
       paths:
         - path: /
+          pathType: Prefix
+        - path: /realms/
+          pathType: Prefix
+        - path: /auth/
+          pathType: Prefix
+        - path: /resources/
+          pathType: Prefix
+        - path: /js/
+          pathType: Prefix
+        - path: /robots.txt
+          pathType: ImplementationSpecific
+        - path: /admin/
           pathType: Prefix
 
 resources: {}

@@ -105,7 +105,7 @@ labels:
   app.kubernetes.io/part-of: ui-apis-gateway
 
 # Traefik helm values.yaml file documented at https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
-# Examples of configuration in documentation at https://doc.traefik.io/traefik/reference/install-configuration/entrypoints/#configuration-example
+# Examples of configuration in documentation at https://doc.traefik.io/traefik/reference/install-configuration/entrypoints#configuration-example
 traefik:
   nodeSelector:
     cybnity.io/user-interfaces-area: "true"
@@ -113,8 +113,10 @@ traefik:
   ingressRoute:
     dashboard:
       # By default, don't expose the local Traefik dashboard
+      # See https://doc.traefik.io/traefik/reference/install-configuration/api-dashboard/ documentation for security of dashboard api
       enabled: false
-      # Custom match rule with host domain
+      # Custom match rule with default host domain
+      # Exposed on dashboard at http://dashboard.localhost/dashboard/ url
       matchRule: Host(`dashboard.localhost`)
       entryPoints:
         - web
@@ -123,11 +125,14 @@ traefik:
   # Providers tell Traefik where to find routing configuration.
   providers:
     kubernetesCRD:
+      # See configuration options at https://doc.traefik.io/traefik/reference/install-configuration/providers/kubernetes/kubernetes-crd/
+      # Exposure based on Kubernetes CRD (e.g. IngressRoute resource) per application service (e.g. access-control-sso application service)
       enabled: true
     kubernetesIngress:
       enabled: false
     kubernetesGateway:
-      # Automatic created default GatewayClass named traefik
+      # Enable the Kubernetes Gateway API specification support for configure ingress in Kubernetes
+      # Automatic created default GatewayClass named traefik (exposure based on HTTPRoute resource)
       enabled: true
 
   ## Gateway Listeners
@@ -135,4 +140,5 @@ traefik:
     listeners:
       web:
         namespacePolicy:
+          # ALlows the Gateway to expose HTTPRoutes from all namespaces
           from: All

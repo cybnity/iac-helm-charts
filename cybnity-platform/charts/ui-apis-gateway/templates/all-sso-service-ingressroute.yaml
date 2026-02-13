@@ -1,0 +1,17 @@
+# Application exposed using a CRD for exposure of all path supported by Keycloak via default ingress paths exposed by access-control-sso application module
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "ui-apis-gateway.fullname" . }}
+  labels:
+    {{- include "ui-apis-gateway.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    - web
+  routes:
+    # Define path set required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
+    - match: Host(`traefik-dev-deploy.cybnity.tech`)
+      kind: Rule
+      services:
+        - name: "access-control-sso-system"
+          port: 8080 # Keycloak http main service entrypoint
