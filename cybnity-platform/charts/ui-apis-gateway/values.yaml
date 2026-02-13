@@ -129,6 +129,7 @@ traefik:
       # Exposure based on Kubernetes CRD (e.g. IngressRoute resource) per application service (e.g. access-control-sso application service)
       enabled: true
     kubernetesIngress:
+      # Recommende to use Kubernetes Gateway API more sustainable than Ingress API controller
       enabled: false
     kubernetesGateway:
       # Enable the Kubernetes Gateway API specification support for configure ingress in Kubernetes

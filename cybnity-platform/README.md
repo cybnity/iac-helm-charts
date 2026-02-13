@@ -30,15 +30,13 @@ Project type: Helm implementation structure.
 
 Description: several generic infrastructure projects required by the CYBNITY implementation architecture are managed.
 
-- [access-control-sso](/charts/access-control-sso): Helm project of standard Keycloak image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a [RED HAT Quay.io Keycloak image](https://quay.io/repository/keycloak/keycloak) version hosted on `Debian` operating system version, and including a `Postgresql` database additional deployment. This implementation is currently used to reduce the maintenance effort of a dedicated Helm project. This Helm project is based on old Bitnami Helm project version that maintenance have been stoped by Bitnami company in 2025 (mandatory switch of to secure image and non-free offer for new Bitnami Helm project).  
-   - Installation from command line: `helm install access-control-sso-system -f access-control-sso/values.yaml`
+- [access-control-sso](/charts/access-control-sso): Helm project of standard Keycloak image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a [RED HAT Quay.io Keycloak image](https://quay.io/repository/keycloak/keycloak) version hosted on `Debian` operating system version, and including a `Postgresql` database additional deployment. This implementation is currently used to reduce the maintenance effort of a dedicated Helm project. This Helm project is based on old Bitnami Helm project version that maintenance have been stoped by Bitnami company in 2025 (mandatory switch of to secure image and non-free offer for new Bitnami Helm project).
 
 - [domains-interactions-space](charts/domains-interactions-space): Helm project of Kafka cluster provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in Domains I/O area). This provisioning project is deployable and is supported by a Kafka version with Apache Kafka Raft (KRaft) consensus protocol (metadata management), and including `Debian` operating system libraries. This Helm project is based on old Bitnami Helm project version that maintenance have been stoped by Bitnami company in 2025 (mandatory switch of to secure image and non-free offer for new Bitnami Helm project).
 
-- [knowledge-repository-server](charts/knowledge-repository-server): Bitnami Helm project ok JanusGraph image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `Bitnami Janusgraph` version under `Debian` operating system libraries. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/janusgraph)) and include a `Cassandra` backend server supporting the Janusgraph server.
-   - Installation from command line: `helm install knowledge-repository-system -f knowledge-repository-server/values.yaml bitnami/janusgraph`
+- [knowledge-repository-server](charts/knowledge-repository-server): Bitnami-based Helm project of JanusGraph image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `Bitnami Janusgraph` version under `Debian` operating system libraries. This implementation includes a `Cassandra` backend server supporting the Janusgraph server.
 
-- [ui-apis-gateway](charts/ui-apis-gateway): Bitnami Helm project of NGINX and Ingress controller image provisioning, customized for the CYBNITY needs. This implementation (hosted on [ArtifactHUB](https://artifacthub.io/packages/helm/bitnami/haproxy) is currently used to reduce effort of a dedicated Helm project
+- [ui-apis-gateway](charts/ui-apis-gateway): Traefik Proxy Helm project as Ingress controller image provisioning, customized for the CYBNITY needs.
 
 - [users-interactions-space](charts/users-interactions-space): Helm project of Redis image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in UI area). This provisioning project is deployable and is supported by a Redis Cluster topology with sharding version including `Debian` operating system libraries. This Helm project is based on old Bitnami Helm project version that maintenance have been stoped by Bitnami company in 2025 (mandatory switch of to secure image and non-free offer for new Bitnami Helm project).
 
@@ -262,8 +260,8 @@ graph LR
        subgraph uilayer1[" "]
          direction TB
          subgraph service8["\n #60;#60;LoadBalancer Service#62;#62; \n ui-apis-gateway-system "]
-            podproxy1["#60;#60;POD#62;#62; \n HAProxy"]
-            podproxy2["#60;#60;POD#62;#62; \n HAProxy"]
+            podproxy1["#60;#60;POD#62;#62; \n Traefik"]
+            podproxy2["#60;#60;POD#62;#62; \n Traefik"]
          end
        end
        subgraph uilayer2[" "]
@@ -382,7 +380,7 @@ Description: each deployable resource provisioning is defined via dedicated file
 - [pre- or post-deployment tasks](README-scripts.md): Helm provisioning scripts implemented before or after deployment of CYBNITY solution onto a cluster deployed.
 
 # CYBNITY PLATFORM USAGE
-## VPN tunnel to K8s cluster
+## Option 1 - VPN tunnel to K8s cluster
 When cluster is started, the CYBNITY access via browser is possible after start of a VPN tunnel.
 
 To start VPN tunnel:
@@ -390,8 +388,8 @@ To start VPN tunnel:
 minikube tunnel -p <<your cluster profile name>>
 ```
 
-## SSO server configuration
-The access to Keycloak configuration is allowed via url externally exposed (external url of `access-control-sso-system`) on port 80 and usable from web browser.
+## Option 2 - SSO server configuration
+The access to Keycloak configuration can be allowed via redefinition of ingress paths configuration of __access-control-sso__ Helm project values for expose url (e.g. admin console) on port 80 becoming usable from web browser and external network.
 
 #
 [Back To Home](../README.md)
