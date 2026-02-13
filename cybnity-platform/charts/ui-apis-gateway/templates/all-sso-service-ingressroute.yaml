@@ -10,7 +10,7 @@ spec:
     - web
   routes:
     # Define path set required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
-    - match: Host(`traefik-dev-deploy.cybnity.tech`)
+    - match: Host(`dev-deploy.cybnity.tech`)
       kind: Rule
       services:
         - name: "access-control-sso-system"
