@@ -129,6 +129,10 @@ ui-apis-gateway:
       # -- Number of pods of the deployment (only applies when kind == Deployment)
       replicas: 1
 
+      ## Auto-scaling adon configuration in place of replicas
+      ## see doc at https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#install-with-auto-scaling
+
+
 #reactive-messaging-gateway:
 
 #web-reactive-frontend:
