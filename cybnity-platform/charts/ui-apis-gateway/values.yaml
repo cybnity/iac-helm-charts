@@ -107,6 +107,18 @@ labels:
 # Traefik helm values.yaml file documented at https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
 # Examples of configuration in documentation at https://doc.traefik.io/traefik/reference/install-configuration/entrypoints#configuration-example
 traefik:
+  # Traefik Helm project chart doc at https://github.com/traefik/traefik-helm-chart
+  image:
+      # -- Traefik image host registry
+      registry: docker.io
+      # -- Traefik image repository
+      repository: traefik
+      # -- defaults to appVersion. It's used for version checking, even prefixed with experimental- or latest-.
+      # When a digest is required, `versionOverride` can be used to set the version.
+      tag: ""
+      # -- Traefik image pull policy
+      pullPolicy: IfNotPresent
+
   nodeSelector:
     cybnity.io/user-interfaces-area: "true"
 
