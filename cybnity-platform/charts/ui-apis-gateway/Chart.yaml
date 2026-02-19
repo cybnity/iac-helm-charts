@@ -16,7 +16,7 @@ dependencies:
   # Traefik Helm chart repo at https://traefik.github.io/charts
   - name: traefik
     version: 39.0.1 # Free version provided on https://github.com/traefik/traefik-helm-chart/tree/master
-    repository: https://traefik.github.io/charts # oci://ghcr.io/traefik/helm/traefik
+    repository: oci://ghcr.io/traefik/helm/traefik #https://traefik.github.io/charts # oci://ghcr.io/traefik/helm/traefik
     alias: traefik
 
 appVersion: "1.0.0" # Version of the app that this project contains
