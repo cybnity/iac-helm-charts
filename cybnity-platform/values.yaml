@@ -92,14 +92,13 @@ serviceAccount:
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform infrastructure modules deployed ---
 ## Custom redefined value according to the version deployed of application systems
 
-knowledge-repository:
-  janusgraph:
+#knowledge-repository:
+#  janusgraph:
     ## @param replicaCount Number of Graph server replicas to deploy
     ## Default: 2
     ##
     #replicaCount: 2
-
-    cassandra:
+#    cassandra:
       ## @param replicaCount Number of Cassandra replicas
       ##
       #replicaCount: 1
