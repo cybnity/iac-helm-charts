@@ -142,6 +142,15 @@ deployment:
   imageHttpHealthLivenessProbe: /static/health.html
   imageHttpHealthReadinessProbe: /static/health.html
 
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform infrastructure modules deployed ---
 ## Custom redefined value according to the version deployed of application systems
 
