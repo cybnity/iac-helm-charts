@@ -28,7 +28,7 @@ image:
 nameOverride: "knr-system"
 fullnameOverride: "knr-system"
 
-replicaCount: 1
+#replicaCount: 1
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
@@ -109,16 +109,7 @@ janusgraph:
   volumePermissions:
     enabled: true
 
-  ## @param replicaCount Number of Graph server replicas to deploy
-  ## Default: 2
-  ##
-  replicaCount: 1
-
   cassandra:
-    ## @param replicaCount Number of Cassandra replicas
-    ##
-    replicaCount: 1
-
     ## @param nameOverride String to partially override common.names.name
     nameOverride: "cassandra-db-system"
     fullnameOverride: "cassandra-db-system"
