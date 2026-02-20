@@ -103,7 +103,6 @@ serviceAccount:
       ##
       #replicaCount: 1
 
-
 domains-interactions-space:
   kafka:
     controller:
