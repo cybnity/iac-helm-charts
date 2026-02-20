@@ -49,3 +49,14 @@ Selector labels
 app.kubernetes.io/name: {{ include "cybnity-platform.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "cybnity-platform.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "cybnity-platform.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
