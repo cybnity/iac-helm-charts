@@ -135,6 +135,13 @@ startupProbe:
   successThreshold: 1
   failureThreshold: 5
 
+deployment:
+  imageHealthCheckPort: 80
+  imageHealthCheckInitialDelaySeconds: 60
+  imageHealthCheckPeriodSeconds: 300
+  imageHttpHealthLivenessProbe: /static/health.html
+  imageHttpHealthReadinessProbe: /static/health.html
+
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform infrastructure modules deployed ---
 ## Custom redefined value according to the version deployed of application systems
 
