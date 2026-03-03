@@ -92,7 +92,9 @@ serviceAccount:
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform infrastructure modules deployed ---
 ## Custom redefined value according to the version deployed of application systems
 
-#knowledge-repository:
+knowledge-repository:
+  # Default enabled installation of this module
+  enabled: true
 #  janusgraph:
     ## @param replicaCount Number of Graph server replicas to deploy
     ## Default: 2
@@ -104,6 +106,8 @@ serviceAccount:
       #replicaCount: 1
 
 domains-interactions-space:
+  # Default enabled installation of this module
+  enabled: true
   kafka:
     controller:
       ## @param controller.replicaCount Number of Kafka controller-eligible nodes
@@ -112,6 +116,8 @@ domains-interactions-space:
       replicaCount: 1
 
 users-interactions-space:
+  # Default enabled installation of this module
+  enabled: true
   redis:
     ## @param architecture Redis&reg; architecture. Allowed values: `standalone` or `replication`
     ##
@@ -127,23 +133,21 @@ users-interactions-space:
       replicaCount: 3
 
 access-control-sso:
+  # Default enabled installation of this module
+  enabled: true
   statefull:
     replicas: 1
 
 ## --- DEFAULT PROFILING OF SUB-PROJECTS regarding cybnity-platform application modules deployed ---
 
 ui-apis-gateway:
-  traefik:
-    deployment:
-      # -- Deployment or DaemonSet
-      kind: Deployment
-      # -- Number of pods of the deployment (only applies when kind == Deployment)
-      replicas: 1
+  # Default enabled installation of this module
+  enabled: true
 
-      ## Auto-scaling adon configuration in place of replicas
-      ## see doc at https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#install-with-auto-scaling
+reactive-messaging-gateway:
+  # Default enabled installation of this module
+  enabled: true
 
-
-#reactive-messaging-gateway:
-
-#web-reactive-frontend:
+web-reactive-frontend:
+  # Default enabled installation of this module
+  enabled: true

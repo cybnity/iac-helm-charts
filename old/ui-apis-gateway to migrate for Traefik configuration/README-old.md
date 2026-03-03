@@ -27,7 +27,7 @@ helm install ui-apis-gateway-system -f ./ui-apis-gateway/values.yaml ./ui-apis-g
 ```
 
 Several elements are deployed:
-- A ConfigMap representing the deployed routing rules taht are defined by haproxy configuration coming from the Helm chart regarding the Service provisioning
+- A ConfigMap representing the deployed routing rules that are defined by haproxy configuration coming from the Helm chart regarding the Service provisioning
 - A Service (LoadBalancer type) to handle all unrouted traffic (e.g return 404), and defining HAProxy configuration (e.g http characteristics changes via HAProxy configuration file)
 - Two Replica Sets managing the fault tolerance of the HAProxy Service's pods (e.g 2 instance of HAProxy services executed for scaling management)
 - A Deployment managing the Replica Sets instance and recovery (e.g during rolling and recovery phase)

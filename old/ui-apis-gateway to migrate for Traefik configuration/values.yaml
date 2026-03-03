@@ -452,6 +452,7 @@ haproxy:
       # URL path mapping configuration
       use_backend ui_frontend_web_servers if { path_beg /ui/ }
       use_backend api_backend_servers if { path_beg /api/ }
+
       use_backend sso_authentication_servers if { path_beg /auth/ }
       # Add path required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
       use_backend sso_authentication_servers if { path_beg /realms/ }

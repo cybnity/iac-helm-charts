@@ -2,6 +2,7 @@
 ## @param global.imagePullSecrets Global Docker registry secret names as an array
 ## @param global.defaultStorageClass Global default StorageClass for Persistent Volume(s)
 ##
+
 global:
   imageRegistry: ""
   ## E.g.

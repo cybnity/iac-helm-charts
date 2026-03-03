@@ -1,18 +1,68 @@
-# See doc at https://doc.traefik.io/traefik/getting-started/kubernetes/#exposing-the-application-using-the-gateway-api
+# Route configuration managed by a gateway to a service
+# See Gateway API - HTTP Routing documentation at https://gateway-api.sigs.k8s.io/guides/http-routing/
+{{- if .Values.httproutes }}
+{{- range .Values.httproutes }}
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: sso-authentication-servers-route
+  name: {{ .serviceName }}
+  namespace: {{ .namespace }}
+  labels:
+    name: {{ .serviceName }}
+    app.kubernetes.io/component: infrastructure
+    app.kubernetes.io/part-of: ui-apis-gateway
 spec:
+  {{- if .parentRefs }}
   parentRefs:
-    - name: traefik-gateway
+    {{- range .parentRefs }}
+    - name: {{ .name }}
+      {{- if .sectionName }}
+      sectionName: {{ .sectionName }}
+      {{- end }}
+      {{- if .kind }}
+      kind: {{ .kind }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- if .hostnames }}
   hostnames:
-    - "access-control-sso-gatewayapi.local"
+    {{- range .hostnames }}
+    - {{ . | quote }}
+    {{- end }}
+  {{- end }}
   rules:
+  {{- if .matches }}
+    {{- range .matches }}
     - matches:
-        - path:
-            type: PathPrefix
-            value: /
+      {{- range .paths }}
+      - path:
+          type: {{ .type }}
+          value: {{ .value }}
+      {{- end }}
+      {{- if .filters }}
+      filters:
+        {{- range .filters }}
+          - type: {{ .type }}
+            extensionRef:
+            {{- with .extensionRef }}
+              group: {{ .group }}
+              kind: {{ .kind }}
+              name: {{ .name }}
+            {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- if .backendRefs }}
       backendRefs:
-        - name: access-control-sso
-          port: 80
+        {{- range .backendRefs }}
+        - name: {{ .name }}
+          port: {{ .port }}
+          {{- if .namespace }}
+          namespace: {{ .namespace }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}

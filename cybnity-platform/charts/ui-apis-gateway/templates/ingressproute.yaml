@@ -1,0 +1,46 @@
+# Route configuration managed by a Ingress to a service
+{{- if .Values.ingressroutes }}
+{{- range .Values.ingressroutes }}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .serviceName }}
+  namespace: {{ .namespace }}
+  labels:
+    name: {{ .serviceName }}
+    app.kubernetes.io/component: infrastructure
+    app.kubernetes.io/part-of: ui-apis-gateway
+spec:
+  entryPoints:
+    {{- range .entryPoints }}
+    - {{ . }}
+    {{- end }}
+  {{- if .routes }}
+  routes:
+    {{- range .routes }}
+    - match: {{ .match }}
+      kind: {{ .kind }}
+      {{- if .middlewares }}
+      middlewares:
+        {{- range .middlewares }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+      {{- if .services }}
+      services:
+      {{- range .services }}
+        - name: {{ .name }}
+          port: {{ .port }}
+      {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- if .tls }}
+  tls:
+    {{- if .tls.certResolver }}
+    certResolver: {{ .tls.certResolver }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}

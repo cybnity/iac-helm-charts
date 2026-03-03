@@ -16,6 +16,11 @@ This project manage and provide Helm charts artifacts supporting the configurati
 
 The project's maintained charts are documented into the [cybnity-platform sub-directory](cybnity-platform/README.md).
 
+# PRE-REQUISITES
+Traefik solution need to be installed onto an environment where external access to CYBNITY platform is required by end-users.
+
+The support project available info the [traefik folder](traefik/README.md) is here to help you to install Traefik Proxy in complement to CYBNITY Platform project.
+
 # HELM PROJECT USAGE
 [Helm](https://helm.sh) must be installed to use the charts. Please refer to Helm's [documentation](https://helm.sh/docs) to get started.
 

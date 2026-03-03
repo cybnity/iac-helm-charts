@@ -17,34 +17,72 @@ sources:
   - https://github.com/bitnami/charts/tree/main/bitnami/common
 
 dependencies:
+  # See help documentation about grouping, condition, values from subcharts into parent chart at https://oneuptime.com/blog/post/2026-02-20-helm-dependencies-subcharts/view
+
   # GENERIC INFRASTRUCTURE MODULES
   - name: domains-interactions-space
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
-    alias: domains-interactions-space
+    alias: dis-system
+    # Only install if dependent module enabled is true
+    condition: domains-interactions-space.enabled
+    tags:
+      - middleware-service
+      - application-layer
 
   - name: users-interactions-space
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
-    alias: users-interactions-space
+    alias: uis-system
+    # Only install if dependent module enabled is true
+    condition: users-interactions-space.enabled
+    tags:
+      - middleware-service
+      - user-interface-layer
 
   - name: knowledge-repository
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
-    alias: knowledge-repository
+    alias: knr-system
+    # Only install if dependent module enabled is true
+    condition: knowledge-repository.enabled
+    tags:
+      - database-service
+      - user-interface-layer
 
   # APPLICATION MODULES
   - name: access-control-sso
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
-    alias: access-control-sso
+    alias: sso-system
+    # Only install if dependent module enabled is true
+    condition: access-control-sso.enabled
+    tags:
+      - user-interface-layer
+      - security-service
 
   - name: reactive-messaging-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
-    alias: reactive-messaging-gateway
+    alias: backend-system
+    # Only install if dependent module enabled is true
+    condition: reactive-messaging-gateway.enabled
+    tags:
+      - user-interface-layer
+      - integration-service
 
   - name: web-reactive-frontend
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
-    alias: web-reactive-frontend
+    alias: web-frontend-system
+    # Only install if dependent module enabled is true
+    condition: web-reactive-frontend.enabled
+    tags:
+      - frontend-service
+      - user-interface-layer
 
   - name: ui-apis-gateway
     version: ">=1.0.0" # dependency Chart.yaml SemVer 2 version
+    alias: ui-apis-system
+    # Only install if dependent module enabled is true
+    condition: ui-apis-gateway.enabled
+    tags:
+      - user-interface-layer
+      - integration-service
 
 maintainers: # Referent maintainers of this Helm project
   - name: CYBNITY team

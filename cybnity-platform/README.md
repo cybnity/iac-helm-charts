@@ -36,7 +36,7 @@ Description: several generic infrastructure projects required by the CYBNITY imp
 
 - [knowledge-repository-server](charts/knowledge-repository-server): Bitnami-based Helm project of JanusGraph image provisioning, customized for the CYBNITY needs. This provisioning project is deployable and is supported by a `Bitnami Janusgraph` version under `Debian` operating system libraries. This implementation includes a `Cassandra` backend server supporting the Janusgraph server.
 
-- [ui-apis-gateway](charts/ui-apis-gateway): Traefik Proxy Helm project as Ingress controller image provisioning, customized for the CYBNITY needs.
+- [ui-apis-gateway](charts/ui-apis-gateway): Helm project managing the configuration of APIs exposed over global [Traefik Proxy installed](../traefik/README.md) on the Cluster. This project includes only the deployment of resources constituing the routing and exposure of CYBNITY services out of the cluster (e.g Keycloak web page). The installation of Traefik Proxy via the [traefik](../traefik.README.md) project is pre-required on a cluster.
 
 - [users-interactions-space](charts/users-interactions-space): Helm project of Redis image provisioning, customized for the CYBNITY needs (e.g implementation of collaboration space in UI area). This provisioning project is deployable and is supported by a Redis Cluster topology with sharding version including `Debian` operating system libraries. This Helm project is based on old Bitnami Helm project version that maintenance have been stoped by Bitnami company in 2025 (mandatory switch of to secure image and non-free offer for new Bitnami Helm project).
 
