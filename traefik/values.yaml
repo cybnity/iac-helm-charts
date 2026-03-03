@@ -297,7 +297,7 @@ providers:
     # -- Array of namespaces to watch. If left empty, Traefik watches all namespaces. . When using `rbac.namespaced`, it will watch helm release namespace and namespaces listed in this array.
     #namespaces: []
   kubernetesGateway:
-    # Enable the Kubernetes Gateway API specification support for automated configuration of ingress in Kubernetes
+    # Enable the Kubernetes Gateway API specification support for automated configuration of Ingress in Kubernetes
     # Automatic created default GatewayClass named traefik (see Gateway API doc at https://gateway-api.sigs.k8s.io/)
     enabled: true
     # -- Array of namespaces to watch. If left empty, Traefik watches all namespaces. . When using `rbac.namespaced`, it will watch helm release namespace and namespaces listed in this array.
