@@ -8,7 +8,7 @@ Traefik solution is reused as reverse proxy.
 
 The Helm chart to install is based on:
 - Helm chart repo: https://traefik.github.io/charts or oci://ghcr.io/traefik/helm
-- Helm chart version: 39.0.1 (free version provided on [GitHub project](https://github.com/traefik/traefik-helm-chart/tree/master))
+- Helm chart version: v39.0.4 (free version provided on [GitHub project](https://github.com/traefik/traefik-helm-chart/tree/master))
 
 __values.yaml__ file applicable with default Traefik Helm chart is used to define a HTTP reverse proxy and load balancer configuration.
 
