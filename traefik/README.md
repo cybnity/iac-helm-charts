@@ -39,11 +39,11 @@ helm repo update
 kubectl create namespace traefik
 
 # Install Traefik Proxy into the cluster and all Traefik components into the traefik dedicated namespace
-helm install traefik traefik/traefik --namespace traefik --values values.yaml
+helm install traefik traefik/traefik --namespace traefik --values ./traefik/values.yaml
 ```
 
 ## Traefik Proxy configuration change
-When any configuration is changed on the traefik project values.xml file, apply them via command:
+When any configuration is changed on the traefik project values.yaml file, apply them via command:
 ```console
 helm upgrade traefik traefik/traefik --namespace traefik --reuse-values -f ./traefik/values.yaml
 ```

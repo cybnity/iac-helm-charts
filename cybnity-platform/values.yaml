@@ -94,7 +94,7 @@ serviceAccount:
 
 knowledge-repository:
   # Default enabled installation of this module
-  enabled: false
+  enabled: true
 #  janusgraph:
     ## @param replicaCount Number of Graph server replicas to deploy
     ## Default: 2
@@ -107,7 +107,7 @@ knowledge-repository:
 
 domains-interactions-space:
   # Default enabled installation of this module
-  enabled: false
+  enabled: true
   kafka:
     controller:
       ## @param controller.replicaCount Number of Kafka controller-eligible nodes
@@ -117,7 +117,7 @@ domains-interactions-space:
 
 users-interactions-space:
   # Default enabled installation of this module
-  enabled: false
+  enabled: true
   redis:
     ## @param architecture Redis&reg; architecture. Allowed values: `standalone` or `replication`
     ##
