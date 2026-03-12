@@ -40,7 +40,7 @@ httproutes:
         #sectionName: http
         #kind: Gateway
     hostnames:
-      - backend.localhost
+      - reactive-backend-system.cluster.local
     matches:
       - paths:
           # See path required to be exposed for backend api external access
@@ -69,7 +69,7 @@ httproutes:
         #sectionName: http
         #kind: Gateway
     hostnames:
-      - frontend.localhost
+      - web-reactive-frontend-system.cluster.local
     matches:
       - paths:
           # See path required to be exposed for web ui external access
@@ -98,7 +98,7 @@ httproutes:
         #sectionName: http
         #kind: Gateway
     hostnames:
-      - sso.localhost
+      - access-control-sso.cluster.local
       #- sso.cluster.local
       #- localhost # server name based API (e.g localhost server hostname) or dns name based API (e.g dev.cybnity.tech)
       #- 127.0.0.1 # Ip address based API (e.g 127.0.0.1 ip address of the hosting machine exposing the route endpoint)
@@ -175,7 +175,7 @@ ingressroutes:
     entryPoints:
       - web
     routes:
-      - match: Host(`frontend.localhost`)
+      - match: PathPrefix(`/ui`)
         kind: Rule
         # Filter mechanism applied to IngressRoute via middlewares
         #middlewares:
@@ -194,7 +194,7 @@ ingressroutes:
     entryPoints:
       - web
     routes:
-      - match: Host(`backend.localhost`)
+      - match: PathPrefix(`/backend`)
         kind: Rule
         # Filter mechanism applied to IngressRoute via middlewares
         #middlewares:
@@ -213,7 +213,7 @@ ingressroutes:
     entryPoints:
       - web
     routes:
-      - match: Host(`sso.localhost`)
+      - match: PathPrefix(`/auth`) || PathPrefix(`/realms/`) || PathPrefix(`/resources/`) || PathPrefix(`/js/`) # Paths required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
         kind: Rule
         # Filter mechanism applied to IngressRoute via middlewares
         #middlewares:
