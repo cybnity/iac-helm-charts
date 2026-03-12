@@ -239,7 +239,7 @@ middlewares:
     namespace: default
     sourceRange:
       - 127.0.0.1/32 # Cluster server common loop ip address range
-      - 10.0.0.0/8  # Typical cluster network range
+      - 10.0.0.0/16  # Typical cluster network range
       - 192.168.0.0/24  # Common local network range
 
 #resources: {}
