@@ -15,7 +15,7 @@ dependencies:
   ## Official Traefik Docker image from https://hub.docker.com/_/traefik
   # Traefik Helm chart repo at https://traefik.github.io/charts
   - name: traefik
-    version: 39.0.2 # Free version provided on https://github.com/traefik/traefik-helm-chart/tree/master
+    #version: 39.0.2 # Free version provided on https://github.com/traefik/traefik-helm-chart/tree/master
     repository: https://traefik.github.io/charts # oci://ghcr.io/traefik/helm
     condition: traefik.enabled
     tags:
