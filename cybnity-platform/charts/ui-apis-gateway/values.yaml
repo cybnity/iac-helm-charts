@@ -29,6 +29,9 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+traefik:
+  enabled: false # None automated installation of Traefik by API project
+
 # CONFIGURATION OF HTTPROUTE created by Helm templates and managed by Traefik Gateway API
 # Doc about reverse proxy at https://github.com/keycloak/keycloak/blob/main/docs/guides/server/reverseproxy.adoc
 httproutes:
