@@ -193,8 +193,8 @@ certificatesResolvers: {}
 # cybnity.io/domains-area: "true"
 # cybnity.io/user-interfaces-area: "true"
 # cybnity.io/infrastructure-services-area: "true"
-nodeSelector:
-  cybnity.io/user-interfaces-area: "true"
+#nodeSelector:
+  #cybnity.io/user-interfaces-area: "true"
 
 ingressRoute:
   dashboard:

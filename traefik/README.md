@@ -49,9 +49,9 @@ helm upgrade traefik traefik/traefik --namespace traefik --reuse-values -f ./tra
 ```
 
 ### Default access to dashboard
-The Traefik Proxy access to dashboard is defined by default as "opened" on web port callable from [web browser url](http://localhost/dashboard/).
+The Traefik Proxy access to dashboard is defined by default as "opened" on web port callable via web browser [localhost url](http://localhost/dashboard/) or machine's hostname or machine ip address url host.
 
-This default dashboard (read-only ability on cluster routes) visibility shall be unactivated on production environment via specific __values.yalm__ configuration file attributes. 
+This default dashboard (read-only ability on cluster routes) visibility shall be unactivated on production environment via specific __values.yaml__ configuration file attributes. 
 
 ## Gateway API for routing management to CYBNITY services
 To use the Gateway API, installation of Gateway CRDs in the cluster is required.
