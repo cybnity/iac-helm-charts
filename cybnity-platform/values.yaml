@@ -95,12 +95,14 @@ serviceAccount:
 knowledge-repository:
   # Default enabled installation of this module
   enabled: true
-#  janusgraph:
+  janusgraph:
+    enabled: true
     ## @param replicaCount Number of Graph server replicas to deploy
     ## Default: 2
     ##
     #replicaCount: 2
-#    cassandra:
+    cassandra:
+      enabled: true
       ## @param replicaCount Number of Cassandra replicas
       ##
       #replicaCount: 1
@@ -109,6 +111,7 @@ domains-interactions-space:
   # Default enabled installation of this module
   enabled: true
   kafka:
+    enabled: true
     controller:
       ## @param controller.replicaCount Number of Kafka controller-eligible nodes
       ## Ignore this section if running in Zookeeper mode.
@@ -119,10 +122,10 @@ users-interactions-space:
   # Default enabled installation of this module
   enabled: true
   redis:
+    enabled: true
     ## @param architecture Redis&reg; architecture. Allowed values: `standalone` or `replication`
     ##
     architecture: replication
-
     replica:
       ## @param replica.kind Use either DaemonSet or StatefulSet (default)
       ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
