@@ -116,42 +116,6 @@ httproutes:
             value: /resources/ # This path is needed to serve assets correctly. It may be served from a CDN instead of the {project_name} path.
           - type: PathPrefix
             value: /.well-known/ # This path is needed to resolve Authorization Server Metadata and other information via RFC 8414.
-        backendRefs:
-          - name: access-control-sso-system
-            port: 80
-        # Gateway API's native filter mechanism applied rather than annotations
-        #filters:
-        #  - type: ExtensionRef
-        #    extensionRef:  # Headers Middleware applied
-        #      group: traefik.io
-        #      kind: Middleware
-        #      name: secure-headers
-        #  - type: ExtensionRef
-        #    extensionRef: # IP AllowList Middleware applied
-        #      group: traefik.io
-        #      kind: Middleware
-        #      name: ip-allowlist
-      - paths:
-          # BECAREFULL, AUTHORIZED ONLY FOR DEVELOPMENT
-          # Specific administration console path
-          - type: PathPrefix # Keycloak administration console exposure
-            value: /admin/
-        backendRefs:
-          - name: access-control-sso-system
-            port: 80
-        # Gateway API's native filter mechanism applied rather than annotations
-        #filters:
-        #  - type: ExtensionRef
-        #    extensionRef:  # Headers Middleware applied
-        #      group: traefik.io
-        #      kind: Middleware
-        #      name: secure-headers
-        #  - type: ExtensionRef
-        #    extensionRef: # IP AllowList Middleware applied
-        #      group: traefik.io
-        #      kind: Middleware
-        #      name: ip-allowlist
-      - paths:
           # Specific frontend authentication web page provided by Keycloak
           - type: PathPrefix
             value: /auth/
