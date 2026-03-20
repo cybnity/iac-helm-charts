@@ -36,7 +36,6 @@ traefik:
 # Doc about reverse proxy at https://github.com/keycloak/keycloak/blob/main/docs/guides/server/reverseproxy.adoc
 httproutes: []
 
-
 # CONFIGURATION OF INGRESS ROUTE LINKED TO EXPOSED HTTP ROUTES
 ingressroutes: []
 
