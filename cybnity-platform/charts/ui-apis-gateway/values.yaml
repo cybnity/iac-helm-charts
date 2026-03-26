@@ -35,7 +35,7 @@ traefik:
 # CONFIGURATION OF INGRESS ROUTE LINKED TO EXPOSED HTTP ROUTES
 ingressroutes:
   # Declaration of resource managed via CRD
-  - serviceName: web-reactive-frontend-system
+  - serviceName: web-reactive-ui-system
     namespace: cybnity
     entryPoints:
       - web
