@@ -33,60 +33,60 @@ traefik:
   enabled: false # None automated installation of Traefik by API project
 
 # CONFIGURATION OF INGRESS ROUTE LINKED TO EXPOSED HTTP ROUTES
-ingressroutes: []
+ingressroutes:
   # Declaration of resource managed via CRD
-  #- serviceName: web-reactive-ui-system
-  #  namespace: cybnity
-  #  entryPoints:
-  #    - web
-  #  routes:
-  #    - match: PathPrefix(`/ui/`)
-  #      kind: Rule
+  - serviceName: web-reactive-ui-system
+    namespace: cybnity
+    entryPoints:
+      - web
+    routes:
+      - match: Host(`web-reactive-frontend-system.cluster.local`)
+        kind: Rule
         # Filter mechanism applied to IngressRoute via middlewares
         #middlewares:
         #  - secure-headers
         #  - ip-allowlist
-  #      services:
-  #        - name: web-reactive-frontend-system
-  #          port: 80
+        services:
+          - name: web-reactive-frontend-system
+            port: 80
     # Optional tls configuration
     # Doc at https://doc.traefik.io/traefik/expose/kubernetes/advanced/#using-ingressroute-with-lets-encrypt
     #tls:
       # Resolver (certificate resolver name) reference for obtain or renew a certificate about domain declared into the match
       #certResolver: le
-  #- serviceName: reactive-backend-system
-  #  namespace: cybnity
-  #  entryPoints:
-  #    - web
-  #  routes:
-  #    - match: PathPrefix(`/backend/`)
-  #      kind: Rule
+  - serviceName: reactive-backend-system
+    namespace: cybnity
+    entryPoints:
+      - web
+    routes:
+      - match: reactive-backend-system.cluster.local
+        kind: Rule
         # Filter mechanism applied to IngressRoute via middlewares
         #middlewares:
         #  - secure-headers
         #  - ip-allowlist
-  #      services:
-  #        - name: reactive-backend-system
-  #          port: 80
+        services:
+          - name: Host(`reactive-backend-system.cluster.local`)
+            port: 80
     # Optional tls configuration
     # Doc at https://doc.traefik.io/traefik/expose/kubernetes/advanced/#using-ingressroute-with-lets-encrypt
     #tls:
       # Resolver (certificate resolver name) reference for obtain or renew a certificate about domain declared into the match
       #certResolver: le
-  #- serviceName: access-control-sso-system
-  #  namespace: cybnity
-  #  entryPoints:
-  #    - web
-  #  routes:
-  #    - match: PathPrefix(`/auth`) || PathPrefix(`/realms/`) || PathPrefix(`/resources/`) || PathPrefix(`/.well-known/`) # Paths required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
-  #      kind: Rule
+  - serviceName: access-control-sso-system
+    namespace: cybnity
+    entryPoints:
+      - web
+    routes:
+      - match: Host(`access-control-sso.cluster.local`) # Paths required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
+        kind: Rule
         # Filter mechanism applied to IngressRoute via middlewares
         #middlewares:
         #  - secure-headers
         #  - ip-allowlist
-   #     services:
-   #       - name: access-control-sso-system
-   #         port: 80
+        services:
+          - name: access-control-sso-system
+            port: 80
     # Optional tls configuration
     # Doc at https://doc.traefik.io/traefik/expose/kubernetes/advanced/#using-ingressroute-with-lets-encrypt
     #tls:
@@ -171,15 +171,17 @@ httproutes:
           # See path required to be exposed for Keycloak interactions
           # https://www.keycloak.org/server/reverseproxy#_exposed_path_recommendations
           # Common Keycloak required paths
-          - type: PathPrefix
-            value: /realms/
-          - type: PathPrefix
-            value: /resources/ # This path is needed to serve assets correctly. It may be served from a CDN instead of the {project_name} path.
-          - type: PathPrefix
-            value: /.well-known/ # This path is needed to resolve Authorization Server Metadata and other information via RFC 8414.
+          #- type: PathPrefix
+          #  value: /realms/
+          #- type: PathPrefix
+          #  value: /resources/ # This path is needed to serve assets correctly. It may be served from a CDN instead of the {project_name} path.
+          #- type: PathPrefix
+          #  value: /.well-known/ # This path is needed to resolve Authorization Server Metadata and other information via RFC 8414.
           # Specific frontend authentication web page provided by Keycloak
+          #- type: PathPrefix
+          #  value: /auth/
           - type: PathPrefix
-            value: /auth/
+            value: /
         backendRefs:
           - name: access-control-sso-system
             port: 80
