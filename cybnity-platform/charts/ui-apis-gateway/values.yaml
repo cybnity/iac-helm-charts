@@ -109,7 +109,7 @@ httproutes:
       - paths:
           # See path required to be exposed for backend api external access
           - type: PathPrefix
-            value: /backend/
+            value: / # SHOULD BE MIGRATED TO RESERVED SUB-PATH equals to /backend/
         backendRefs:
           - name: reactive-backend-system
             port: 80
@@ -138,7 +138,7 @@ httproutes:
       - paths:
           # See path required to be exposed for web ui external access
           - type: PathPrefix
-            value: /ui/
+            value: / # SHOULD BE MIGRATED TO RESERVED SUB-PATH equals to /ui/
         backendRefs:
           - name: web-reactive-frontend-system
             port: 80
