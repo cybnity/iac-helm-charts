@@ -126,7 +126,7 @@ httproutes:
         #      kind: Middleware
         #      name: ip-allowlist
         #      name: ip-allowlist
-  - serviceName: web-reactive-frontend-system
+  - serviceName: web-reactive-ui-system
     namespace: cybnity
     parentRefs:
       - name: traefik-apis-gateway
