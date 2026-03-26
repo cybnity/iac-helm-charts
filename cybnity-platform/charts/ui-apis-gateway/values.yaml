@@ -200,10 +200,10 @@ httproutes:
 middlewares:
   secureHeaders:
     name: secure-headers
-    namespace: default
+    namespace: cybnity
   ipAllowlist:
     name: ip-allowlist
-    namespace: default
+    namespace: cybnity
     sourceRange:
       - 127.0.0.1/32 # Cluster server common loop ip address range
       - 10.0.0.0/16  # Typical cluster network range
