@@ -78,7 +78,7 @@ ingressroutes:
     entryPoints:
       - web
     routes:
-      - match: Host(`dev-deploy.cybnity.tech`) && (PathPrefix(`/auth`) || PathPrefix(`/.well-known/`) || PathPrefix(`/resources/`) || PathPrefix(`/realms/`) || PathPrefix(`/admin/`)) # Paths required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
+      - match: (PathPrefix(`/auth`) || PathPrefix(`/.well-known/`) || PathPrefix(`/resources/`) || PathPrefix(`/realms/`) || PathPrefix(`/admin/`)) # Paths required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
         kind: Rule
         # Filter mechanism applied to IngressRoute via middlewares
         #middlewares:
