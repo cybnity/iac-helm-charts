@@ -35,41 +35,41 @@ traefik:
 # CONFIGURATION OF INGRESS ROUTE LINKED TO EXPOSED HTTP ROUTES
 ingressroutes:
   # Declaration of resource managed via CRD
-  - serviceName: web-reactive-ui-system
-    namespace: cybnity
-    entryPoints:
-      - web
-      - websecure
-    routes:
-      - match: PathPrefix(`/ui/`)
-        kind: Rule
+  #- serviceName: web-reactive-ui-system
+  #  namespace: cybnity
+  #  entryPoints:
+  #    - web
+  #    - websecure
+  #  routes:
+  #    - match: PathPrefix(`/ui/`)
+  #      kind: Rule
         # Filter mechanism applied to IngressRoute via middlewares
         #middlewares:
         #  - secure-headers
         #  - ip-allowlist
-        services:
-          - name: web-reactive-frontend-system
-            port: 80
+  #      services:
+  #        - name: web-reactive-frontend-system
+  #          port: 80
     # Optional tls configuration
     # Doc at https://doc.traefik.io/traefik/expose/kubernetes/advanced/#using-ingressroute-with-lets-encrypt
     #tls:
       # Resolver (certificate resolver name) reference for obtain or renew a certificate about domain declared into the match
       #certResolver: le
-  - serviceName: reactive-backend-system
-    namespace: cybnity
-    entryPoints:
-      - web
-      - websecure
-    routes:
-      - match: PathPrefix(`/backend/`)
-        kind: Rule
+  #- serviceName: reactive-backend-system
+  #  namespace: cybnity
+  #  entryPoints:
+  #    - web
+  #    - websecure
+  #  routes:
+  #    - match: PathPrefix(`/backend/`)
+  #      kind: Rule
         # Filter mechanism applied to IngressRoute via middlewares
         #middlewares:
         #  - secure-headers
         #  - ip-allowlist
-        services:
-          - name: reactive-backend-system
-            port: 80
+  #      services:
+  #        - name: reactive-backend-system
+  #          port: 80
     # Optional tls configuration
     # Doc at https://doc.traefik.io/traefik/expose/kubernetes/advanced/#using-ingressroute-with-lets-encrypt
     #tls:
