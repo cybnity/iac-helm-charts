@@ -73,20 +73,20 @@ ingressroutes:
     #tls:
       # Resolver (certificate resolver name) reference for obtain or renew a certificate about domain declared into the match
       #certResolver: le
-  #- serviceName: access-control-sso-system
-  #  namespace: cybnity
-  #  entryPoints:
-  #    - web
-  #  routes:
-  #    - match: PathPrefix(`/auth`) || PathPrefix(`/.well-known/`) || PathPrefix(`/resources/`) || PathPrefix(`/realms/`) || PathPrefix(`/admin/`) # Paths required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
-  #      kind: Rule
+  - serviceName: access-control-sso-system
+    namespace: cybnity
+    entryPoints:
+      - web
+    routes:
+      - match: PathPrefix(`/auth`) || PathPrefix(`/.well-known/`) || PathPrefix(`/resources/`) || PathPrefix(`/realms/`) || PathPrefix(`/admin/`) # Paths required to be exposed for Keycloak interactions (see https://www.keycloak.org/server/reverseproxy)
+        kind: Rule
         # Filter mechanism applied to IngressRoute via middlewares
         #middlewares:
         #  - secure-headers
         #  - ip-allowlist
-  #      services:
-  #        - name: access-control-sso-system
-  #          port: 80
+        services:
+          - name: access-control-sso-system
+            port: 80
     # Optional tls configuration
     # Doc at https://doc.traefik.io/traefik/expose/kubernetes/advanced/#using-ingressroute-with-lets-encrypt
     #tls:
@@ -95,7 +95,7 @@ ingressroutes:
 
 # CONFIGURATION OF HTTPROUTE created by Helm templates and managed by Traefik Gateway API
 # Doc about reverse proxy at https://github.com/keycloak/keycloak/blob/main/docs/guides/server/reverseproxy.adoc
-httproutes:
+httproutes: []
   # Declaration of resources managed via Gateway API
   #- serviceName: reactive-backend-system
   #  namespace: cybnity
@@ -155,19 +155,19 @@ httproutes:
         #      kind: Middleware
         #      name: ip-allowlist
         #      name: ip-allowlist
-  - serviceName: access-control-sso-system
-    namespace: cybnity
-    parentRefs:
-      - name: traefik-apis-gateway
-        sectionName: http
-        kind: Gateway
-    hostnames:
-      - access-control-sso.cluster.local
-      - "dev-deploy.cybnity.tech"
-      - localhost # server name based API (e.g localhost server hostname) or dns name based API (e.g dev.cybnity.tech)
-      - 127.0.0.1 # Ip address based API (e.g 127.0.0.1 ip address of the hosting machine exposing the route endpoint)
-    matches:
-      - paths:
+  #- serviceName: access-control-sso-system
+  #  namespace: cybnity
+  #  parentRefs:
+  #    - name: traefik-apis-gateway
+  #      sectionName: web
+  #      kind: Gateway
+  #  hostnames:
+  #    - access-control-sso.cluster.local
+  #    - "dev-deploy.cybnity.tech"
+  #    - localhost # server name based API (e.g localhost server hostname) or dns name based API (e.g dev.cybnity.tech)
+  #    - 127.0.0.1 # Ip address based API (e.g 127.0.0.1 ip address of the hosting machine exposing the route endpoint)
+  #  matches:
+  #    - paths:
           # See path required to be exposed for Keycloak interactions
           # https://www.keycloak.org/server/reverseproxy#_exposed_path_recommendations
           # Common Keycloak required paths
@@ -180,12 +180,12 @@ httproutes:
           # Specific frontend authentication web page provided by Keycloak
           #- type: PathPrefix
           #  value: /auth/
-          - type: PathPrefix
-            value: /
-        backendRefs:
-          - name: access-control-sso-system
-            port: 80
-            namespace: cybnity
+  #        - type: PathPrefix
+  #          value: /
+  #      backendRefs:
+  #        - name: access-control-sso-system
+  #          port: 80
+  #          namespace: cybnity
         # Gateway API's native filter mechanism applied rather than annotations
         #filters:
         #  - type: ExtensionRef
