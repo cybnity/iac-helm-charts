@@ -68,7 +68,7 @@ ingressroutes:
         #  - secure-headers
         #  - ip-allowlist
         services:
-          - name: reactive-backend-system.cluster.local
+          - name: reactive-backend-system
             port: 80
     # Optional tls configuration
     # Doc at https://doc.traefik.io/traefik/expose/kubernetes/advanced/#using-ingressroute-with-lets-encrypt
