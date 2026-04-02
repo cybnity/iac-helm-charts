@@ -284,7 +284,6 @@ graph LR
          subgraph service1[" #60;#60;Service#62;#62; \n web-reactive-frontend-system "]
             clusterip1["ClusterIP"]
             pod1["#60;#60;POD#62;#62; \n Reactive frontend"]
-            pod17["#60;#60;POD#62;#62; \n Reactive frontend"]
          end
          subgraph service2[" #60;#60;Service#62;#62; \n reactive-backend-system "]
             clusterip4["ClusterIP"]
@@ -292,21 +291,11 @@ graph LR
          end
          subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system "]
             pod3["#60;#60;POD#62;#62; \n Keycloak"]
-            pod4["#60;#60;POD#62;#62; \n Keycloak"]
          end
          subgraph service4[" #60;#60;Service#62;#62; \n access-control-db-system "]
             clusterip2["ClusterIP"]
             pod18["#60;#60;POD#62;#62; \n Postgresql"]
          end
-         subgraph service6["\n #60;#60;Service#62;#62; \n cert-manager "]
-            clusterip9["ClusterIP"]
-            pod19["#60;#60;POD#62;#62; \n Cert Manager Controller"]
-         end
-         subgraph service11["\n #60;#60;Service#62;#62; \n cert-manager-webhook "]
-            clusterip10["ClusterIP"]
-            pod20["#60;#60;POD#62;#62; \n Cert Manager Controller"]
-         end
-         pod21["#60;#60;POD#62;#62; \n Cert Manager CA Injector"]
        end
      end
      subgraph di[" #60;#60;Node#62;#62; Domains I/O Area"]
@@ -330,8 +319,6 @@ graph LR
          subgraph inflayer1[" "]
             subgraph service9[" #60;#60;LoadBalancer Service#62;#62; \n janusgraph-system "]
                pod6["#60;#60;POD#62;#62; \n JanusGraph"]
-               pod7["#60;#60;POD#62;#62; \n JanusGraph"]
-               pod8["#60;#60;POD#62;#62; \n JanusGraph"]
             end
             subgraph service10[" #60;#60;Service#62;#62; \n cassandra-db-system "]
                clusterip7["ClusterIP"]
@@ -342,10 +329,10 @@ graph LR
   end
   tunnel -- "route x.y.y.y/z" --> controlplane
   externaltraefikroutes -- "80:80" --> service1
-  controlplane -. "tcp:80" .-> clusterip1 -.-> pod1 & pod17
+  controlplane -. "tcp:80" .-> clusterip1 -.-> pod1
   controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
   externaltraefikroutes -- "80:80" --> service2 & service3
-  pod3 & pod4 -- "tcp:5432" --> clusterip2 -.-> pod18
+  pod3 -- "tcp:5432" --> clusterip2 -.-> pod18
   controlplane -. "tcp:5432" .-> clusterip2
   controlplane -. "tcp:6379" .-> clusterip3 & clusterip8
   clusterip3 -.-> pod13
@@ -354,11 +341,9 @@ graph LR
   controlplane -- "ExternalIP/http:443" --> httprouter2
   controlplane -. "tcp:9092" .-> clusterip5 -.-> pod10 & pod11 & pod12
   controlplane -. "tcp:9043" .-> clusterip7 -.-> pod9
-  pod6 & pod7 & pod8 -- "tcp:9043" --> clusterip7
+  pod6 -- "tcp:9043" --> clusterip7
   controlplane -. "tcp:8182" .-> service9
   pod10 -. "KRaft:9092" .- pod11 -. "KRaft:9092" .- pod12 -. "KRaft:9092" .- pod10
-  controlplane -. "tcp:9402" .-> clusterip9 -.-> pod19
-  controlplane -. "tcp:443" .-> clusterip10 -.-> pod20
 
   classDef red fill:#e5302a, stroke:#e5302a, color:#fff, stroke-width:3px
   classDef redstroke fill:#e5302a, stroke:#fff, color:#fff, stroke-width:1px
@@ -368,9 +353,9 @@ graph LR
   classDef reddot fill:#fff, stroke:#e5302a, color:#e5302a, stroke-dasharray: 5 5, stroke-width:3px
   classDef dark fill:#0e2a43, stroke:#fff, color:#fff
   classDef internalconfig fill:#0e2a43, stroke:#fff, color:#fff
-  class service1,service2,service3,service4,service5,service6,service7,service9,service10,service11 mediumfill;
+  class service1,service2,service3,service4,service5,service7,service9,service10 mediumfill;
   class ui,di,da,is medium;
-  class pod1,pod2,pod3,pod4,pod6,pod7,pod8,pod9,pod10,pod11,pod12,pod13,pod14,pod15,pod16,pod17,pod18,pod19,pod20,pod21,httprouter1,httprouter2,httprouter3,httprouter4,podproxy3,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7,clusterip8,clusterip9,clusterip10 dark;
+  class pod1,pod2,pod3,pod6,pod9,pod10,pod11,pod12,pod13,pod14,pod15,pod16,pod18,httprouter1,httprouter2,httprouter3,httprouter4,podproxy3,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7,clusterip8 dark;
   class tunnel,service8 red;
   class externaltraefikroutes,internaltraefikroutes redstroke;
   class controlplane reddot;
