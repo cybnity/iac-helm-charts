@@ -215,14 +215,16 @@ ingressRoute:
     entryPoints:
       - web # Allowed dashboard access from external over http url http://localhost:8080/dashboard/ or http://<<cluster ip address>>/dashboard/
 
-  #healthcheck:
+  healthcheck:
     # -- Create an IngressRoute for the healthcheck probe
-    #enabled: true
+    enabled: true
     # -- The router match rule used for the healthcheck ingressRoute
-    #matchRule: PathPrefix(`/ping`)
+    matchRule: PathPrefix(`/ping`)
     # -- Specify the allowed entrypoints to use for the healthcheck ingress route, (e.g. traefik, web, websecure).
     # By default, it's using traefik entrypoint, which is not exposed.
-    #entryPoints: ["traefik"]
+    entryPoints:
+      - traefik
+      - web
 
 ## Gateway Listeners relative to the default global K8S cluster gateway API regarding any CYBNITY layer
 gateway:
