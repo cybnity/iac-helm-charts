@@ -87,6 +87,7 @@ postgres:
   type: ClusterIP
   dbPassword: "OIUQ7.yutrfdj423"
   dbUsername: "keycloak"
+  dbUrlDatabase: "keycloak"
 
 ingress:
   enabled: false

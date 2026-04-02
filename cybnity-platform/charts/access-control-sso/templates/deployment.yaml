@@ -21,11 +21,11 @@ spec:
           image: mirror.gcr.io/postgres:17
           env:
             - name: POSTGRES_USER
-              value: "keycloak"
+              value: {{ .Values.postgres.dbUsername  | quote }}
             - name: POSTGRES_PASSWORD
-              value: "keycloak"
+              value: {{ .Values.postgres.dbPassword  | quote }}
             - name: POSTGRES_DB
-              value: "keycloak"
+              value: {{ .Values.postgres.dbUrlDatabase  | quote }}
             - name: POSTGRES_LOG_STATEMENT
               value: "all"
           ports:

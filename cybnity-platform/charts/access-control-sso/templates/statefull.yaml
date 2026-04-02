@@ -54,7 +54,7 @@ spec:
             - name: KC_CACHE_EMBEDDED_NETWORK_BIND_ADDRESS
               value: '$(POD_IP)'
             - name: 'KC_DB_URL_DATABASE'
-              value: 'keycloak'
+              value: {{ .Values.postgres.dbUrlDatabase }}
             - name: 'KC_DB_URL_HOST'
               value: {{ .Values.postgres.serviceName }}
             - name: 'KC_DB'
