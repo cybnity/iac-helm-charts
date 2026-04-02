@@ -11,20 +11,5 @@ Example files:
 - __secret.yaml__: manages sensitive data such as passwords and API keys
 - ___helpers.tpl__: template file used for reusable code snippets or helper functions
 
-# namespace.yaml
-This file is defining one or several namespace K8 resources as logical names dedicated to isolate objects (e.g configuration, CYBNITY components) specific to CYBNITY platform into the cluster where the application solution is deployed.
-
-The template file read the namespaces defined into the __values.yaml__ file and create each one into the deployed cluster (via read of `.Values.namespaces`).
-
-Example of each namespace configuration in __values.xml__:
-```
-  ### Namespace object configuration
-
-  namespaces:
-    - cybnity-system
-    # To support cert-manager
-    - cert-manager
-```
-
 #
 [Back To Home](README.md)
