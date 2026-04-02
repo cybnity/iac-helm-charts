@@ -24,9 +24,9 @@ spec:
           args: ["start"]
           env:
             - name: KC_BOOTSTRAP_ADMIN_USERNAME
-              value: "admin"
+              value: {{ .Values.statefull.keycloak.adminUserName | quote }}
             - name: KC_BOOTSTRAP_ADMIN_PASSWORD
-              value: "admin"
+              value: {{ .Values.statefull.keycloak.adminPassword | quote }}
             # In a production environment, add a TLS certificate to Keycloak to either end-to-end encrypt the traffic between
             # the client or Keycloak, or to encrypt the traffic between your proxy and Keycloak.
             # Respect the proxy headers forwarded by the reverse proxy
@@ -61,9 +61,9 @@ spec:
               value: {{ .Values.postgres.portName }}
             # In a production environment, use a secret to store username and password to the database
             - name: 'KC_DB_PASSWORD'
-              value: 'keycloak'
+              value: {{ .Values.postgres.dbPassword }}
             - name: 'KC_DB_USERNAME'
-              value: 'keycloak'
+              value: {{ .Values.postgres.dbUsername }}
           ports:
             - name: http
               containerPort: 8080

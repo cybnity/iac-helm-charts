@@ -64,6 +64,9 @@ statefull:
   replicas: 2
   # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
   type: ClusterIP
+  keycloak:
+    adminUserName: admin
+    adminPassword: admin
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
@@ -82,6 +85,8 @@ postgres:
   targetPort: 5432
   protocol: TCP
   type: ClusterIP
+  dbPassword: "OIUQ7.yutrfdj423"
+  dbUsername: "keycloak"
 
 ingress:
   enabled: false
