@@ -367,7 +367,7 @@ Perimeter: the deployable Kubernetes components required by the CYBNITY solution
 Project type: Helm implementation structure.
 
 Description: each deployable resource provisioning is defined via dedicated file and/or sub-folder.
-- [crds]: Helm custom resource definitions that are globally required by CYBNITY Platform and-or sub-modules (e.g namespace).
+- crds: Helm custom resource definitions that are globally required by CYBNITY Platform and-or sub-modules (e.g namespace).
 - [templated K8S resources](README-templates.md): Helm provisioning Kubernetes objects (e.g components and-or custom resource definitions) implemented into a cluster deployed.
 - [pre- or post-deployment tasks](README-scripts.md): Helm provisioning scripts implemented before or after deployment of CYBNITY solution onto a cluster deployed.
 
