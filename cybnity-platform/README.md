@@ -382,5 +382,12 @@ minikube tunnel -p <<your cluster profile name>>
 ## Option 2 - SSO server configuration
 The access to Keycloak configuration can be allowed via redefinition of ingress paths configuration of __access-control-sso__ Helm project values for expose url (e.g. admin console) on port 80 becoming usable from web browser and external network.
 
+## Option 3 - Traefik IngressRoute
+The access to Keycloak can be allowed via creation of IngressRoute (Kubernetes Custom Resource Definitions) including paths from the __ui-apis-gateway__ project as external routes exposed and controled by Traefik.
+
+This is the default implemented solution when __ui-apis-gateway__ module is deployed, and that define default IngressRoutes externally open to Keycloak.
+> [!NOTE]  
+> The default opened routes does not include access to the Keycloak admin web UI.
+
 #
 [Back To Home](../README.md)
