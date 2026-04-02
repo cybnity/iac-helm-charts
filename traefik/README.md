@@ -74,7 +74,7 @@ Gateway API ensure automatic creation of default GatewayClass resource (named __
 
 For more information, see Gateway API documentation at https://gateway-api.sigs.k8s.io/.
     
-### HTTPRoute configurations
+### IngressRoutes configuration
 The __ui-apis-gateway__ Helm project includes the managed configuration resources (over its __values.yaml__ file and templates) to customize the CYBNITY application routes that Traefik shall manage.
 
 #
