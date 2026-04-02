@@ -259,9 +259,16 @@ graph LR
        direction LR
        subgraph uilayer1[" "]
          direction TB
-         subgraph service8["\n #60;#60;LoadBalancer Service#62;#62; \n ui-apis-gateway-system "]
-            podproxy1["#60;#60;POD#62;#62; \n Traefik"]
-            podproxy2["#60;#60;POD#62;#62; \n Traefik"]
+         subgraph service8["#60;#60;LoadBalancer Service#62;#62; traefik-proxy "]
+            podproxy3["#60;#60;POD#62;#62; \n Traefik L7 Reverse Proxy"]
+            subgraph internaltraefikroutes[" #60;#60;EndPoints#62;#62; \n internal "]
+              httprouter3["#60;#60;HTTPRouter#62;#62; \n traefik"]
+              httprouter4["#60;#60;HTTPRouter#62;#62; \n metrics"]
+            end
+            subgraph externaltraefikroutes["#60;#60;EndPoints#62;#62; \n ui-apis-gateway-system "]
+              httprouter1["#60;#60;HTTPRouter#62;#62; \n web"]
+              httprouter2["#60;#60;HTTPRouter#62;#62; \n websecure"]
+            end
          end
        end
        subgraph uilayer2[" "]
@@ -286,7 +293,6 @@ graph LR
          subgraph service3[" #60;#60;LoadBalancer Service#62;#62; \n access-control-sso-system "]
             pod3["#60;#60;POD#62;#62; \n Keycloak"]
             pod4["#60;#60;POD#62;#62; \n Keycloak"]
-            pod5["#60;#60;POD#62;#62; \n Keycloak"]
          end
          subgraph service4[" #60;#60;Service#62;#62; \n access-control-db-system "]
             clusterip2["ClusterIP"]
@@ -335,19 +341,17 @@ graph LR
      end
   end
   tunnel -- "route x.y.y.y/z" --> controlplane
-  podproxy1 & podproxy2 -- "80:80" --> service1
+  externaltraefikroutes -- "80:80" --> service1
   controlplane -. "tcp:80" .-> clusterip1 -.-> pod1 & pod17
   controlplane -. "tcp:80" .-> clusterip4 -.-> pod2
-  podproxy1 & podproxy2 -- "80:80" --> service2
-  controlplane -. "ExternalIP/tcp:80 (temporary for admin)" .-> service3
-  podproxy1 & podproxy2 -- "80:80" --> service3
+  externaltraefikroutes -- "80:80" --> service2 & service3
+  pod3 & pod4 -- "tcp:5432" --> clusterip2 -.-> pod18
   controlplane -. "tcp:5432" .-> clusterip2
-  pod3 & pod4 & pod5 -- "tcp:5432" --> clusterip2 -.-> pod18
   controlplane -. "tcp:6379" .-> clusterip3 & clusterip8
   clusterip3 -.-> pod13
   clusterip8 -.-> pod14 & pod15 & pod16
-  controlplane -- "ExternalIP/http:80" --> service8
-  controlplane -- "ExternalIP/http:443" --> service8
+  controlplane -- "ExternalIP/http:80" --> httprouter1
+  controlplane -- "ExternalIP/http:443" --> httprouter2
   controlplane -. "tcp:9092" .-> clusterip5 -.-> pod10 & pod11 & pod12
   controlplane -. "tcp:9043" .-> clusterip7 -.-> pod9
   pod6 & pod7 & pod8 -- "tcp:9043" --> clusterip7
@@ -357,6 +361,7 @@ graph LR
   controlplane -. "tcp:443" .-> clusterip10 -.-> pod20
 
   classDef red fill:#e5302a, stroke:#e5302a, color:#fff, stroke-width:3px
+  classDef redstroke fill:#e5302a, stroke:#fff, color:#fff, stroke-width:1px
   classDef medium fill:#fff, stroke:#3a5572, color:#3a5572
   classDef mediumfill fill:#3a5572, stroke:#3a5572, color:#fff
   classDef mediumdot fill:#fff, stroke:#3a5572, color:#3a5572, stroke-dasharray: 5 5
@@ -365,8 +370,9 @@ graph LR
   classDef internalconfig fill:#0e2a43, stroke:#fff, color:#fff
   class service1,service2,service3,service4,service5,service6,service7,service9,service10,service11 mediumfill;
   class ui,di,da,is medium;
-  class pod1,pod2,pod3,pod4,pod5,pod6,pod7,pod8,pod9,pod10,pod11,pod12,pod13,pod14,pod15,pod16,pod17,pod18,pod19,pod20,pod21,podproxy1,podproxy2,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7,clusterip8,clusterip9,clusterip10 dark;
+  class pod1,pod2,pod3,pod4,pod6,pod7,pod8,pod9,pod10,pod11,pod12,pod13,pod14,pod15,pod16,pod17,pod18,pod19,pod20,pod21,httprouter1,httprouter2,httprouter3,httprouter4,podproxy3,clusterip1,clusterip2,clusterip3,clusterip4,clusterip5,clusterip6,clusterip7,clusterip8,clusterip9,clusterip10 dark;
   class tunnel,service8 red;
+  class externaltraefikroutes,internaltraefikroutes redstroke;
   class controlplane reddot;
 ```
 
