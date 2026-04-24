@@ -53,7 +53,7 @@ jobs:
     steps:
       - name: Helm source codes checkout
         id: checkout_step
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: ${{ github.repository }}
           token: ${{ github.token }}
